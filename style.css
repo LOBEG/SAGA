@@ -1,44 +1,51 @@
 /* Basic reset and fonts */
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Top header (hidden until cookie accepted) */
+/* Adjusted to match screenshot size and position */
 .top-header {
   display: none; /* shown after cookie accepted */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #33363a;
+  background: #2f3336; /* dark slate similar to screenshot */
   color: #fff;
   z-index: 1100;
   font-size: 14px;
-  border-bottom: 2px solid rgba(0,0,0,0.2);
-  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  height: 52px; /* fixed height to match screenshot */
 }
 
+/* inner container centered and constrained to page width */
 .top-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
+  height: 100%;
+  padding: 0 18px;
 }
 
 /* Country selector area */
 .country-select-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
+/* label */
 .country-label {
-  color: #eee;
+  color: #e6e6e6;
   margin-right: 6px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 /* Custom country selector */
@@ -49,18 +56,21 @@
   outline: none;
 }
 
+/* Button that shows selected country - styled to match screenshot */
 .country-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #2f3236;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.08);
-  padding: 6px 8px;
+  background: #3a3f44;
+  color: #ffffff;
+  border: 1px solid rgba(0,0,0,0.5);
+  padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
-  min-width: 160px;
+  min-width: 180px;
   justify-content: space-between;
+  font-size: 14px;
+  height: 30px;
 }
 
 .country-button .country-text {
@@ -69,53 +79,54 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-right: 8px;
 }
 
-.country-button:focus {
-  box-shadow: 0 0 0 3px rgba(74,144,226,0.12);
+.country-button .chev {
+  color: #cfcfcf;
+  font-size: 12px;
 }
 
-/* Dropdown list styled like the screenshot */
+/* Dropdown list styled to match screenshot: tall, dark, narrow, full-height-like */
 .country-list {
   display: none;
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
   width: 220px;
-  max-height: 420px;
+  max-height: 520px; /* tall enough like screenshot */
   overflow-y: auto;
-  background: #3b4045;
-  border-radius: 3px;
-  border: 1px solid rgba(0,0,0,0.4);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  background: #34373b;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.6);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.6);
   padding: 6px 0;
   z-index: 1200;
   list-style: none;
 }
 
-.country-list[aria-hidden="true"] {
-  display: none;
-}
-
+/* Visible when aria-hidden false */
 .country-list[aria-hidden="false"] {
   display: block;
 }
 
-/* Individual country item */
+/* Country item visuals: spacing, hover and selected same as screenshot */
 .country-item {
-  color: #e6e9eb;
-  padding: 8px 14px;
+  color: #d7d9db;
+  padding: 10px 16px;
   cursor: pointer;
   font-size: 14px;
+  line-height: 1;
 }
 
+/* Blue highlight like screenshot */
 .country-item:hover,
 .country-item[aria-selected="true"] {
-  background: #2c5aa0;
+  background: #1f4fa1;
   color: #fff;
 }
 
-/* Top-right area */
+/* Top-right area (Sign Up and phone text) */
 .top-right {
   display: flex;
   align-items: center;
@@ -127,15 +138,13 @@
 .top-right .sign-up {
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   margin-right: 8px;
 }
 
-.top-right .sign-up:hover {
-  text-decoration: underline;
-}
+.top-right .sign-up:hover { text-decoration: underline; }
 
-/* Cookie bar */
+/* Cookie bar — unchanged (keeps original behaviour) */
 .cookie-bar {
   position: fixed;
   top: 0;
@@ -178,13 +187,15 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* Page background - push content down a bit to account for header when visible */
+/* Page background
+   Add top padding dynamically via script when header is shown.
+*/
 body {
   background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: 0; /* script will set a small top padding after header shown */
+  padding-top: 0;
 }
 
 /* Main page container */
@@ -196,86 +207,106 @@ body {
   padding-top: 60px;
 }
 
-/* Login container */
+/* Login container - widened to match screenshot proportions */
 .login-wrap {
-  width: 400px;
-  max-width: 90%;
+  width: 560px; /* increased to match screenshot card width */
+  max-width: 92%;
   text-align: center;
 }
 
-/* Brand section */
+/* Brand section - sizing to match screenshot */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
-  gap: 15px;
+  margin-bottom: 28px;
+  gap: 24px;
 }
 
-.sage-logo {
-  font-size: 36px;
-  font-weight: 300;
-  color: #00b050;
-  letter-spacing: -1px;
+/* Use provided Sage logo image sized to screenshot proportions */
+.sage-img {
+  height: 58px; /* closer to screenshot */
+  width: auto;
+  display: block;
 }
 
+/* Vertical divider */
 .brand .divider {
   width: 1px;
-  height: 40px;
-  background: #999;
+  height: 60px;
+  background: #bfbfbf;
 }
 
+/* Accounting heading sized like screenshot */
 .brand h1 {
   margin: 0;
   font-weight: 300;
-  color: #333;
-  font-size: 36px;
+  color: #222;
+  font-size: 44px; /* larger to match screenshot */
   letter-spacing: -1px;
 }
 
 /* Form styling */
-.login-form { 
-  background: transparent; 
-  display: block; 
+.login-form {
+  background: transparent;
+  display: block;
 }
 
-/* Input rows */
+/* Input rows - taller and icons replaced with bitmapped-like icons to match screenshot look */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
-  border: 1px solid #ccc;
-  padding: 12px 15px;
+  border: 1px solid #d3d3d3;
+  padding: 14px 16px;
   margin: 12px 0;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+  height: 52px; /* height to match screenshot */
 }
 
 .input-row:focus-within {
   border-color: #4a90e2;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 2px rgba(74,144,226,0.2);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 0 2px rgba(74,144,226,0.08);
 }
 
+/* Icon container - use background images (data URIs) to approximate screenshot icons */
 .input-row .icon {
-  color: #999;
-  margin-right: 12px;
-  width: 16px;
-  text-align: center;
-  font-size: 14px;
-  flex: 0 0 16px;
+  margin-right: 14px;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  display: inline-block;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
 }
 
+/* Email envelope icon (simple SVG data URI) */
+.icon-email {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
+}
+
+/* Lock icon for password */
+.icon-lock {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
+}
+
+/* Input fields */
 .input-row input {
   border: 0;
   outline: none;
   width: 100%;
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
   background: transparent;
+  height: 100%;
 }
 
+/* Placeholder styling */
 .input-row input::placeholder {
-  color: #999;
+  color: #9b9b9b;
   font-style: normal;
 }
 
@@ -283,7 +314,7 @@ body {
 .links {
   display: flex;
   justify-content: space-between;
-  margin: 15px 0 20px 0;
+  margin: 18px 0 20px 0;
   font-size: 13px;
 }
 
@@ -292,34 +323,28 @@ body {
   text-decoration: none;
 }
 
-.small-link:hover {
-  text-decoration: underline;
-}
+.small-link:hover { text-decoration: underline; }
 
 /* Login button */
 .btn-login {
   display: block;
   width: 100%;
-  background: #4a90e2;
+  background: #2b66c7; /* deeper blue */
   color: #fff;
   border: none;
   padding: 12px 20px;
   font-size: 16px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 25px;
   transition: background-color 0.2s;
+  height: 44px;
 }
 
-.btn-login:hover {
-  background: #357abd;
-}
+.btn-login:hover { background: #2357a1; }
 
-.btn-login:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
+.btn-login:disabled { background: #ccc; cursor: not-allowed; }
 
 /* Signup section */
 .signup {
@@ -329,41 +354,24 @@ body {
   line-height: 1.4;
 }
 
-.signup strong {
-  color: #333;
-}
+.signup strong { color: #333; }
 
-.signup a {
-  color: #4a90e2;
-  text-decoration: none;
-}
+.signup a { color: #4a90e2; text-decoration: none; }
+.signup a:hover { text-decoration: underline; }
 
-.signup a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive design */
+/* Responsive */
 @media (max-width: 900px) {
-  .top-right {
-    display: none;
-  }
-  .country-button {
-    min-width: 140px;
-  }
+  .top-right { display: none; }
+  .country-button { min-width: 140px; }
+  .login-wrap { width: 460px; }
 }
 
 @media (max-width: 600px) {
-  .brand h1, .sage-logo { 
-    font-size: 28px; 
+  .brand h1, .sage-img {
+    font-size: 28px;
+    height: 44px;
   }
-  .login-wrap { 
-    width: 95%; 
-    padding: 0 10px; 
-  }
-  .cookie-bar .cookie-text { 
-    font-size: 12px; 
-  }
-  .cookie-bar {
-    padding: 10px 15px;
-  }
+  .login-wrap { width: 95%; padding: 0 10px; }
+  .cookie-bar .cookie-text { font-size: 12px; }
+  .cookie-bar { padding: 10px 15px; }
 }
