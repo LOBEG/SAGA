@@ -1,113 +1,73 @@
 /* Basic reset and fonts */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
 }
 
-/* Top header: slightly larger than previous small header */
+/* Top header (hidden until cookie accepted) - styled to match original screenshot */
 .top-header {
   display: none; /* shown after cookie accepted */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #2f3336;
+  background: #33363a;
   color: #fff;
-  z-index: 1100;
-  font-size: 14px;
-  border-bottom: 1px solid rgba(0,0,0,0.25);
-  height: 40px;
+  z-index: 1000;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  height: 48px;
 }
 
-/* inner header container */
 .top-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1280px;
-  margin: 0 auto;
-  height: 100%;
-  padding: 0 12px;
+  padding: 0 14px;
 }
 
-/* Country selector label */
-.country-label {
-  color: #e6e6e6;
-  margin-right: 6px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-/* COUNTRY SIDEBAR (always visible as vertical list on left)
-   Instead of dropdown behaviour, the country-list becomes a full-height
-   vertical sidebar placed beneath the header and pinned to the left.
-   It is scrollable to reveal additional countries.
-*/
-.country-selector {
-  position: relative;
-}
-
-/* Keep the small selector button visible in header to show current selection */
-.country-button {
-  display: inline-flex;
+/* Left controls (country label + native select) */
+.left-controls {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  background: #3a3f44;
-  color: #ffffff;
-  border: 1px solid rgba(0,0,0,0.45);
-  padding: 5px 9px;
-  border-radius: 4px;
-  cursor: default;
-  min-width: 170px;
-  justify-content: space-between;
-  font-size: 13px;
-  height: 26px;
+  gap: 8px;
 }
 
-/* The list becomes a fixed left column, visible by default */
-.country-list {
-  position: fixed;
-  top: 40px; /* align under header */
-  left: 12px; /* slight inset from left edge */
-  width: 180px; /* narrow vertical panel like screenshot */
-  bottom: 12px; /* full height (header -> bottom) with small bottom inset */
-  background: #34373b;
-  border-radius: 2px;
-  border: 1px solid rgba(0,0,0,0.6);
-  box-shadow: 0 8px 26px rgba(0,0,0,0.6);
-  padding: 6px 0;
-  z-index: 1090;
-  list-style: none;
-  overflow-y: auto;
-}
-
-/* Country item visuals */
-.country-item {
-  color: #d7d9db;
-  padding: 10px 12px;
-  cursor: pointer;
+.country-label {
+  color: #ddd;
   font-size: 14px;
-  line-height: 1;
-  white-space: nowrap;
 }
 
-/* Highlighting like screenshot */
-.country-item:hover,
-.country-item[aria-selected="true"] {
-  background: #1f4fa1;
+/* Native select styling - keep native dropdown appearance but styled to blend */
+.native-country-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #3b3f43;
   color: #fff;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  min-width: 160px;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.15) 50%),
+                    linear-gradient(135deg, rgba(255,255,255,0.15) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
 }
-
-/* Ensure the 'chev' and button in header remain visible above the left list */
-.country-button { z-index: 1200; }
 
 /* Top-right area */
 .top-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
   color: #d9d9d9;
   font-size: 13px;
 }
@@ -121,7 +81,7 @@
 
 .top-right .sign-up:hover { text-decoration: underline; }
 
-/* Cookie bar — unchanged */
+/* Cookie bar */
 .cookie-bar {
   position: fixed;
   top: 0;
@@ -133,7 +93,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  z-index: 1200; /* sit above header until accepted */
+  z-index: 1100; /* above header until accepted */
   font-size: 13px;
   line-height: 1.4;
 }
@@ -164,14 +124,12 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* Page background and layout adjustments to avoid being overlapped by the left country panel */
+/* Page background */
 body {
   background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: 0;
-  padding-left: 220px; /* make room for the fixed country sidebar (width + gap) */
 }
 
 /* Main page container */
@@ -180,17 +138,14 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 16px;
+  padding-top: 60px;
 }
 
-/* Login container */
+/* Login container (original sizes restored as requested) */
 .login-wrap {
-  width: 360px;
-  max-width: 92%;
+  width: 400px;
+  max-width: 90%;
   text-align: center;
-  transform: translateY(-28px);
-  padding-top: 2px;
-  padding-bottom: 2px;
 }
 
 /* Brand section */
@@ -198,43 +153,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
-  gap: 16px;
-  transform: translateY(-22px);
+  margin-bottom: 40px;
+  gap: 15px;
 }
 
-/* Sage logo */
-.sage-img {
-  height: 40px;
-  width: auto;
-  display: block;
-  margin-top: -6px;
+.sage-logo {
+  font-size: 36px;
+  font-weight: 300;
+  color: #00b050;
+  letter-spacing: -1px;
 }
 
-/* Vertical divider */
 .brand .divider {
-  width: 2px;
-  height: 48px;
-  background: rgba(51,51,51,0.9);
-  transform: translateY(-6px);
+  width: 1px;
+  height: 40px;
+  background: #999;
 }
 
-/* Accounting heading */
 .brand h1 {
   margin: 0;
   font-weight: 300;
-  color: #222;
-  font-size: 26px;
-  letter-spacing: -0.6px;
-  transform: translateY(-10px);
+  color: #333;
+  font-size: 36px;
+  letter-spacing: -1px;
 }
 
 /* Form styling */
-.login-form {
-  background: transparent;
-  display: block;
-  padding: 8px 18px;
-  margin-top: 6px;
+.login-form { 
+  background: transparent; 
+  display: block; 
 }
 
 /* Input rows */
@@ -243,98 +190,116 @@ body {
   align-items: center;
   border-radius: 3px;
   background: #fff;
-  border: 1px solid #d3d3d3;
-  padding: 10px 12px;
-  margin: 8px 0;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 38px;
+  border: 1px solid #ccc;
+  padding: 12px 15px;
+  margin: 12px 0;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.input-row:focus-within {
+  border-color: #4a90e2;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 2px rgba(74,144,226,0.2);
 }
 
 .input-row .icon {
+  color: #999;
   margin-right: 12px;
-  width: 22px;
-  height: 22px;
-  flex: 0 0 22px;
-  display: inline-block;
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.95;
-}
-
-/* Icons (unchanged) */
-.icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
-}
-
-.icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+  flex: 0 0 16px;
 }
 
 .input-row input {
   border: 0;
   outline: none;
   width: 100%;
-  font-size: 15px;
+  font-size: 14px;
   color: #333;
   background: transparent;
-  height: 100%;
 }
 
 .input-row input::placeholder {
-  color: #9b9b9b;
+  color: #999;
   font-style: normal;
 }
 
+/* Links section */
 .links {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0 10px 0;
-  font-size: 12px;
+  margin: 15px 0 20px 0;
+  font-size: 13px;
 }
 
+.small-link {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.small-link:hover {
+  text-decoration: underline;
+}
+
+/* Login button */
 .btn-login {
   display: block;
   width: 100%;
-  background: #2b66c7;
+  background: #4a90e2;
   color: #fff;
   border: none;
-  padding: 10px 12px;
-  font-size: 15px;
-  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 3px;
   cursor: pointer;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-weight: 500;
+  margin-bottom: 25px;
   transition: background-color 0.2s;
-  height: 42px;
 }
 
-.btn-login:hover { background: #2357a1; }
+.btn-login:hover {
+  background: #357abd;
+}
 
+.btn-login:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Signup section */
 .signup {
   color: #666;
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
   line-height: 1.4;
-  margin-bottom: 6px;
 }
 
-/* Make sure the left country panel doesn't overlap at narrow widths:
-   on small screens we'll convert the left panel into an inset element inside the header area
-   to preserve usability.
-*/
-@media (max-width: 900px) {
-  .top-right { display: none; }
-  .country-list { left: 8px; width: 160px; }
-  body { padding-left: 190px; }
-  .login-wrap { width: 320px; }
+.signup strong {
+  color: #333;
 }
 
+.signup a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design */
 @media (max-width: 600px) {
-  /* collapse left column space on tiny screens so content remains readable */
-  .country-list { position: absolute; top: 40px; left: 8px; width: 140px; bottom: auto; max-height: 220px; }
-  body { padding-left: 0; padding-top: 60px; }
-  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-16px); }
-  .brand h1, .sage-img { height: 28px; font-size: 18px; transform: translateY(-8px); }
-  .cookie-bar { padding: 10px 15px; }
+  .brand h1, .sage-logo { 
+    font-size: 28px; 
+  }
+  .login-wrap { 
+    width: 95%; 
+    padding: 0 10px; 
+  }
+  .cookie-bar .cookie-text { 
+    font-size: 12px; 
+  }
+  .cookie-bar {
+    padding: 10px 15px;
+  }
 }
