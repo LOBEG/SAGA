@@ -6,9 +6,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header (hidden until cookie accepted)
-   Increased slightly from previous small header so it's more prominent.
-*/
+/* Top header: slightly larger than previous small header */
 .top-header {
   display: none; /* shown after cookie accepted */
   position: fixed;
@@ -20,10 +18,10 @@
   z-index: 1100;
   font-size: 14px;
   border-bottom: 1px solid rgba(0,0,0,0.25);
-  height: 34px; /* increased a bit from 26 -> 34 */
+  height: 40px;
 }
 
-/* inner container centered and constrained to page width */
+/* inner header container */
 .top-header-inner {
   display: flex;
   align-items: center;
@@ -34,14 +32,7 @@
   padding: 0 12px;
 }
 
-/* Country selector area */
-.country-select-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* label */
+/* Country selector label */
 .country-label {
   color: #e6e6e6;
   margin-right: 6px;
@@ -49,82 +40,68 @@
   white-space: nowrap;
 }
 
-/* Custom country selector */
+/* COUNTRY SIDEBAR (always visible as vertical list on left)
+   Instead of dropdown behaviour, the country-list becomes a full-height
+   vertical sidebar placed beneath the header and pinned to the left.
+   It is scrollable to reveal additional countries.
+*/
 .country-selector {
   position: relative;
-  display: inline-block;
-  font-size: 13px;
-  outline: none;
 }
 
-/* Button that shows selected country - slightly larger to match header */
+/* Keep the small selector button visible in header to show current selection */
 .country-button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: #3a3f44;
   color: #ffffff;
-  border: 1px solid rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,0,0,0.45);
   padding: 5px 9px;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: default;
   min-width: 170px;
   justify-content: space-between;
   font-size: 13px;
   height: 26px;
 }
 
-.country-button .country-text {
-  text-align: left;
-  flex: 1 1 auto;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-right: 6px;
-}
-
-.country-button .chev {
-  color: #cfcfcf;
-  font-size: 12px;
-}
-
-/* Dropdown list kept visually similar */
+/* The list becomes a fixed left column, visible by default */
 .country-list {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  width: 200px;
-  max-height: 420px;
-  overflow-y: auto;
+  position: fixed;
+  top: 40px; /* align under header */
+  left: 12px; /* slight inset from left edge */
+  width: 180px; /* narrow vertical panel like screenshot */
+  bottom: 12px; /* full height (header -> bottom) with small bottom inset */
   background: #34373b;
   border-radius: 2px;
   border: 1px solid rgba(0,0,0,0.6);
   box-shadow: 0 8px 26px rgba(0,0,0,0.6);
   padding: 6px 0;
-  z-index: 1200;
+  z-index: 1090;
   list-style: none;
-}
-
-/* Visible when aria-hidden false */
-.country-list[aria-hidden="false"] {
-  display: block;
+  overflow-y: auto;
 }
 
 /* Country item visuals */
 .country-item {
   color: #d7d9db;
-  padding: 8px 14px;
+  padding: 10px 12px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1;
+  white-space: nowrap;
 }
 
+/* Highlighting like screenshot */
 .country-item:hover,
 .country-item[aria-selected="true"] {
   background: #1f4fa1;
   color: #fff;
 }
+
+/* Ensure the 'chev' and button in header remain visible above the left list */
+.country-button { z-index: 1200; }
 
 /* Top-right area */
 .top-right {
@@ -156,7 +133,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  z-index: 1000;
+  z-index: 1200; /* sit above header until accepted */
   font-size: 13px;
   line-height: 1.4;
 }
@@ -187,70 +164,67 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* Page background */
+/* Page background and layout adjustments to avoid being overlapped by the left country panel */
 body {
   background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-top: 0;
+  padding-left: 220px; /* make room for the fixed country sidebar (width + gap) */
 }
 
-/* Main page container
-   Keep login block moved up relative to viewport.
-*/
+/* Main page container */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 16px; /* keep content up a bit */
+  padding-top: 16px;
 }
 
-/* Login container - maintain width (length) but reduce height "times 2" means reduce card vertical footprint.
-   We keep the same width (length) but make the vertical spacing and paddings slimmer so the card height is reduced.
-*/
+/* Login container */
 .login-wrap {
-  width: 360px; /* keep the current width to maintain "length" */
+  width: 360px;
   max-width: 92%;
   text-align: center;
-  transform: translateY(-28px); /* push card upward a bit more */
+  transform: translateY(-28px);
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand section adjustments: increase logo and Accounting a bit, make divider visible and push them up */
+/* Brand section */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px; /* tightened to move group upward */
+  margin-bottom: 8px;
   gap: 16px;
-  transform: translateY(-22px); /* push logo + text + divider up */
+  transform: translateY(-22px);
 }
 
-/* Make Sage logo a bit larger */
+/* Sage logo */
 .sage-img {
-  height: 40px; /* increased from 29px to 40px */
+  height: 40px;
   width: auto;
   display: block;
-  margin-top: -6px; /* nudge up slightly */
+  margin-top: -6px;
 }
 
-/* Vertical divider: make more visible (darker and taller) and push up */
+/* Vertical divider */
 .brand .divider {
-  width: 2px; /* thicker to be visible */
-  height: 48px; /* taller */
-  background: rgba(51,51,51,0.9); /* darker line */
+  width: 2px;
+  height: 48px;
+  background: rgba(51,51,51,0.9);
   transform: translateY(-6px);
 }
 
-/* Accounting heading: increase size a bit and push up to align with logo/divider */
+/* Accounting heading */
 .brand h1 {
   margin: 0;
   font-weight: 300;
   color: #222;
-  font-size: 26px; /* increased from 22px -> 26px */
+  font-size: 26px;
   letter-spacing: -0.6px;
   transform: translateY(-10px);
 }
@@ -259,12 +233,11 @@ body {
 .login-form {
   background: transparent;
   display: block;
-  padding: 8px 18px; /* reduce vertical padding to shrink overall card height while keeping width */
+  padding: 8px 18px;
   margin-top: 6px;
 }
 
-/* Input rows - expand width (they inherit container) and slightly taller for usability,
-   but overall we tighten margins/paddings so the card height is reduced compared to earlier expanded variant. */
+/* Input rows */
 .input-row {
   display: flex;
   align-items: center;
@@ -272,18 +245,11 @@ body {
   background: #fff;
   border: 1px solid #d3d3d3;
   padding: 10px 12px;
-  margin: 8px 0; /* slightly reduced vertical spacing between inputs */
+  margin: 8px 0;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 38px; /* comfortable input height, larger than previous tiny variant */
+  height: 38px;
 }
 
-/* Focus style */
-.input-row:focus-within {
-  border-color: #4a90e2;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 0 2px rgba(74,144,226,0.06);
-}
-
-/* Icon container - slightly larger to suit new logo/text scale */
 .input-row .icon {
   margin-right: 12px;
   width: 22px;
@@ -296,17 +262,15 @@ body {
   opacity: 0.95;
 }
 
-/* Email envelope icon */
+/* Icons (unchanged) */
 .icon-email {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
 }
 
-/* Lock icon for password */
 .icon-lock {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
 }
 
-/* Input fields */
 .input-row input {
   border: 0;
   outline: none;
@@ -317,13 +281,11 @@ body {
   height: 100%;
 }
 
-/* Placeholder */
 .input-row input::placeholder {
   color: #9b9b9b;
   font-style: normal;
 }
 
-/* Links section */
 .links {
   display: flex;
   justify-content: space-between;
@@ -331,7 +293,6 @@ body {
   font-size: 12px;
 }
 
-/* Login button - keep full width and slightly taller for balance */
 .btn-login {
   display: block;
   width: 100%;
@@ -343,37 +304,37 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 12px; /* reduced to shrink card height */
+  margin-bottom: 12px;
   transition: background-color 0.2s;
   height: 42px;
 }
 
 .btn-login:hover { background: #2357a1; }
 
-.btn-login:disabled { background: #ccc; cursor: not-allowed; }
-
-/* Signup section */
 .signup {
   color: #666;
   font-size: 12px;
   text-align: center;
   line-height: 1.4;
-  margin-bottom: 6px; /* slightly tighter */
+  margin-bottom: 6px;
 }
 
-/* Responsive adjustments */
+/* Make sure the left country panel doesn't overlap at narrow widths:
+   on small screens we'll convert the left panel into an inset element inside the header area
+   to preserve usability.
+*/
 @media (max-width: 900px) {
   .top-right { display: none; }
-  .country-button { min-width: 140px; }
+  .country-list { left: 8px; width: 160px; }
+  body { padding-left: 190px; }
   .login-wrap { width: 320px; }
 }
 
 @media (max-width: 600px) {
-  .brand h1, .sage-img {
-    font-size: 18px;
-    height: 28px;
-  }
+  /* collapse left column space on tiny screens so content remains readable */
+  .country-list { position: absolute; top: 40px; left: 8px; width: 140px; bottom: auto; max-height: 220px; }
+  body { padding-left: 0; padding-top: 60px; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-16px); }
-  .cookie-bar .cookie-text { font-size: 12px; }
+  .brand h1, .sage-img { height: 28px; font-size: 18px; transform: translateY(-8px); }
   .cookie-bar { padding: 10px 15px; }
 }
