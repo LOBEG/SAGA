@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var cookieBtn = document.querySelector('.cookie-accept');
   var cookieBar = document.querySelector('.cookie-bar');
   var topHeader = document.querySelector('.top-header');
-  var body = document.body;
 
   // Countries to show in the dropdown (matches screenshot)
   var countries = [
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     "Nigeria","Swaziland"
   ];
 
-  // Small utility to open the custom dropdown
   function openCountryList() {
     var selector = document.querySelector('.country-selector');
     var list = document.querySelector('.country-list');
@@ -29,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     list.setAttribute('aria-hidden', 'true');
   }
 
-  // Build country list items
   function populateCountryList() {
     var list = document.querySelector('.country-list');
     list.innerHTML = '';
@@ -37,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var li = document.createElement('li');
       li.className = 'country-item';
       li.setAttribute('role', 'option');
-      li.setAttribute('aria-selected', String(c === 'South Africa')); // default selection
+      li.setAttribute('aria-selected', String(c === 'South Africa'));
       li.tabIndex = 0;
       li.textContent = c;
       li.addEventListener('click', function () {
@@ -69,24 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
   function selectCountry(name) {
     var btnText = document.querySelector('.country-text');
     btnText.textContent = name;
-    // update aria-selected
     var items = document.querySelectorAll('.country-item');
     items.forEach(function(it) {
       it.setAttribute('aria-selected', String(it.textContent === name));
     });
-    // Persist selected country to localStorage (non-intrusive)
-    try {
-      localStorage.setItem('selectedCountry', name);
-    } catch (e) {
-      // ignore
-    }
+    try { localStorage.setItem('selectedCountry', name); } catch (e) {}
   }
 
-  // initialize custom country selector behavior
   function initCountrySelector() {
     populateCountryList();
-
-    // restore selection from localStorage if present
     try {
       var saved = localStorage.getItem('selectedCountry');
       if (saved && countries.indexOf(saved) !== -1) {
@@ -96,19 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var selector = document.querySelector('.country-selector');
     var btn = document.querySelector('.country-button');
-    var list = document.querySelector('.country-list');
 
-    // Toggle on button click
     btn.addEventListener('click', function (e) {
       var expanded = selector.getAttribute('aria-expanded') === 'true';
-      if (expanded) {
-        closeCountryList();
-      } else {
-        openCountryList();
-      }
+      if (expanded) closeCountryList(); else openCountryList();
     });
 
-    // Keyboard: open/close with Enter/Space, navigate with arrows
     selector.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -117,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         openCountryList();
-        // focus first item
         var first = document.querySelector('.country-list .country-item');
         if (first) first.focus();
       } else if (e.key === 'Escape') {
@@ -125,13 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // Close when clicking outside
     document.addEventListener('click', function (ev) {
       var within = ev.target.closest('.country-selector');
       if (!within) closeCountryList();
     });
 
-    // Close on window blur (safety)
     window.addEventListener('blur', function () {
       closeCountryList();
     });
@@ -141,26 +119,22 @@ document.addEventListener('DOMContentLoaded', function () {
     cookieBtn.addEventListener('click', function () {
       if (cookieBar) cookieBar.style.display = 'none';
 
-      // Show top header once cookie accepted
       if (topHeader) {
         topHeader.style.display = 'block';
         topHeader.setAttribute('aria-hidden', 'false');
 
-        // Give body a top padding so main content isn't hidden behind header
+        // Because header height was halved, adjust body padding accordingly.
         var headerHeight = topHeader.getBoundingClientRect().height;
-        // Add a little extra so header and cookie bar spacing is comfortable
-        document.body.style.paddingTop = (headerHeight + 10) + 'px';
+        // Move content up by doubling the previous offset effect: smaller header + reduce top padding
+        // We set a minimal padding so content is visible under header but closer to top (moved up).
+        document.body.style.paddingTop = (headerHeight + 6) + 'px';
       }
 
-      // Initialize country selector after header is visible
       initCountrySelector();
-
-      // Persist cookie acceptance
       try { localStorage.setItem('cookieAccepted', 'true'); } catch(e) {}
     }, { once: true });
   }
 
-  // If cookie already accepted (persisted), show header on load
   try {
     if (localStorage.getItem('cookieAccepted') === 'true') {
       if (cookieBar) cookieBar.style.display = 'none';
@@ -168,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         topHeader.style.display = 'block';
         topHeader.setAttribute('aria-hidden', 'false');
         var headerHeight = topHeader.getBoundingClientRect().height;
-        document.body.style.paddingTop = (headerHeight + 10) + 'px';
+        document.body.style.paddingTop = (headerHeight + 6) + 'px';
         initCountrySelector();
       }
     }
@@ -182,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
 
-      // Basic visual feedback
       var btn = document.querySelector('.btn-login');
       btn.disabled = true;
       btn.textContent = 'Sending...';
@@ -195,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (resp.ok) {
-          // Keep UX simple: show a success alert then re-enable
           alert('Login attempt sent.');
         } else {
           alert('Server error. Please try again.');
