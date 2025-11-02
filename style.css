@@ -7,7 +7,7 @@
 }
 
 /* Top header (hidden until cookie accepted)
-   Reduced height by 50% (times 1 -> interpreted as half height).
+   Kept as previously adjusted (half height).
 */
 .top-header {
   display: none; /* shown after cookie accepted */
@@ -20,7 +20,7 @@
   z-index: 1100;
   font-size: 13px;
   border-bottom: 1px solid rgba(0,0,0,0.25);
-  height: 26px; /* Was 52px -> reduced by 2x (50%) */
+  height: 26px;
 }
 
 /* inner container centered and constrained to page width */
@@ -71,7 +71,7 @@
   min-width: 160px;
   justify-content: space-between;
   font-size: 13px;
-  height: 22px; /* reduced */
+  height: 22px;
 }
 
 .country-button .country-text {
@@ -114,7 +114,7 @@
 /* Country item visuals */
 .country-item {
   color: #d7d9db;
-  padding: 8px 14px; /* slightly reduced padding */
+  padding: 8px 14px;
   cursor: pointer;
   font-size: 13px;
   line-height: 1;
@@ -197,58 +197,59 @@ body {
 }
 
 /* Main page container
-   Move the login block up by doubling the upward shift:
-   We reduce top offset so the card sits higher (moved up times 2).
+   Move the login block up by reducing top padding - preserved earlier adjustment.
 */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 20px; /* reduced from 60 -> moves content up */
+  padding-top: 20px;
 }
 
-/* Login container - reduced by 50% to match "reduce times 2" */
+/* Login container - expanded slightly from previous "half" size while preserving structure.
+   This change increases the login card width so email/password fields and the card appear a little larger.
+*/
 .login-wrap {
-  width: 280px; /* was 560px -> reduced to half */
+  width: 360px; /* increased from 280 -> 360 for a modest expansion */
   max-width: 92%;
   text-align: center;
-  transform: translateY(-20px); /* move up a bit more for "move it up times 2" */
+  transform: translateY(-20px); /* keep moved-up positioning */
 }
 
-/* Brand section - reduce sizes by 50% and move up */
+/* Brand section */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px; /* reduced */
+  margin-bottom: 14px;
   gap: 12px;
 }
 
-/* Use provided Sage logo image sized at 50% of previous */
+/* Sage logo */
 .sage-img {
-  height: 29px; /* was 58px -> half */
+  height: 29px;
   width: auto;
   display: block;
-  transform: translateY(-16px); /* move logo up */
+  transform: translateY(-16px);
 }
 
 /* Vertical divider */
 .brand .divider {
   width: 1px;
-  height: 30px; /* reduced height */
+  height: 30px;
   background: #bfbfbf;
-  transform: translateY(-12px); /* move divider up */
+  transform: translateY(-12px);
 }
 
-/* Accounting heading sized to 50% (was 44px -> now 22px) and moved up */
+/* Accounting heading */
 .brand h1 {
   margin: 0;
   font-weight: 300;
   color: #222;
-  font-size: 22px; /* reduced */
+  font-size: 22px;
   letter-spacing: -0.5px;
-  transform: translateY(-16px); /* move heading up */
+  transform: translateY(-16px);
 }
 
 /* Form styling */
@@ -257,17 +258,17 @@ body {
   display: block;
 }
 
-/* Input rows - reduce height by 50% and icon sizes accordingly */
+/* Input rows - expanded a bit to increase click target and visual weight */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #d3d3d3;
-  padding: 8px 10px; /* reduced padding */
-  margin: 8px 0;
+  padding: 10px 12px; /* slightly increased padding */
+  margin: 10px 0; /* slightly increased spacing */
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 26px; /* was 52px -> half */
+  height: 34px; /* increased from 26 -> 34 for a more comfortable input size */
 }
 
 .input-row:focus-within {
@@ -275,27 +276,27 @@ body {
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 0 2px rgba(74,144,226,0.06);
 }
 
-/* Icon container - scaled down */
+/* Icon container - scaled up a little to match increased input height */
 .input-row .icon {
-  margin-right: 10px;
-  width: 16px; /* was 28px -> reduced */
-  height: 16px;
-  flex: 0 0 16px;
+  margin-right: 12px;
+  width: 20px; /* increased from 16 -> 20 */
+  height: 20px;
+  flex: 0 0 20px;
   display: inline-block;
-  background-size: 14px 14px;
+  background-size: 18px 18px;
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.95;
 }
 
-/* Email envelope icon (scaled) */
+/* Email envelope icon (scaled up slightly) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
 }
 
 /* Lock icon scaled */
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
 }
 
 /* Input fields */
@@ -303,7 +304,7 @@ body {
   border: 0;
   outline: none;
   width: 100%;
-  font-size: 13px; /* slightly reduced */
+  font-size: 14px; /* slightly increased for better readability */
   color: #333;
   background: transparent;
   height: 100%;
@@ -330,21 +331,21 @@ body {
 
 .small-link:hover { text-decoration: underline; }
 
-/* Login button - reduced size */
+/* Login button - a little taller and matches the wider card */
 .btn-login {
   display: block;
   width: 100%;
   background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 10px 12px;
+  font-size: 15px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
   margin-bottom: 18px;
   transition: background-color 0.2s;
-  height: 36px; /* reduced */
+  height: 40px; /* increased from 36 -> 40 */
 }
 
 .btn-login:hover { background: #2357a1; }
@@ -364,11 +365,11 @@ body {
 .signup a { color: #4a90e2; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .country-button { min-width: 140px; }
-  .login-wrap { width: 240px; }
+  .login-wrap { width: 320px; }
 }
 
 @media (max-width: 600px) {
