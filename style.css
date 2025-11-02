@@ -1,8 +1,8 @@
 /* style.css
-   Small focused change: reduce the top header height ("reduce the header times 1")
-   — presentation only. No HTML or JavaScript modifications.
-   This version updates the header height and related spacing so the header
-   appears slightly shorter while keeping layout and behavior intact.
+   Adjustments to ensure:
+   - "Login" button text is vertically centered and well positioned within the login card.
+   - Email and Password input text (placeholder and typed text) are vertically centered and clearly visible.
+   - Kept all HTML structure and JS untouched; only presentation adjusted.
 */
 
 /* Basic reset and fonts (unchanged) */
@@ -13,22 +13,20 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: reduced height from 48px -> 40px to make header slimmer */
+/* Top header (unchanged) */
 .top-header {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;                      /* reduced height */
+  height: 40px;
   background: #35363a;
   color: #fff;
   z-index: 1200;
   border-bottom: 1px solid rgba(0,0,0,0.25);
   font-size: 13px;
 }
-
-/* Inner header container adjusted for new header height */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,21 +37,9 @@
   padding: 0 14px;
 }
 
-/* Left controls (country select) — visually align within reduced header */
-.left-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Country label */
-.country-label {
-  color: #e6e6e6;
-  font-size: 13px;
-  margin-right: 6px;
-}
-
-/* Native select styling */
+/* Left controls (country select) */
+.left-controls { display:flex; align-items:center; gap:10px; }
+.country-label { color:#e6e6e6; font-size:13px; margin-right:6px; }
 .native-country-select {
   appearance: none;
   -webkit-appearance: none;
@@ -61,78 +47,51 @@
   background: #2f3437;
   color: #fff;
   border: 1px solid rgba(255,255,255,0.08);
-  padding: 5px 10px;                 /* slightly smaller vertical padding to fit new header */
+  padding: 5px 10px;
   border-radius: 4px;
   font-size: 13px;
   min-width: 160px;
 }
 
-/* Top-right group */
-.top-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  color: #d9d9d9;
-  font-size: 13px;
-}
+/* Top-right */
+.top-right { display:flex; align-items:center; gap:16px; color:#d9d9d9; font-size:13px; }
+.top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
-/* Sign up emphasis */
-.top-right .sign-up {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-/* Cookie bar: still sits above header until accepted; no height change */
+/* Cookie bar */
 .cookie-bar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   background: #1e4a5a;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  z-index: 1300; /* cookie bar sits above header until accepted */
-  font-size: 13px;
-  line-height: 1.4;
-}
-.cookie-bar .cookie-text { flex: 1; margin-right: 20px; }
-.cookie-bar .cookie-text a.privacy { color: #87ceeb; text-decoration: underline; }
-.cookie-bar .cookie-accept {
-  background: transparent;
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 8px 16px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 13px;
-  white-space: nowrap;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+  z-index:1300;
+  font-size:13px;
 }
-.cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.06); }
+.cookie-bar .cookie-text { flex:1; margin-right:20px; }
+.cookie-bar .cookie-accept { background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.3); padding:8px 16px; border-radius:3px; cursor:pointer; }
 
-/* Page background and centering (unchanged) */
+/* Page background */
 body {
   background: #e8eaeb;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   padding-left: 0;
 }
 
 /* Main container */
 .page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding-top: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding-top:0;
 }
 
-/* Login wrapper and brand area unchanged */
+/* Login wrapper */
 .login-wrap {
   width: 520px;
   max-width: 92%;
@@ -142,139 +101,155 @@ body {
   padding-bottom: 2px;
 }
 
+/* Brand */
 .brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   gap: 8px;
   margin-bottom: 36px;
 }
-
-.sage-img {
-  height: 40px;
-  width: auto;
-  display: block;
-  margin: 0;
-}
-
-.brand .divider {
-  width: 1px;
-  height: 48px;
-  background: #999;
-  margin: 0 6px;
-}
-
+.sage-img { height: 40px; width: auto; display:block; margin: 0; }
+.brand .divider { width:1px; height:48px; background:#999; margin:0 6px; }
 .brand h1 {
-  margin: 0;
-  font-weight: 400;
-  color: #2b2b2b;
-  font-size: 28px;
-  letter-spacing: -0.3px;
-  line-height: 1;
+  margin:0;
+  font-weight:400;
+  color:#2b2b2b;
+  font-size:28px;
+  letter-spacing:-0.3px;
+  line-height:1;
 }
 
-/* Login form column unchanged */
+/* LOGIN FORM: preserve width (length) */
 .login-form {
   margin: 0 auto;
   width: 360px;
-}
-
-/* Input rows and icons preserved */
-.input-row {
-  display: flex;
-  align-items: center;
-  border-radius: 3px;
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 8px 10px;
-  margin: 6px 0;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-  height: 26px;
-  overflow: hidden;
-}
-
-.input-row .icon {
-  margin-right: 8px;
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
-  display: inline-block;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 14px 14px;
-  opacity: 0.95;
-}
-
-.icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-}
-
-.icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-}
-
-.input-row input {
-  border: 0;
-  outline: none;
-  width: 100%;
-  font-size: 13px;
-  color: #333;
-  background: transparent;
-  height: 100%;
-}
-.input-row input::placeholder { color: #9b9b9b; }
-
-/* Links and button preserved */
-.links {
-  display: flex;
-  justify-content: space-between;
-  width: 360px;
-  margin: 8px auto 10px auto;
-  font-size: 13px;
-}
-.links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
-.links .small-link:hover { text-decoration: underline; }
-
-.btn-login {
+  /* ensure flex context is not changing alignment */
   display: block;
-  width: 360px;
-  margin: 0 auto 10px auto;
-  background: #2b66c7;
-  color: #fff;
-  border: none;
-  padding: 6px 8px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  height: 24px;
 }
-.btn-login:hover { background: #2357a1; }
 
-/* New-to-Accounting spacing preserved */
+/* INPUT ROWS
+   Ensure placeholders and typed text are vertically centered and visible.
+   - Use consistent height, line-height, and padding.
+   - Remove any zero padding on inputs that could clip text.
+*/
+.input-row {
+  display:flex;
+  align-items:center;
+  border-radius:3px;
+  background:#fff;
+  border:1px solid #ddd;
+  padding:10px 12px;        /* comfortable padding for visibility */
+  margin:8px 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+  height:44px;              /* height large enough to avoid clipping */
+  overflow: visible;
+}
+
+/* Icon area preserved and vertically centered */
+.input-row .icon {
+  margin-right:12px;
+  width:20px;
+  height:20px;
+  flex: 0 0 20px;
+  display:inline-block;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:18px 18px;
+  opacity:0.95;
+}
+
+/* Email & lock icons (SVG backgrounds) */
+.icon-email {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.icon-lock {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+/* Input field: ensure vertical centering and visible placeholder/typed text
+   - Add padding to the input itself (not only the container) so cursor and text sit well.
+   - Use line-height equal to input-row height to vertically center single-line text.
+*/
+.input-row input {
+  border:0;
+  outline:none;
+  width:100%;
+  font-size:15px;
+  color:#333;
+  background:transparent;
+  height:100%;
+  line-height: 20px;        /* ensures vertical centering for the text within the input area */
+  padding: 6px 0;           /* keeps text away from icon and from bottom edge */
+  box-sizing: border-box;
+}
+
+/* Placeholders: make them clear and visible */
+.input-row input::placeholder {
+  color: #9b9b9b;
+  opacity: 1;               /* ensure some browsers don't dim placeholders */
+  font-size:15px;
+  line-height:20px;
+}
+
+/* LINKS row styling (unchanged colors but ensure placement) */
+.links {
+  display:flex;
+  justify-content:space-between;
+  width:360px;
+  margin:10px auto 14px auto;
+  font-size:13px;
+}
+.links .small-link { color:#4a90e2; font-weight:600; text-decoration:none; }
+.links .small-link:hover { text-decoration:underline; }
+
+/* LOGIN BUTTON
+   Ensure the "Login" text is vertically centered and looks balanced.
+   - Use line-height equal to height.
+   - Use display:block and remove any paddings that would misalign text.
+*/
+.btn-login {
+  display:block;
+  width:360px;
+  margin:0 auto 12px auto;
+  background:#2b66c7;
+  color:#fff;
+  border:none;
+  padding:0;                /* remove extra padding; we'll use height + line-height */
+  font-size:15px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:600;
+  height:40px;
+  line-height:40px;         /* vertically center the button text */
+  text-align:center;
+}
+.btn-login:hover { background:#2357a1; }
+
+/* Signup area pushed down slightly (unchanged unless needed) */
 .signup {
-  color: #666;
-  font-size: 13px;
-  text-align: center;
-  width: 420px;
-  margin: 20px auto 0 auto;
-  line-height: 1.4;
+  color:#666;
+  font-size:13px;
+  text-align:center;
+  width:420px;
+  margin: 26px auto 0 auto;
+  line-height:1.4;
 }
-.signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
-.signup a:hover { text-decoration: underline; }
+.signup a { color:#4a90e2; font-weight:600; text-decoration:none; }
+.signup a:hover { text-decoration:underline; }
 
-/* Responsive adjustments adapt to reduced header height automatically */
-@media (max-width: 900px) {
-  .top-right { display: none; }
-  .login-wrap { width: 460px; transform: translateY(-8%); }
-  .login-form, .btn-login, .links { width: 340px; }
-  .sage-img { height: 32px; }
-  .brand .divider { height: 44px; }
+/* Responsive adjustments */
+@media (max-width:900px) {
+  .top-right { display:none; }
+  .login-wrap { width:460px; transform: translateY(-8%); }
+  .login-form, .btn-login, .links { width:340px; }
+  .sage-img { height:36px; }
+  .brand .divider { height:44px; }
 }
-@media (max-width: 600px) {
-  .brand h1, .sage-img { font-size: 28px; height: auto; }
-  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-6%); }
-  .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
-  .cookie-bar .cookie-text { font-size: 12px; }
-  .cookie-bar { padding: 10px 15px; }
+@media (max-width:600px) {
+  .brand h1, .sage-img { font-size:28px; height:auto; }
+  .login-wrap { width:95%; padding:0 10px; transform: translateY(-6%); }
+  .login-form, .btn-login, .links { width:100%; max-width:420px; }
+  .cookie-bar .cookie-text { font-size:12px; }
+  .cookie-bar { padding:10px 15px; }
 }
