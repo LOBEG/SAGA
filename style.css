@@ -1,180 +1,230 @@
 /* Basic reset and fonts */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Helvetica Neue", Arial, sans-serif; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+}
 
-/* Cookie bar (matches the screenshot: thin dark bar across top with Accept & Close button on right) */
+/* Cookie bar */
 .cookie-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #08323a; /* dark teal like screenshot */
+  background: #1e4a5a;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 18px;
+  padding: 12px 20px;
   z-index: 1000;
-  border-bottom: 2px solid rgba(255,255,255,0.05);
   font-size: 13px;
-  line-height: 1.2;
+  line-height: 1.4;
 }
+
 .cookie-bar .cookie-text {
-  max-width: calc(100% - 160px);
-  opacity: 0.95;
+  flex: 1;
+  margin-right: 20px;
 }
+
 .cookie-bar .cookie-text a.privacy {
-  color: #cfeef7;
+  color: #87ceeb;
   text-decoration: underline;
 }
+
 .cookie-bar .cookie-accept {
   background: transparent;
   color: #fff;
-  border: 2px solid rgba(255,255,255,0.15);
-  padding: 6px 12px;
-  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 16px;
+  border-radius: 3px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13px;
+  white-space: nowrap;
 }
 
-/* Page background and central layout (very light gray centered content) */
+.cookie-bar .cookie-accept:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Page background */
 body {
-  background: linear-gradient(#eceff0, #dfe5e7); /* subtle vertical gradient like screenshot */
+  background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure body content doesn't hide under cookie bar */
+/* Main page container */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 62px; /* enough space for cookie bar */
+  padding-top: 60px;
 }
 
-/* The centered login area: keep it narrow and vertically centered */
+/* Login container */
 .login-wrap {
-  width: 520px;
+  width: 400px;
   max-width: 90%;
   text-align: center;
-  margin: 50px auto;
 }
 
-/* Brand row: inline svg and "Accounting" with divider */
+/* Brand section */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
+  gap: 15px;
 }
-.brand .logo {
-  width: 110px;
-  height: auto;
-  display: block;
+
+.sage-logo {
+  font-size: 36px;
+  font-weight: 300;
+  color: #00b050;
+  letter-spacing: -1px;
 }
+
 .brand .divider {
   width: 1px;
-  height: 52px;
-  background: rgba(0,0,0,0.12);
-  margin-left: 6px;
-  margin-right: 6px;
+  height: 40px;
+  background: #999;
 }
+
 .brand h1 {
   margin: 0;
-  font-weight: 400;
-  color: #222;
-  font-size: 34px;
-  letter-spacing: 0.2px;
+  font-weight: 300;
+  color: #333;
+  font-size: 36px;
+  letter-spacing: -1px;
 }
 
-/* Form container: inputs stacked, subtle shadows */
-.login-form { background: transparent; display: block; }
+/* Form styling */
+.login-form { 
+  background: transparent; 
+  display: block; 
+}
 
-/* Input row: white rounded input with icon at left */
+/* Input rows */
 .input-row {
   display: flex;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 3px;
   background: #fff;
-  border: 1px solid #e1e1e1;
-  padding: 12px 14px;
-  margin: 10px 0;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  border: 1px solid #ccc;
+  padding: 12px 15px;
+  margin: 12px 0;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
+
+.input-row:focus-within {
+  border-color: #4a90e2;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 2px rgba(74,144,226,0.2);
+}
+
 .input-row .icon {
-  color: #9aa1a6;
+  color: #999;
   margin-right: 12px;
-  width: 22px;
+  width: 16px;
   text-align: center;
-  font-size: 16px;
-  flex: 0 0 22px;
+  font-size: 14px;
+  flex: 0 0 16px;
 }
+
 .input-row input {
   border: 0;
   outline: none;
   width: 100%;
-  font-size: 15px;
+  font-size: 14px;
   color: #333;
   background: transparent;
 }
+
 .input-row input::placeholder {
-  color: #b7b7b7;
-  font-style: italic;
+  color: #999;
+  font-style: normal;
 }
 
-/* Links row under inputs */
+/* Links section */
 .links {
   display: flex;
   justify-content: space-between;
-  margin-top: 6px;
-  margin-bottom: 12px;
+  margin: 15px 0 20px 0;
   font-size: 13px;
 }
+
 .small-link {
-  color: #2a56a8;
+  color: #4a90e2;
   text-decoration: none;
 }
-.small-link.right {
-  text-align: right;
+
+.small-link:hover {
+  text-decoration: underline;
 }
 
-/* Login button: large solid blue with bold text */
+/* Login button */
 .btn-login {
   display: block;
   width: 100%;
-  background: linear-gradient(#1f63d6, #154fb3); /* subtle gradient */
+  background: #4a90e2;
   color: #fff;
   border: none;
-  padding: 10px 14px;
+  padding: 12px 20px;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
-  font-weight: 700;
-  margin-bottom: 18px;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.12);
+  font-weight: 500;
+  margin-bottom: 25px;
+  transition: background-color 0.2s;
 }
 
-/* Signup text under button */
+.btn-login:hover {
+  background: #357abd;
+}
+
+.btn-login:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Signup section */
 .signup {
-  color: #6d6d6d;
+  color: #666;
   font-size: 13px;
   text-align: center;
-  margin-top: 8px;
+  line-height: 1.4;
 }
 
-/* Footer tiny links look */
+.signup strong {
+  color: #333;
+}
+
 .signup a {
-  color: #2a56a8;
+  color: #4a90e2;
   text-decoration: none;
 }
 
-/* Small responsive tweaks */
+.signup a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design */
 @media (max-width: 600px) {
-  .brand h1 { font-size: 22px; }
-  .logo { width: 72px; }
-  .login-wrap { width: 92%; padding: 0 8px; }
-  .cookie-bar .cookie-text { display: none; }
+  .brand h1, .sage-logo { 
+    font-size: 28px; 
+  }
+  .login-wrap { 
+    width: 95%; 
+    padding: 0 10px; 
+  }
+  .cookie-bar .cookie-text { 
+    font-size: 12px; 
+  }
+  .cookie-bar {
+    padding: 10px 15px;
+  }
 }
