@@ -6,20 +6,21 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header (hidden until cookie accepted) */
-/* Adjusted to match screenshot size and position */
+/* Top header (hidden until cookie accepted)
+   Reduced height by 50% (times 1 -> interpreted as half height).
+*/
 .top-header {
   display: none; /* shown after cookie accepted */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #2f3336; /* dark slate similar to screenshot */
+  background: #2f3336;
   color: #fff;
   z-index: 1100;
-  font-size: 14px;
+  font-size: 13px;
   border-bottom: 1px solid rgba(0,0,0,0.25);
-  height: 52px; /* fixed height to match screenshot */
+  height: 26px; /* Was 52px -> reduced by 2x (50%) */
 }
 
 /* inner container centered and constrained to page width */
@@ -30,21 +31,21 @@
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
-  padding: 0 18px;
+  padding: 0 12px;
 }
 
 /* Country selector area */
 .country-select-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* label */
 .country-label {
   color: #e6e6e6;
   margin-right: 6px;
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -52,25 +53,25 @@
 .country-selector {
   position: relative;
   display: inline-block;
-  font-size: 13px;
+  font-size: 12px;
   outline: none;
 }
 
-/* Button that shows selected country - styled to match screenshot */
+/* Button that shows selected country - sized for smaller header */
 .country-button {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: #3a3f44;
   color: #ffffff;
   border: 1px solid rgba(0,0,0,0.5);
-  padding: 6px 10px;
+  padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
-  min-width: 180px;
+  min-width: 160px;
   justify-content: space-between;
-  font-size: 14px;
-  height: 30px;
+  font-size: 13px;
+  height: 22px; /* reduced */
 }
 
 .country-button .country-text {
@@ -79,22 +80,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 8px;
+  padding-right: 6px;
 }
 
 .country-button .chev {
   color: #cfcfcf;
-  font-size: 12px;
+  font-size: 11px;
 }
 
-/* Dropdown list styled to match screenshot: tall, dark, narrow, full-height-like */
+/* Dropdown list kept visually similar but slightly narrower */
 .country-list {
   display: none;
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
-  width: 220px;
-  max-height: 520px; /* tall enough like screenshot */
+  width: 200px;
+  max-height: 420px;
   overflow-y: auto;
   background: #34373b;
   border-radius: 2px;
@@ -110,29 +111,28 @@
   display: block;
 }
 
-/* Country item visuals: spacing, hover and selected same as screenshot */
+/* Country item visuals */
 .country-item {
   color: #d7d9db;
-  padding: 10px 16px;
+  padding: 8px 14px; /* slightly reduced padding */
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1;
 }
 
-/* Blue highlight like screenshot */
 .country-item:hover,
 .country-item[aria-selected="true"] {
   background: #1f4fa1;
   color: #fff;
 }
 
-/* Top-right area (Sign Up and phone text) */
+/* Top-right area */
 .top-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   color: #d9d9d9;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .top-right .sign-up {
@@ -144,7 +144,7 @@
 
 .top-right .sign-up:hover { text-decoration: underline; }
 
-/* Cookie bar — unchanged (keeps original behaviour) */
+/* Cookie bar — unchanged */
 .cookie-bar {
   position: fixed;
   top: 0;
@@ -187,9 +187,7 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* Page background
-   Add top padding dynamically via script when header is shown.
-*/
+/* Page background */
 body {
   background: #e8eaeb;
   min-height: 100vh;
@@ -198,52 +196,59 @@ body {
   padding-top: 0;
 }
 
-/* Main page container */
+/* Main page container
+   Move the login block up by doubling the upward shift:
+   We reduce top offset so the card sits higher (moved up times 2).
+*/
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 60px;
+  padding-top: 20px; /* reduced from 60 -> moves content up */
 }
 
-/* Login container - widened to match screenshot proportions */
+/* Login container - reduced by 50% to match "reduce times 2" */
 .login-wrap {
-  width: 560px; /* increased to match screenshot card width */
+  width: 280px; /* was 560px -> reduced to half */
   max-width: 92%;
   text-align: center;
+  transform: translateY(-20px); /* move up a bit more for "move it up times 2" */
 }
 
-/* Brand section - sizing to match screenshot */
+/* Brand section - reduce sizes by 50% and move up */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 28px;
-  gap: 24px;
+  margin-bottom: 14px; /* reduced */
+  gap: 12px;
 }
 
-/* Use provided Sage logo image sized to screenshot proportions */
+/* Use provided Sage logo image sized at 50% of previous */
 .sage-img {
-  height: 58px; /* closer to screenshot */
+  height: 29px; /* was 58px -> half */
   width: auto;
   display: block;
+  transform: translateY(-16px); /* move logo up */
 }
 
 /* Vertical divider */
 .brand .divider {
   width: 1px;
-  height: 60px;
+  height: 30px; /* reduced height */
   background: #bfbfbf;
+  transform: translateY(-12px); /* move divider up */
 }
 
-/* Accounting heading sized like screenshot */
+/* Accounting heading sized to 50% (was 44px -> now 22px) and moved up */
 .brand h1 {
   margin: 0;
   font-weight: 300;
   color: #222;
-  font-size: 44px; /* larger to match screenshot */
-  letter-spacing: -1px;
+  font-size: 22px; /* reduced */
+  letter-spacing: -0.5px;
+  transform: translateY(-16px); /* move heading up */
 }
 
 /* Form styling */
@@ -252,45 +257,45 @@ body {
   display: block;
 }
 
-/* Input rows - taller and icons replaced with bitmapped-like icons to match screenshot look */
+/* Input rows - reduce height by 50% and icon sizes accordingly */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #d3d3d3;
-  padding: 14px 16px;
-  margin: 12px 0;
+  padding: 8px 10px; /* reduced padding */
+  margin: 8px 0;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 52px; /* height to match screenshot */
+  height: 26px; /* was 52px -> half */
 }
 
 .input-row:focus-within {
   border-color: #4a90e2;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 0 2px rgba(74,144,226,0.08);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 0 2px rgba(74,144,226,0.06);
 }
 
-/* Icon container - use background images (data URIs) to approximate screenshot icons */
+/* Icon container - scaled down */
 .input-row .icon {
-  margin-right: 14px;
-  width: 28px;
-  height: 28px;
-  flex: 0 0 28px;
+  margin-right: 10px;
+  width: 16px; /* was 28px -> reduced */
+  height: 16px;
+  flex: 0 0 16px;
   display: inline-block;
-  background-size: 20px 20px;
+  background-size: 14px 14px;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-/* Email envelope icon (simple SVG data URI) */
+/* Email envelope icon (scaled) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
 }
 
-/* Lock icon for password */
+/* Lock icon scaled */
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
 }
 
 /* Input fields */
@@ -298,7 +303,7 @@ body {
   border: 0;
   outline: none;
   width: 100%;
-  font-size: 15px;
+  font-size: 13px; /* slightly reduced */
   color: #333;
   background: transparent;
   height: 100%;
@@ -314,8 +319,8 @@ body {
 .links {
   display: flex;
   justify-content: space-between;
-  margin: 18px 0 20px 0;
-  font-size: 13px;
+  margin: 12px 0 12px 0;
+  font-size: 12px;
 }
 
 .small-link {
@@ -325,21 +330,21 @@ body {
 
 .small-link:hover { text-decoration: underline; }
 
-/* Login button */
+/* Login button - reduced size */
 .btn-login {
   display: block;
   width: 100%;
-  background: #2b66c7; /* deeper blue */
+  background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 8px 12px;
+  font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   transition: background-color 0.2s;
-  height: 44px;
+  height: 36px; /* reduced */
 }
 
 .btn-login:hover { background: #2357a1; }
@@ -349,7 +354,7 @@ body {
 /* Signup section */
 .signup {
   color: #666;
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
   line-height: 1.4;
 }
@@ -363,15 +368,15 @@ body {
 @media (max-width: 900px) {
   .top-right { display: none; }
   .country-button { min-width: 140px; }
-  .login-wrap { width: 460px; }
+  .login-wrap { width: 240px; }
 }
 
 @media (max-width: 600px) {
   .brand h1, .sage-img {
-    font-size: 28px;
-    height: 44px;
+    font-size: 18px;
+    height: 22px;
   }
-  .login-wrap { width: 95%; padding: 0 10px; }
+  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-10px); }
   .cookie-bar .cookie-text { font-size: 12px; }
   .cookie-bar { padding: 10px 15px; }
 }
