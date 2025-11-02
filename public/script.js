@@ -1,51 +1,41 @@
 // public/script.js
 document.addEventListener('DOMContentLoaded', function () {
-  // cookie accept button hides the cookie bar and shows top header
+  // cookie accept button hides the cookie bar and shows top header/sidebar
   var cookieBtn = document.querySelector('.cookie-accept');
   var cookieBar = document.querySelector('.cookie-bar');
   var topHeader = document.querySelector('.top-header');
 
-  // Countries to show in the dropdown (matches screenshot)
+  // Countries list (same as before)
   var countries = [
     "South Africa","Uganda","Cameroon","Zimbabwe","Malta","Kenya","Cote D'Ivore","Benin","Rwanda",
     "Sierra Leone","Malawi","Namibia","Ghana","Zambia","Botswana","Tanzania","Mauritius",
     "Nigeria","Swaziland"
   ];
 
-  function openCountryList() {
-    var selector = document.querySelector('.country-selector');
-    var list = document.querySelector('.country-list');
-    selector.setAttribute('aria-expanded', 'true');
-    list.setAttribute('aria-hidden', 'false');
-    list.focus();
-  }
+  var list, selectorBtn;
 
-  function closeCountryList() {
-    var selector = document.querySelector('.country-selector');
-    var list = document.querySelector('.country-list');
-    selector.setAttribute('aria-expanded', 'false');
-    list.setAttribute('aria-hidden', 'true');
-  }
-
+  // Populate the left full list (sidebar) and keep it visible by default once header shown.
   function populateCountryList() {
-    var list = document.querySelector('.country-list');
+    list = document.querySelector('.country-list');
+    if (!list) return;
     list.innerHTML = '';
     countries.forEach(function(c) {
       var li = document.createElement('li');
       li.className = 'country-item';
       li.setAttribute('role', 'option');
-      li.setAttribute('aria-selected', String(c === 'South Africa'));
+      li.setAttribute('aria-selected', String(c === 'South Africa')); // default selection
       li.tabIndex = 0;
       li.textContent = c;
+
       li.addEventListener('click', function () {
         selectCountry(c);
-        closeCountryList();
       });
+
+      // Make keyboard navigation within the panel work
       li.addEventListener('keydown', function (ev) {
         if (ev.key === 'Enter' || ev.key === ' ') {
           ev.preventDefault();
           selectCountry(c);
-          closeCountryList();
         } else if (ev.key === 'ArrowDown') {
           ev.preventDefault();
           var next = li.nextElementSibling;
@@ -54,26 +44,52 @@ document.addEventListener('DOMContentLoaded', function () {
           ev.preventDefault();
           var prev = li.previousElementSibling;
           if (prev) prev.focus();
-        } else if (ev.key === 'Escape') {
-          closeCountryList();
-          document.querySelector('.country-button').focus();
         }
       });
+
       list.appendChild(li);
     });
   }
 
   function selectCountry(name) {
     var btnText = document.querySelector('.country-text');
-    btnText.textContent = name;
+    if (btnText) btnText.textContent = name;
     var items = document.querySelectorAll('.country-item');
     items.forEach(function(it) {
       it.setAttribute('aria-selected', String(it.textContent === name));
     });
     try { localStorage.setItem('selectedCountry', name); } catch (e) {}
+    // After selecting a country, close the country selector panel as requested
+    closeCountryPanel();
   }
 
-  function initCountrySelector() {
+  // Show/hide helpers for the left country panel
+  function openCountryPanel() {
+    list = document.querySelector('.country-list');
+    if (!list) return;
+    list.style.display = 'block';
+    // ensure body has padding to compensate for fixed panel
+    try {
+      var rect = list.getBoundingClientRect();
+      document.body.style.paddingLeft = (rect.width + 40) + 'px';
+    } catch (e) {}
+    // set accessible attr
+    var selector = document.querySelector('.country-selector');
+    if (selector) selector.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeCountryPanel() {
+    list = document.querySelector('.country-list');
+    if (!list) return;
+    list.style.display = 'none';
+    // remove left padding so content returns to normal
+    try { document.body.style.paddingLeft = ''; } catch (e) {}
+    var selector = document.querySelector('.country-selector');
+    if (selector) selector.setAttribute('aria-expanded', 'false');
+  }
+
+  // Initialize the left-side country panel (no dropdown toggling by default)
+  function initCountryPanel() {
     populateCountryList();
     try {
       var saved = localStorage.getItem('selectedCountry');
@@ -82,36 +98,38 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     } catch (e) {}
 
-    var selector = document.querySelector('.country-selector');
-    var btn = document.querySelector('.country-button');
+    // cache selector button for toggling/focusing
+    selectorBtn = document.querySelector('.country-button');
 
-    btn.addEventListener('click', function (e) {
-      var expanded = selector.getAttribute('aria-expanded') === 'true';
-      if (expanded) closeCountryList(); else openCountryList();
-    });
+    // Clicking the small header button will toggle visibility of the left panel.
+    if (selectorBtn) {
+      selectorBtn.addEventListener('click', function (e) {
+        list = document.querySelector('.country-list');
+        if (!list) return;
+        // If panel currently visible, hide it; otherwise show and focus selected item.
+        var visible = window.getComputedStyle(list).display !== 'none';
+        if (visible) {
+          closeCountryPanel();
+          selectorBtn.focus();
+        } else {
+          openCountryPanel();
+          // move focus to currently selected item if any
+          var sel = document.querySelector('.country-item[aria-selected="true"]');
+          if (sel) sel.focus();
+        }
+      });
+    }
 
-    selector.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        var expanded = selector.getAttribute('aria-expanded') === 'true';
-        if (expanded) closeCountryList(); else openCountryList();
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        openCountryList();
-        var first = document.querySelector('.country-list .country-item');
-        if (first) first.focus();
-      } else if (e.key === 'Escape') {
-        closeCountryList();
+    // Make ESC key close the panel when focus is inside it
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') {
+        // if panel open, close it
+        var l = document.querySelector('.country-list');
+        if (l && window.getComputedStyle(l).display !== 'none') {
+          closeCountryPanel();
+          if (selectorBtn) selectorBtn.focus();
+        }
       }
-    });
-
-    document.addEventListener('click', function (ev) {
-      var within = ev.target.closest('.country-selector');
-      if (!within) closeCountryList();
-    });
-
-    window.addEventListener('blur', function () {
-      closeCountryList();
     });
   }
 
@@ -119,32 +137,33 @@ document.addEventListener('DOMContentLoaded', function () {
     cookieBtn.addEventListener('click', function () {
       if (cookieBar) cookieBar.style.display = 'none';
 
+      // Show header and left country panel once cookie accepted
       if (topHeader) {
         topHeader.style.display = 'block';
         topHeader.setAttribute('aria-hidden', 'false');
-
-        // Because header height was halved, adjust body padding accordingly.
-        var headerHeight = topHeader.getBoundingClientRect().height;
-        // Move content up by doubling the previous offset effect: smaller header + reduce top padding
-        // We set a minimal padding so content is visible under header but closer to top (moved up).
-        document.body.style.paddingTop = (headerHeight + 6) + 'px';
       }
 
-      initCountrySelector();
+      initCountryPanel();
+
+      // Open the panel initially so user sees the full list (matches previous behavior)
+      openCountryPanel();
+
+      // persist cookie accepted (so header / panel appear on reload)
       try { localStorage.setItem('cookieAccepted', 'true'); } catch(e) {}
     }, { once: true });
   }
 
+  // If cookie already accepted, show header and panel immediately
   try {
     if (localStorage.getItem('cookieAccepted') === 'true') {
       if (cookieBar) cookieBar.style.display = 'none';
       if (topHeader) {
         topHeader.style.display = 'block';
         topHeader.setAttribute('aria-hidden', 'false');
-        var headerHeight = topHeader.getBoundingClientRect().height;
-        document.body.style.paddingTop = (headerHeight + 6) + 'px';
-        initCountrySelector();
       }
+      initCountryPanel();
+      // ensure panel is open on load
+      openCountryPanel();
     }
   } catch (e) {}
 
@@ -156,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
 
+      // Basic visual feedback
       var btn = document.querySelector('.btn-login');
       btn.disabled = true;
       btn.textContent = 'Sending...';
