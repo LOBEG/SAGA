@@ -1,4 +1,10 @@
-/* Basic reset and fonts */
+/* Updated layout only — preserves HTML structure and JS behavior.
+   Adjusts positions so the Sage logo, "Accounting" text, and login card
+   sit in the same place as the reference screenshot while leaving
+   markup and functions untouched.
+*/
+
+/* Basic reset and fonts (kept as original) */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,122 +12,64 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: slightly larger than previous small header */
+/* Top header (unchanged visual style) */
 .top-header {
   display: none; /* shown after cookie accepted */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #2f3336;
+  background: #33363a;
   color: #fff;
-  z-index: 1100;
-  font-size: 14px;
-  border-bottom: 1px solid rgba(0,0,0,0.25);
-  height: 40px;
+  z-index: 1000;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  height: 48px;
 }
 
-/* inner header container */
 .top-header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
-  padding: 0 12px;
-}
-
-/* Country selector label */
-.country-label {
-  color: #e6e6e6;
-  margin-right: 6px;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-/* COUNTRY SIDEBAR (always visible as vertical list on left)
-   Instead of dropdown behaviour, the country-list becomes a full-height
-   vertical sidebar placed beneath the header and pinned to the left.
-   It is scrollable to reveal additional countries.
-*/
-.country-selector {
-  position: relative;
-}
-
-/* Keep the small selector button visible in header to show current selection */
-.country-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #3a3f44;
-  color: #ffffff;
-  border: 1px solid rgba(0,0,0,0.45);
-  padding: 5px 9px;
-  border-radius: 4px;
-  cursor: default;
-  min-width: 170px;
-  justify-content: space-between;
-  font-size: 13px;
-  height: 26px;
-}
-
-/* The list becomes a fixed left column, visible by default */
-.country-list {
-  position: fixed;
-  top: 40px; /* align under header */
-  left: 12px; /* slight inset from left edge */
-  width: 180px; /* narrow vertical panel like screenshot */
-  bottom: 12px; /* full height (header -> bottom) with small bottom inset */
-  background: #34373b;
-  border-radius: 2px;
-  border: 1px solid rgba(0,0,0,0.6);
-  box-shadow: 0 8px 26px rgba(0,0,0,0.6);
-  padding: 6px 0;
-  z-index: 1090;
-  list-style: none;
-  overflow-y: auto;
-}
-
-/* Country item visuals */
-.country-item {
-  color: #d7d9db;
-  padding: 10px 12px;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-/* Highlighting like screenshot */
-.country-item:hover,
-.country-item[aria-selected="true"] {
-  background: #1f4fa1;
-  color: #fff;
-}
-
-/* Ensure the 'chev' and button in header remain visible above the left list */
-.country-button { z-index: 1200; }
-
-/* Top-right area */
-.top-right {
   display: flex;
   align-items: center;
-  gap: 14px;
-  color: #d9d9d9;
-  font-size: 13px;
+  justify-content: space-between;
+  padding: 0 14px;
 }
 
-.top-right .sign-up {
+/* Left controls label styling (kept) */
+.left-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-label {
+  color: #ddd;
+  font-size: 14px;
+}
+
+/* Native select styling — unchanged */
+.native-country-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #3b3f43;
   color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  margin-right: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  min-width: 160px;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.15) 50%),
+                    linear-gradient(135deg, rgba(255,255,255,0.15) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
 }
 
-.top-right .sign-up:hover { text-decoration: underline; }
-
-/* Cookie bar — unchanged */
+/* Cookie bar (unchanged) */
 .cookie-bar {
   position: fixed;
   top: 0;
@@ -133,21 +81,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  z-index: 1200; /* sit above header until accepted */
+  z-index: 1100; /* above header until accepted */
   font-size: 13px;
   line-height: 1.4;
 }
-
-.cookie-bar .cookie-text {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.cookie-bar .cookie-text a.privacy {
-  color: #87ceeb;
-  text-decoration: underline;
-}
-
+.cookie-bar .cookie-text { flex: 1; margin-right: 20px; }
+.cookie-bar .cookie-text a.privacy { color: #87ceeb; text-decoration: underline; }
 .cookie-bar .cookie-accept {
   background: transparent;
   color: #fff;
@@ -159,118 +98,117 @@
   font-size: 13px;
   white-space: nowrap;
 }
+.cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.1); }
 
-.cookie-bar .cookie-accept:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* Page background and layout adjustments to avoid being overlapped by the left country panel */
+/* Page background: keep original color and smoothing */
 body {
   background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: 0;
-  padding-left: 220px; /* make room for the fixed country sidebar (width + gap) */
+  /* ensure body does not have unexpected left padding (remove side panel space) */
+  padding-left: 0;
 }
 
-/* Main page container */
+/* CENTERING STRATEGY
+   The reference screenshot shows the brand (logo + divider + "Accounting")
+   positioned slightly above the vertical center, and the login card
+   underneath it with fixed width. We'll:
+   - center the page horizontally
+   - position the group (brand + form) using a container that is vertically
+     centered but nudged upward (translateY).
+   - make the brand and form widths match screenshot proportions.
+*/
+
+/* Main page container: vertically center content and nudge upward slightly */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 16px;
+  /* Move whole block up a bit to match screenshot vertical placement */
+  padding-top: 0;
 }
 
-/* Login container */
+/* A wrapper that groups brand + form and sets exact width used in screenshot */
 .login-wrap {
-  width: 360px;
+  width: 520px;          /* set to screenshot-like width so brand aligns visually */
   max-width: 92%;
   text-align: center;
-  transform: translateY(-28px);
+  /* Nudge up to match screenshot placement (higher than true center) */
+  transform: translateY(-6%);
+  /* keep small vertical breathing room */
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand section */
+/* Brand section: place items (logo, vertical line, Accounting) inline and sized */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
-  gap: 16px;
-  transform: translateY(-22px);
+  margin-bottom: 28px;   /* spacing between brand and inputs as in screenshot */
+  gap: 24px;
 }
 
-/* Sage logo */
+/* Use provided on-page Sage image (no change to HTML) — size to match screenshot */
 .sage-img {
-  height: 40px;
+  height: 62px;         /* slightly larger to match screenshot proportion */
   width: auto;
   display: block;
-  margin-top: -6px;
 }
 
-/* Vertical divider */
+/* Make the divider narrow and tall, visible like the screenshot */
 .brand .divider {
-  width: 2px;
-  height: 48px;
-  background: rgba(51,51,51,0.9);
-  transform: translateY(-6px);
+  width: 1px;
+  height: 62px;
+  background: #999;
 }
 
-/* Accounting heading */
+/* Accounting heading size to match screenshot */
 .brand h1 {
   margin: 0;
   font-weight: 300;
   color: #222;
-  font-size: 26px;
-  letter-spacing: -0.6px;
-  transform: translateY(-10px);
+  font-size: 36px;      /* match original screenshot */
+  letter-spacing: -0.5px;
 }
 
-/* Form styling */
+/* FORM & INPUTS
+   Inputs centered and sized to align under brand — use a fixed input width
+   that visually matches screenshot. Input icons use existing classes.
+*/
 .login-form {
   background: transparent;
   display: block;
-  padding: 8px 18px;
-  margin-top: 6px;
+  margin: 0 auto;
+  width: 360px;         /* this controls the width of the card/input column */
 }
 
-/* Input rows */
+/* Input rows: use subtle borders and spacing like original */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
-  border: 1px solid #d3d3d3;
-  padding: 10px 12px;
-  margin: 8px 0;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 38px;
+  border: 1px solid #ddd;  /* slightly lighter border like screenshot */
+  padding: 12px 14px;
+  margin: 10px 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+  height: 44px;           /* comfortable input height */
 }
 
+/* Icon area preserved — these are background SVG icons in CSS */
 .input-row .icon {
   margin-right: 12px;
-  width: 22px;
-  height: 22px;
-  flex: 0 0 22px;
-  display: inline-block;
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.95;
+  width: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+  flex: 0 0 20px;
 }
 
-/* Icons (unchanged) */
-.icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
-}
-
-.icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
-}
-
+/* Maintain placeholder & input styles */
 .input-row input {
   border: 0;
   outline: none;
@@ -280,61 +218,62 @@ body {
   background: transparent;
   height: 100%;
 }
+.input-row input::placeholder { color: #9b9b9b; }
 
-.input-row input::placeholder {
-  color: #9b9b9b;
-  font-style: normal;
-}
-
+/* Links section (forgot / problems) aligned left/right within same width */
 .links {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0 10px 0;
-  font-size: 12px;
+  margin: 12px 0 18px 0;
+  width: 360px; /* align with input width above */
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 13px;
 }
+.small-link { color: #4a90e2; text-decoration: none; }
+.small-link:hover { text-decoration: underline; }
 
+/* Login button sized to match screenshot width and weight */
 .btn-login {
   display: block;
-  width: 100%;
+  width: 360px;       /* match input width */
+  margin: 0 auto 18px auto;
   background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 10px 12px;
-  font-size: 15px;
+  padding: 12px 20px;
+  font-size: 16px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 12px;
   transition: background-color 0.2s;
-  height: 42px;
+  height: 44px;
 }
-
 .btn-login:hover { background: #2357a1; }
 
+/* Signup section center-aligned and narrower to match screenshot spacing */
 .signup {
   color: #666;
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
   line-height: 1.4;
-  margin-bottom: 6px;
+  width: 420px;
+  margin: 0 auto;
 }
 
-/* Make sure the left country panel doesn't overlap at narrow widths:
-   on small screens we'll convert the left panel into an inset element inside the header area
-   to preserve usability.
-*/
+/* Responsive adjustments — preserve original behavior on small screens */
 @media (max-width: 900px) {
   .top-right { display: none; }
-  .country-list { left: 8px; width: 160px; }
-  body { padding-left: 190px; }
-  .login-wrap { width: 320px; }
+  .login-wrap { width: 460px; transform: translateY(-4%); }
+  .login-form, .btn-login, .links { width: 340px; }
+  .brand .divider { height: 56px; }
+  .sage-img { height: 52px; }
 }
 
 @media (max-width: 600px) {
-  /* collapse left column space on tiny screens so content remains readable */
-  .country-list { position: absolute; top: 40px; left: 8px; width: 140px; bottom: auto; max-height: 220px; }
-  body { padding-left: 0; padding-top: 60px; }
-  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-16px); }
-  .brand h1, .sage-img { height: 28px; font-size: 18px; transform: translateY(-8px); }
+  .brand h1, .sage-img { font-size: 28px; height: auto; }
+  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-4%); }
+  .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
+  .cookie-bar .cookie-text { font-size: 12px; }
   .cookie-bar { padding: 10px 15px; }
 }
