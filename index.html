@@ -12,13 +12,15 @@
     <div class="top-header-inner">
       <div class="country-select-wrap">
         <label class="country-label">Country:</label>
-        <div class="country-selector" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select country">
+        <div class="country-selector" tabindex="0" aria-haspopup="listbox" aria-expanded="true" aria-label="Select country">
           <button type="button" class="country-button" aria-label="Selected country">
             <span class="country-text">South Africa</span>
             <span class="chev">▾</span>
           </button>
-          <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="true">
-            <!-- Items will be populated by script.js -->
+          <!-- When visible-as-sidebar, this list will be presented as a full vertical panel on the left,
+               not as a floating dropdown. Items are populated by script.js. -->
+          <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="false">
+            <!-- Items populated by script.js -->
           </ul>
         </div>
       </div>
