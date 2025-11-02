@@ -1,11 +1,9 @@
-/* Updated presentation only.
-   Changes implement:
-   - Add refined SVG icons for email and password inputs (visually like screenshot).
-   - Move the brand (logo + "Accounting") and login card upward so they match screenshot vertical placement.
-   - Reduce the on-page Sage logo size to half (times 2 -> half).
-   - Slightly reduce the "Accounting" text size (reduce times 1 interpreted as a modest reduction).
-   - Reduce the vertical footprint of the login card while keeping its length/width unchanged so email/password boxes and Login button keep the same width.
-   No HTML structure or JS functionality was modified.
+/* Updated style.css
+   - Small, focused visual adjustments only.
+   - Keeps all HTML structure and JavaScript unchanged.
+   - Ensures the on-page Sage logo sits closer to the vertical divider,
+     the "Accounting" text sits close to the divider as well, and the
+     Sage logo size is increased slightly as requested.
 */
 
 /* Basic reset and fonts (unchanged) */
@@ -40,7 +38,7 @@
   padding: 0 14px;
 }
 
-/* Country label / select styles unchanged */
+/* Left controls (country select) */
 .left-controls { display:flex; align-items:center; gap:10px; }
 .country-label { color:#e6e6e6; font-size:13px; margin-right:6px; }
 .native-country-select {
@@ -82,10 +80,10 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  padding-left: 0; /* ensure no left padding from earlier versions */
+  padding-left: 0;
 }
 
-/* Main container: center horizontally and vertically, but nudge *up* more to match screenshot */
+/* Main container: center horizontally and vertically, nudge up slightly */
 .page {
   display:flex;
   align-items:center;
@@ -94,83 +92,79 @@ body {
   padding-top:0;
 }
 
-/* LOGIN WRAP
-   - Keep the width (length) of the login card and input column similar to the screenshot.
-   - Move everything upward by increasing the negative translateY.
-*/
+/* LOGIN WRAP: width chosen to match screenshot composition */
 .login-wrap {
-  width: 520px;         /* controls overall composition width */
-  max-width:92%;
-  text-align:center;
-  transform: translateY(-12%); /* moved up more to match screenshot */
-  /* small vertical breathing space */
+  width: 520px;
+  max-width: 92%;
+  text-align: center;
+  transform: translateY(-12%);
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* BRAND (logo, divider, "Accounting") */
-/* Reduce the Sage logo to half its previously used size */
-.sage-img {
-  height: 31px;         /* half of prior ~62px */
-  width: auto;
-  display:block;
-  margin-right: 12px;
-}
-
-/* make divider proportionate to new logo height */
-.brand .divider {
-  width: 1px;
-  height: 40px;
-  background: #999;
-  margin: 0 8px;
-}
-
-/* Reduce Accounting text moderately (smaller but still readable) */
-.brand h1 {
-  margin: 0;
-  font-weight:300;
-  color:#222;
-  font-size: 30px;     /* reduced modestly from ~36 */
-  letter-spacing:-0.4px;
-}
-
-/* Brand layout adjustments */
+/* BRAND (logo, divider, "Accounting")
+   Adjustments:
+   - Reduce gap between logo and divider so they sit tightly together.
+   - Increase logo size a bit.
+   - Keep divider tall and aligned with logo and text.
+*/
 .brand {
   display:flex;
   align-items:center;
   justify-content:center;
-  gap: 20px;
-  margin-bottom: 20px;  /* slightly tightened spacing */
+  gap: 8px;           /* reduced gap so logo and divider are close */
+  margin-bottom: 20px;
 }
 
-/* LOGIN FORM COLUMN
-   Keep input/button width the same as screenshot (controls "length"),
-   reduce vertical padding and input heights to make the card reduction.
-*/
+/* Slightly larger Sage logo (increased as requested) */
+.sage-img {
+  height: 40px;       /* increased a bit so logo is slightly larger */
+  width: auto;
+  display:block;
+  /* remove extra right margin so it's adjacent to divider */
+  margin: 0;
+}
+
+/* Divider brought visually closer and sized to align with logo/text */
+.brand .divider {
+  width: 1px;
+  height: 48px;       /* slightly reduced from very tall to match new logo */
+  background: #999;
+  margin: 0 6px;      /* small horizontal spacing */
+}
+
+/* Accounting heading placed close to divider */
+.brand h1 {
+  margin: 0;
+  font-weight:300;
+  color:#222;
+  font-size: 32px;    /* reduced slightly from previous to remain balanced */
+  letter-spacing:-0.4px;
+  /* ensure vertical alignment with logo */
+  line-height: 1;
+}
+
+/* LOGIN FORM COLUMN (inputs centered below brand, length preserved) */
 .login-form {
   margin: 0 auto;
-  width: 360px;       /* preserve length of inputs and button */
+  width: 360px;
 }
 
-/* INPUT ROWS
-   Reduced vertical footprint (height and padding) while keeping icons visible.
-*/
+/* INPUT ROWS: preserve icon area and layout but slightly compacted vertically
+   so the login card appears reduced while keeping the same length (width). */
 .input-row {
   display:flex;
   align-items:center;
   border-radius:3px;
   background:#fff;
   border:1px solid #ddd;
-  padding:10px 12px;     /* slightly reduced padding */
+  padding:10px 12px;
   margin:8px 0;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
-  height:40px;           /* slightly reduced from previous 44 */
+  height:40px;
 }
 
-/* ICONS
-   Replace/ensure email and lock icons are present as SVG background images,
-   sized and positioned to match screenshot look (left inside input).
-*/
+/* Icons: email & lock as SVG backgrounds; kept visible and aligned */
 .input-row .icon {
   margin-right:12px;
   width:20px;
@@ -183,12 +177,12 @@ body {
   opacity:0.95;
 }
 
-/* Envelope (email) icon - slightly stroked envelope to match screenshot */
+/* Envelope icon (email) */
 .icon-email {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* Lock (password) icon - rounded lock similar to screenshot */
+/* Lock icon (password) */
 .icon-lock {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
@@ -205,7 +199,7 @@ body {
 }
 .input-row input::placeholder { color:#9b9b9b; }
 
-/* LINKS row (forgot & problems) aligned under inputs, same width */
+/* Links under inputs aligned each side and matching width */
 .links {
   display:flex;
   justify-content:space-between;
@@ -216,8 +210,7 @@ body {
 .small-link { color:#4a90e2; text-decoration:none; }
 .small-link:hover { text-decoration:underline; }
 
-/* LOGIN BUTTON
-   Keep width same (length), reduce visual vertical footprint a little */
+/* Login button: keep same width but slightly reduced vertical footprint */
 .btn-login {
   display:block;
   width:360px;
@@ -230,7 +223,7 @@ body {
   border-radius:4px;
   cursor:pointer;
   font-weight:600;
-  height:40px; /* slightly reduced */
+  height:40px;
 }
 .btn-login:hover { background:#2357a1; }
 
@@ -245,12 +238,12 @@ body {
   margin-top:8px;
 }
 
-/* Responsive rules preserved and adjusted to our new sizes */
+/* Responsive adjustments (kept consistent with new sizing) */
 @media (max-width:900px) {
   .top-right { display:none; }
   .login-wrap { width:460px; transform: translateY(-8%); }
   .login-form, .btn-login, .links { width:340px; }
-  .sage-img { height:28px; }
+  .sage-img { height:32px; }
   .brand .divider { height:46px; }
 }
 @media (max-width:600px) {
