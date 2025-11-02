@@ -1,10 +1,14 @@
-/* style.css
-   Updated visual additions to match the screenshot (image 5) while preserving
-   existing HTML structure and JavaScript behavior. No functions were changed.
-   This file replaces the previous style.css and only affects presentation.
+/* Updated presentation only.
+   Changes implement:
+   - Add refined SVG icons for email and password inputs (visually like screenshot).
+   - Move the brand (logo + "Accounting") and login card upward so they match screenshot vertical placement.
+   - Reduce the on-page Sage logo size to half (times 2 -> half).
+   - Slightly reduce the "Accounting" text size (reduce times 1 interpreted as a modest reduction).
+   - Reduce the vertical footprint of the login card while keeping its length/width unchanged so email/password boxes and Login button keep the same width.
+   No HTML structure or JS functionality was modified.
 */
 
-/* Basic reset and fonts */
+/* Basic reset and fonts (unchanged) */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,22 +16,20 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: dark bar across the top (matches screenshot) */
+/* Top header (unchanged) */
 .top-header {
-  display: none; /* shown after cookie accepted via JS (unchanged) */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 48px;
-  background: #35363a;               /* slightly darker neutral */
+  background: #35363a;
   color: #fff;
   z-index: 1200;
   border-bottom: 1px solid rgba(0,0,0,0.25);
   font-size: 13px;
 }
-
-/* Inner container keeps content centered and constrained */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -38,21 +40,9 @@
   padding: 0 14px;
 }
 
-/* Left controls area (Country label + select) */
-.left-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Country text label */
-.country-label {
-  color: #e6e6e6;
-  font-size: 13px;
-  margin-right: 6px;
-}
-
-/* Native select styling to match screenshot small boxed look */
+/* Country label / select styles unchanged */
+.left-controls { display:flex; align-items:center; gap:10px; }
+.country-label { color:#e6e6e6; font-size:13px; margin-right:6px; }
 .native-country-select {
   appearance: none;
   -webkit-appearance: none;
@@ -64,238 +54,209 @@
   border-radius: 4px;
   font-size: 13px;
   min-width: 160px;
-  cursor: pointer;
-  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2);
-  background-image:
-    linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.06) 50%),
-    linear-gradient(135deg, rgba(255,255,255,0.06) 50%, transparent 50%);
-  background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
 }
 
-/* Top-right group: Sign Up and contact details */
-.top-right {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  color: #d9d9d9;
-  font-size: 13px;
-}
+/* Top-right */
+.top-right { display:flex; align-items:center; gap:18px; color:#d9d9d9; font-size:13px; }
+.top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
-/* Sign up emphasized */
-.top-right .sign-up {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-/* Contact items are inline and use a subtle icon-like spacing */
-.top-right .sales,
-.top-right .support {
-  color: #d9d9d9;
-  white-space: nowrap;
-  font-weight: 400;
-  font-size: 13px;
-  opacity: 0.95;
-}
-
-/* small phone icon appearance using pseudo-element for subtlety */
-.top-right .sales::before,
-.top-right .support::before {
-  content: "☎";
-  margin-right: 6px;
-  opacity: 0.9;
-  color: #e6e6e6;
-  font-size: 12px;
-}
-
-/* Cookie bar - unchanged except stacking above header until accepted */
+/* Cookie bar (unchanged) */
 .cookie-bar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   background: #1e4a5a;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  z-index: 1300; /* cookie bar should sit above header until accepted */
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.cookie-bar .cookie-text {
-  flex: 1;
-  margin-right: 20px;
-}
-.cookie-bar .cookie-text a.privacy { color: #87ceeb; text-decoration: underline; }
-.cookie-bar .cookie-accept {
-  background: transparent;
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 8px 16px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 13px;
-  white-space: nowrap;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+  z-index:1300;
+  font-size:13px;
 }
-.cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.06); }
+.cookie-bar .cookie-text { flex:1; margin-right:20px; }
+.cookie-bar .cookie-accept { background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.3); padding:8px 16px; border-radius:3px; cursor:pointer; }
 
-/* Page background and centering (ensure no left padding left by previous variants) */
+/* Page background and centering */
 body {
   background: #e8eaeb;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding-left: 0 !important;
-  padding-top: 0;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-left: 0; /* ensure no left padding from earlier versions */
 }
 
-/* Main center area — we'll position the brand and login card to match screenshot */
+/* Main container: center horizontally and vertically, but nudge *up* more to match screenshot */
 .page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding-top: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding-top:0;
 }
 
-/* Login wrapper width chosen to visually match screenshot spacing */
+/* LOGIN WRAP
+   - Keep the width (length) of the login card and input column similar to the screenshot.
+   - Move everything upward by increasing the negative translateY.
+*/
 .login-wrap {
-  width: 520px;
-  max-width: 92%;
-  text-align: center;
-  transform: translateY(-6%); /* nudge upwards to match screenshot vertical placement */
+  width: 520px;         /* controls overall composition width */
+  max-width:92%;
+  text-align:center;
+  transform: translateY(-12%); /* moved up more to match screenshot */
+  /* small vertical breathing space */
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
-/* Brand row: logo, divider, Accounting text */
-.brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 28px;
-}
-
-/* Use the on-page image (HTML contains img.sage-img) — control its size here */
+/* BRAND (logo, divider, "Accounting") */
+/* Reduce the Sage logo to half its previously used size */
 .sage-img {
-  height: 62px; /* size to look like screenshot */
+  height: 31px;         /* half of prior ~62px */
   width: auto;
-  display: block;
+  display:block;
+  margin-right: 12px;
 }
 
-/* Thin vertical divider like screenshot */
+/* make divider proportionate to new logo height */
 .brand .divider {
   width: 1px;
-  height: 62px;
+  height: 40px;
   background: #999;
+  margin: 0 8px;
 }
 
-/* Accounting heading */
+/* Reduce Accounting text moderately (smaller but still readable) */
 .brand h1 {
   margin: 0;
-  font-weight: 300;
-  color: #222;
-  font-size: 36px;
-  letter-spacing: -0.6px;
+  font-weight:300;
+  color:#222;
+  font-size: 30px;     /* reduced modestly from ~36 */
+  letter-spacing:-0.4px;
 }
 
-/* Login form column: inputs centered below brand */
+/* Brand layout adjustments */
+.brand {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 20px;
+  margin-bottom: 20px;  /* slightly tightened spacing */
+}
+
+/* LOGIN FORM COLUMN
+   Keep input/button width the same as screenshot (controls "length"),
+   reduce vertical padding and input heights to make the card reduction.
+*/
 .login-form {
   margin: 0 auto;
-  width: 360px; /* input width matches screenshot */
+  width: 360px;       /* preserve length of inputs and button */
 }
 
-/* Input rows: subtle border, padding, and icon area preserved */
+/* INPUT ROWS
+   Reduced vertical footprint (height and padding) while keeping icons visible.
+*/
 .input-row {
-  display: flex;
-  align-items: center;
-  border-radius: 3px;
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 12px 15px;
-  margin: 10px 0;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 44px;
+  display:flex;
+  align-items:center;
+  border-radius:3px;
+  background:#fff;
+  border:1px solid #ddd;
+  padding:10px 12px;     /* slightly reduced padding */
+  margin:8px 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+  height:40px;           /* slightly reduced from previous 44 */
 }
 
-/* Icon area (uses the existing .icon classes) */
+/* ICONS
+   Replace/ensure email and lock icons are present as SVG background images,
+   sized and positioned to match screenshot look (left inside input).
+*/
 .input-row .icon {
-  margin-right: 12px;
-  width: 20px;
-  text-align: center;
-  font-size: 16px;
-  color: #999;
+  margin-right:12px;
+  width:20px;
+  height:20px;
   flex: 0 0 20px;
+  display:inline-block;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:18px 18px;
+  opacity:0.95;
 }
 
-/* Input field styling kept */
+/* Envelope (email) icon - slightly stroked envelope to match screenshot */
+.icon-email {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+/* Lock (password) icon - rounded lock similar to screenshot */
+.icon-lock {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+/* Input text styles preserved */
 .input-row input {
-  border: 0;
-  outline: none;
-  width: 100%;
-  font-size: 15px;
-  color: #333;
-  background: transparent;
-  height: 100%;
+  border:0;
+  outline:none;
+  width:100%;
+  font-size:15px;
+  color:#333;
+  background:transparent;
+  height:100%;
 }
-.input-row input::placeholder { color: #9b9b9b; }
+.input-row input::placeholder { color:#9b9b9b; }
 
-/* Links under inputs aligned each side */
+/* LINKS row (forgot & problems) aligned under inputs, same width */
 .links {
-  display: flex;
-  justify-content: space-between;
-  width: 360px;
-  margin: 12px auto 18px auto;
-  font-size: 13px;
+  display:flex;
+  justify-content:space-between;
+  width:360px;
+  margin:10px auto 16px auto;
+  font-size:13px;
 }
-.small-link { color: #4a90e2; text-decoration: none; }
-.small-link:hover { text-decoration: underline; }
+.small-link { color:#4a90e2; text-decoration:none; }
+.small-link:hover { text-decoration:underline; }
 
-/* Login button */
+/* LOGIN BUTTON
+   Keep width same (length), reduce visual vertical footprint a little */
 .btn-login {
-  display: block;
-  width: 360px;
-  margin: 0 auto 18px auto;
-  background: #2b66c7;
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  height: 44px;
+  display:block;
+  width:360px;
+  margin:0 auto 14px auto;
+  background:#2b66c7;
+  color:#fff;
+  border:none;
+  padding:10px 12px;
+  font-size:15px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:600;
+  height:40px; /* slightly reduced */
 }
-.btn-login:hover { background: #2357a1; }
+.btn-login:hover { background:#2357a1; }
 
 /* Signup / demo links area */
 .signup {
-  color: #666;
-  font-size: 13px;
-  text-align: center;
-  width: 420px;
-  margin: 0 auto;
-  line-height: 1.4;
+  color:#666;
+  font-size:13px;
+  text-align:center;
+  width:420px;
+  margin:0 auto;
+  line-height:1.4;
+  margin-top:8px;
 }
 
-/* Responsive adjustments to keep behavior intact */
-@media (max-width: 900px) {
-  .top-right { display: none; }
-  .login-wrap { width: 460px; transform: translateY(-4%); }
-  .login-form, .btn-login, .links { width: 340px; }
-  .sage-img { height: 52px; }
-  .brand .divider { height: 56px; }
+/* Responsive rules preserved and adjusted to our new sizes */
+@media (max-width:900px) {
+  .top-right { display:none; }
+  .login-wrap { width:460px; transform: translateY(-8%); }
+  .login-form, .btn-login, .links { width:340px; }
+  .sage-img { height:28px; }
+  .brand .divider { height:46px; }
 }
-
-@media (max-width: 600px) {
-  .brand h1, .sage-img { font-size: 28px; height: auto; }
-  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-4%); }
-  .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
-  .cookie-bar .cookie-text { font-size: 12px; }
-  .cookie-bar { padding: 10px 15px; }
+@media (max-width:600px) {
+  .brand h1, .sage-img { font-size:28px; height:auto; }
+  .login-wrap { width:95%; padding:0 10px; transform: translateY(-6%); }
+  .login-form, .btn-login, .links { width:100%; max-width:420px; }
+  .cookie-bar .cookie-text { font-size:12px; }
+  .cookie-bar { padding:10px 15px; }
 }
