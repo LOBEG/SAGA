@@ -7,7 +7,7 @@
 }
 
 /* Top header (hidden until cookie accepted)
-   Kept as previously adjusted (half height).
+   Increased slightly from previous small header so it's more prominent.
 */
 .top-header {
   display: none; /* shown after cookie accepted */
@@ -18,9 +18,9 @@
   background: #2f3336;
   color: #fff;
   z-index: 1100;
-  font-size: 13px;
+  font-size: 14px;
   border-bottom: 1px solid rgba(0,0,0,0.25);
-  height: 26px;
+  height: 34px; /* increased a bit from 26 -> 34 */
 }
 
 /* inner container centered and constrained to page width */
@@ -45,7 +45,7 @@
 .country-label {
   color: #e6e6e6;
   margin-right: 6px;
-  font-size: 12px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -53,11 +53,11 @@
 .country-selector {
   position: relative;
   display: inline-block;
-  font-size: 12px;
+  font-size: 13px;
   outline: none;
 }
 
-/* Button that shows selected country - sized for smaller header */
+/* Button that shows selected country - slightly larger to match header */
 .country-button {
   display: inline-flex;
   align-items: center;
@@ -65,13 +65,13 @@
   background: #3a3f44;
   color: #ffffff;
   border: 1px solid rgba(0,0,0,0.5);
-  padding: 4px 8px;
+  padding: 5px 9px;
   border-radius: 4px;
   cursor: pointer;
-  min-width: 160px;
+  min-width: 170px;
   justify-content: space-between;
   font-size: 13px;
-  height: 22px;
+  height: 26px;
 }
 
 .country-button .country-text {
@@ -85,10 +85,10 @@
 
 .country-button .chev {
   color: #cfcfcf;
-  font-size: 11px;
+  font-size: 12px;
 }
 
-/* Dropdown list kept visually similar but slightly narrower */
+/* Dropdown list kept visually similar */
 .country-list {
   display: none;
   position: absolute;
@@ -132,7 +132,7 @@
   align-items: center;
   gap: 14px;
   color: #d9d9d9;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .top-right .sign-up {
@@ -197,106 +197,113 @@ body {
 }
 
 /* Main page container
-   Move the login block up by reducing top padding - preserved earlier adjustment.
+   Keep login block moved up relative to viewport.
 */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 20px;
+  padding-top: 16px; /* keep content up a bit */
 }
 
-/* Login container - expanded slightly from previous "half" size while preserving structure.
-   This change increases the login card width so email/password fields and the card appear a little larger.
+/* Login container - maintain width (length) but reduce height "times 2" means reduce card vertical footprint.
+   We keep the same width (length) but make the vertical spacing and paddings slimmer so the card height is reduced.
 */
 .login-wrap {
-  width: 360px; /* increased from 280 -> 360 for a modest expansion */
+  width: 360px; /* keep the current width to maintain "length" */
   max-width: 92%;
   text-align: center;
-  transform: translateY(-20px); /* keep moved-up positioning */
+  transform: translateY(-28px); /* push card upward a bit more */
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
-/* Brand section */
+/* Brand section adjustments: increase logo and Accounting a bit, make divider visible and push them up */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
-  gap: 12px;
+  margin-bottom: 8px; /* tightened to move group upward */
+  gap: 16px;
+  transform: translateY(-22px); /* push logo + text + divider up */
 }
 
-/* Sage logo */
+/* Make Sage logo a bit larger */
 .sage-img {
-  height: 29px;
+  height: 40px; /* increased from 29px to 40px */
   width: auto;
   display: block;
-  transform: translateY(-16px);
+  margin-top: -6px; /* nudge up slightly */
 }
 
-/* Vertical divider */
+/* Vertical divider: make more visible (darker and taller) and push up */
 .brand .divider {
-  width: 1px;
-  height: 30px;
-  background: #bfbfbf;
-  transform: translateY(-12px);
+  width: 2px; /* thicker to be visible */
+  height: 48px; /* taller */
+  background: rgba(51,51,51,0.9); /* darker line */
+  transform: translateY(-6px);
 }
 
-/* Accounting heading */
+/* Accounting heading: increase size a bit and push up to align with logo/divider */
 .brand h1 {
   margin: 0;
   font-weight: 300;
   color: #222;
-  font-size: 22px;
-  letter-spacing: -0.5px;
-  transform: translateY(-16px);
+  font-size: 26px; /* increased from 22px -> 26px */
+  letter-spacing: -0.6px;
+  transform: translateY(-10px);
 }
 
 /* Form styling */
 .login-form {
   background: transparent;
   display: block;
+  padding: 8px 18px; /* reduce vertical padding to shrink overall card height while keeping width */
+  margin-top: 6px;
 }
 
-/* Input rows - expanded a bit to increase click target and visual weight */
+/* Input rows - expand width (they inherit container) and slightly taller for usability,
+   but overall we tighten margins/paddings so the card height is reduced compared to earlier expanded variant. */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #d3d3d3;
-  padding: 10px 12px; /* slightly increased padding */
-  margin: 10px 0; /* slightly increased spacing */
+  padding: 10px 12px;
+  margin: 8px 0; /* slightly reduced vertical spacing between inputs */
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
-  height: 34px; /* increased from 26 -> 34 for a more comfortable input size */
+  height: 38px; /* comfortable input height, larger than previous tiny variant */
 }
 
+/* Focus style */
 .input-row:focus-within {
   border-color: #4a90e2;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 0 2px rgba(74,144,226,0.06);
 }
 
-/* Icon container - scaled up a little to match increased input height */
+/* Icon container - slightly larger to suit new logo/text scale */
 .input-row .icon {
   margin-right: 12px;
-  width: 20px; /* increased from 16 -> 20 */
-  height: 20px;
-  flex: 0 0 20px;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
   display: inline-block;
-  background-size: 18px 18px;
+  background-size: 20px 20px;
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.95;
 }
 
-/* Email envelope icon (scaled up slightly) */
+/* Email envelope icon */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z'/><polyline points='3 6.5 12 13 21 6.5'/></svg>");
 }
 
-/* Lock icon scaled */
+/* Lock icon for password */
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='10' rx='2'/><path d='M7 11V8a5 5 0 0 1 10 0v3'/></svg>");
 }
 
 /* Input fields */
@@ -304,13 +311,13 @@ body {
   border: 0;
   outline: none;
   width: 100%;
-  font-size: 14px; /* slightly increased for better readability */
+  font-size: 15px;
   color: #333;
   background: transparent;
   height: 100%;
 }
 
-/* Placeholder styling */
+/* Placeholder */
 .input-row input::placeholder {
   color: #9b9b9b;
   font-style: normal;
@@ -320,18 +327,11 @@ body {
 .links {
   display: flex;
   justify-content: space-between;
-  margin: 12px 0 12px 0;
+  margin: 8px 0 10px 0;
   font-size: 12px;
 }
 
-.small-link {
-  color: #4a90e2;
-  text-decoration: none;
-}
-
-.small-link:hover { text-decoration: underline; }
-
-/* Login button - a little taller and matches the wider card */
+/* Login button - keep full width and slightly taller for balance */
 .btn-login {
   display: block;
   width: 100%;
@@ -343,9 +343,9 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 18px;
+  margin-bottom: 12px; /* reduced to shrink card height */
   transition: background-color 0.2s;
-  height: 40px; /* increased from 36 -> 40 */
+  height: 42px;
 }
 
 .btn-login:hover { background: #2357a1; }
@@ -358,12 +358,8 @@ body {
   font-size: 12px;
   text-align: center;
   line-height: 1.4;
+  margin-bottom: 6px; /* slightly tighter */
 }
-
-.signup strong { color: #333; }
-
-.signup a { color: #4a90e2; text-decoration: none; }
-.signup a:hover { text-decoration: underline; }
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
@@ -375,9 +371,9 @@ body {
 @media (max-width: 600px) {
   .brand h1, .sage-img {
     font-size: 18px;
-    height: 22px;
+    height: 28px;
   }
-  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-10px); }
+  .login-wrap { width: 95%; padding: 0 10px; transform: translateY(-16px); }
   .cookie-bar .cookie-text { font-size: 12px; }
   .cookie-bar { padding: 10px 15px; }
 }
