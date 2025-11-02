@@ -94,7 +94,13 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
       var saved = localStorage.getItem('selectedCountry');
       if (saved && countries.indexOf(saved) !== -1) {
-        selectCountry(saved);
+        // set selection but do not close the panel here (we'll open it when header shows)
+        var btnText = document.querySelector('.country-text');
+        if (btnText) btnText.textContent = saved;
+        var items = document.querySelectorAll('.country-item');
+        items.forEach(function(it) {
+          it.setAttribute('aria-selected', String(it.textContent === saved));
+        });
       }
     } catch (e) {}
 
