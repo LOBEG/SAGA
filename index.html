@@ -12,19 +12,12 @@
 <body>
   <header class="top-header" aria-hidden="true">
     <div class="top-header-inner">
-      <div class="country-select-wrap">
-        <label class="country-label">Country:</label>
-        <div class="country-selector" tabindex="0" aria-haspopup="listbox" aria-expanded="true" aria-label="Select country">
-          <button type="button" class="country-button" aria-label="Selected country">
-            <span class="country-text">South Africa</span>
-            <span class="chev">▾</span>
-          </button>
-
-          <!-- Left-side full list (sidebar) — items populated by public/script.js -->
-          <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="false">
-            <!-- Items populated by script -->
-          </ul>
-        </div>
+      <div class="left-controls">
+        <label for="countrySelect" class="country-label">Country:</label>
+        <!-- Native select to match original screenshot (image 2). Options populated by script.js -->
+        <select id="countrySelect" class="native-country-select" aria-label="Select country">
+          <option>South Africa</option>
+        </select>
       </div>
 
       <div class="top-right">
