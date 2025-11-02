@@ -1,9 +1,10 @@
-/* Updated style.css
-   - Small, focused visual adjustments only.
-   - Keeps all HTML structure and JavaScript unchanged.
-   - Ensures the on-page Sage logo sits closer to the vertical divider,
-     the "Accounting" text sits close to the divider as well, and the
-     Sage logo size is increased slightly as requested.
+/* style.css
+   Small targeted visual adjustments only.
+   - Adds a little gap between brand (logo + divider + "Accounting") and the login form.
+   - Makes the login card slimmer and inputs slimmer (reduced paddings/heights) while keeping the same width ("length").
+   - Darkens the "Accounting" heading (keeps it readable) and reduces its size a bit.
+   - "Darkens" the text weight/visual weight of the inline helper links while keeping their original color values (no color hex changes).
+   No HTML or JavaScript changes — only presentation tweaks.
 */
 
 /* Basic reset and fonts (unchanged) */
@@ -92,7 +93,9 @@ body {
   padding-top:0;
 }
 
-/* LOGIN WRAP: width chosen to match screenshot composition */
+/* LOGIN WRAP: width chosen to match screenshot composition.
+   Slight upward nudge kept from previous adjustments.
+*/
 .login-wrap {
   width: 520px;
   max-width: 92%;
@@ -102,132 +105,135 @@ body {
   padding-bottom: 2px;
 }
 
-/* BRAND (logo, divider, "Accounting")
-   Adjustments:
-   - Reduce gap between logo and divider so they sit tightly together.
-   - Increase logo size a bit.
-   - Keep divider tall and aligned with logo and text.
+/* BRAND adjustments:
+   - give a small extra gap between the brand area and the form (brand margin-bottom)
+   - ensure logo and Accounting text sit close to the divider (gap reduced earlier)
 */
 .brand {
   display:flex;
   align-items:center;
   justify-content:center;
-  gap: 8px;           /* reduced gap so logo and divider are close */
-  margin-bottom: 20px;
+  gap: 8px;           /* small gap so logo and divider are close together */
+  margin-bottom: 36px; /* increased gap between brand and form as requested */
 }
 
-/* Slightly larger Sage logo (increased as requested) */
+/* Slightly larger Sage logo from last change kept (adjustable) */
 .sage-img {
-  height: 40px;       /* increased a bit so logo is slightly larger */
+  height: 40px;
   width: auto;
   display:block;
-  /* remove extra right margin so it's adjacent to divider */
   margin: 0;
 }
 
-/* Divider brought visually closer and sized to align with logo/text */
+/* Divider close to logo and text */
 .brand .divider {
   width: 1px;
-  height: 48px;       /* slightly reduced from very tall to match new logo */
+  height: 48px;
   background: #999;
-  margin: 0 6px;      /* small horizontal spacing */
+  margin: 0 6px;
 }
 
-/* Accounting heading placed close to divider */
+/* Accounting heading: darker and a bit smaller as requested */
 .brand h1 {
   margin: 0;
-  font-weight:300;
-  color:#222;
-  font-size: 32px;    /* reduced slightly from previous to remain balanced */
-  letter-spacing:-0.4px;
-  /* ensure vertical alignment with logo */
+  font-weight: 600;    /* darken by increasing font-weight */
+  color: #121212;      /* slightly darker than before but still neutral */
+  font-size: 30px;     /* reduced a bit for your request */
+  letter-spacing: -0.3px;
   line-height: 1;
 }
 
-/* LOGIN FORM COLUMN (inputs centered below brand, length preserved) */
+/* LOGIN FORM COLUMN
+   Keep input/button width the same (length preserved).
+   Make the card slimmer by reducing vertical padding and input/button heights.
+*/
 .login-form {
   margin: 0 auto;
-  width: 360px;
+  width: 360px;       /* preserve length */
 }
 
-/* INPUT ROWS: preserve icon area and layout but slightly compacted vertically
-   so the login card appears reduced while keeping the same length (width). */
+/* INPUT ROWS: slimmer inputs (reduced height & padding) */
 .input-row {
   display:flex;
   align-items:center;
   border-radius:3px;
   background:#fff;
   border:1px solid #ddd;
-  padding:10px 12px;
+  padding:8px 12px;     /* reduced vertical padding */
   margin:8px 0;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
-  height:40px;
+  height:36px;          /* slimmer height */
 }
 
-/* Icons: email & lock as SVG backgrounds; kept visible and aligned */
+/* Icon area */
 .input-row .icon {
-  margin-right:12px;
-  width:20px;
-  height:20px;
-  flex: 0 0 20px;
+  margin-right:10px;
+  width:18px;
+  height:18px;
+  flex: 0 0 18px;
   display:inline-block;
   background-position:center;
   background-repeat:no-repeat;
-  background-size:18px 18px;
+  background-size:16px 16px;
   opacity:0.95;
 }
 
 /* Envelope icon (email) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
 /* Lock icon (password) */
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* Input text styles preserved */
+/* Input text styles preserved but compact */
 .input-row input {
   border:0;
   outline:none;
   width:100%;
-  font-size:15px;
+  font-size:14px;   /* slightly smaller for slimmer input */
   color:#333;
   background:transparent;
   height:100%;
 }
 .input-row input::placeholder { color:#9b9b9b; }
 
-/* Links under inputs aligned each side and matching width */
+/* LINKS row: maintain original colors but make them visually darker by weight */
 .links {
   display:flex;
   justify-content:space-between;
   width:360px;
-  margin:10px auto 16px auto;
+  margin:10px auto 14px auto;
   font-size:13px;
 }
-.small-link { color:#4a90e2; text-decoration:none; }
-.small-link:hover { text-decoration:underline; }
+.links .small-link {
+  color: #4a90e2;       /* original color preserved */
+  font-weight: 600;     /* darken visually by increasing weight */
+  text-decoration: none;
+}
+.links .small-link:hover { text-decoration: underline; }
 
-/* Login button: keep same width but slightly reduced vertical footprint */
+/* LOGIN BUTTON: same width (length) but slightly slimmer */
 .btn-login {
   display:block;
   width:360px;
-  margin:0 auto 14px auto;
+  margin:0 auto 12px auto;
   background:#2b66c7;
   color:#fff;
   border:none;
-  padding:10px 12px;
+  padding:8px 12px;
   font-size:15px;
   border-radius:4px;
   cursor:pointer;
   font-weight:600;
-  height:40px;
+  height:36px;  /* slimmer */
 }
 .btn-login:hover { background:#2357a1; }
 
-/* Signup / demo links area */
+/* Signup / demo links area: darken specific anchor texts by increasing weight
+   while keeping their original color values */
 .signup {
   color:#666;
   font-size:13px;
@@ -235,16 +241,27 @@ body {
   width:420px;
   margin:0 auto;
   line-height:1.4;
-  margin-top:8px;
+  margin-top:6px;
 }
+.signup a {
+  color: #4a90e2;        /* original color preserved */
+  font-weight: 600;     /* visually darker while color unchanged */
+  text-decoration: none;
+}
+.signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments (kept consistent with new sizing) */
+/* Fine-tune small helper link "words" inside signup area if needed */
+.signup a:nth-child(1) { /* User link */ }
+.signup a:nth-child(2) { /* Adviser link */ }
+.signup a:nth-child(3) { /* Demo Company link */ }
+
+/* Responsive adjustments (kept consistent with slimmer layout) */
 @media (max-width:900px) {
   .top-right { display:none; }
   .login-wrap { width:460px; transform: translateY(-8%); }
   .login-form, .btn-login, .links { width:340px; }
-  .sage-img { height:32px; }
-  .brand .divider { height:46px; }
+  .sage-img { height:36px; }
+  .brand .divider { height:44px; }
 }
 @media (max-width:600px) {
   .brand h1, .sage-img { font-size:28px; height:auto; }
