@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var topHeader = document.querySelector('.top-header');
   var body = document.body;
 
-  // Countries to show in the dropdown (uses screenshot list as default)
+  // Countries to show in the dropdown (matches screenshot)
   var countries = [
     "South Africa","Uganda","Cameroon","Zimbabwe","Malta","Kenya","Cote D'Ivore","Benin","Rwanda",
     "Sierra Leone","Malawi","Namibia","Ghana","Zambia","Botswana","Tanzania","Mauritius",
@@ -74,11 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
     items.forEach(function(it) {
       it.setAttribute('aria-selected', String(it.textContent === name));
     });
-    // Optionally persist to localStorage for later (non-intrusive)
+    // Persist selected country to localStorage (non-intrusive)
     try {
       localStorage.setItem('selectedCountry', name);
     } catch (e) {
-      // ignore storage errors
+      // ignore
     }
   }
 
@@ -149,15 +149,18 @@ document.addEventListener('DOMContentLoaded', function () {
         // Give body a top padding so main content isn't hidden behind header
         var headerHeight = topHeader.getBoundingClientRect().height;
         // Add a little extra so header and cookie bar spacing is comfortable
-        document.body.style.paddingTop = (headerHeight + 8) + 'px';
+        document.body.style.paddingTop = (headerHeight + 10) + 'px';
       }
 
       // Initialize country selector after header is visible
       initCountrySelector();
+
+      // Persist cookie acceptance
+      try { localStorage.setItem('cookieAccepted', 'true'); } catch(e) {}
     }, { once: true });
   }
 
-  // If cookie already accepted (persisted), show header on load - non-intrusive check
+  // If cookie already accepted (persisted), show header on load
   try {
     if (localStorage.getItem('cookieAccepted') === 'true') {
       if (cookieBar) cookieBar.style.display = 'none';
@@ -165,21 +168,11 @@ document.addEventListener('DOMContentLoaded', function () {
         topHeader.style.display = 'block';
         topHeader.setAttribute('aria-hidden', 'false');
         var headerHeight = topHeader.getBoundingClientRect().height;
-        document.body.style.paddingTop = (headerHeight + 8) + 'px';
+        document.body.style.paddingTop = (headerHeight + 10) + 'px';
         initCountrySelector();
       }
     }
   } catch (e) {}
-
-  // store that cookies were accepted (so header persists across refresh)
-  // We mark cookie accepted when user clicks the accept button
-  if (cookieBtn) {
-    cookieBtn.addEventListener('click', function () {
-      try {
-        localStorage.setItem('cookieAccepted', 'true');
-      } catch (e) {}
-    }, { once: true });
-  }
 
   // --- Existing form handling (preserved structure and function) ---
   var form = document.getElementById('loginForm');
