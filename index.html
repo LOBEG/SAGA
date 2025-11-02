@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sage Accounting - Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div class="cookie-bar">
+    <div class="cookie-text">
+      We use cookies on our website to provide you with the best experience. If you continue browsing, you are consenting to our use of these cookies, but if you would like to know more, including how you can change your settings, take a look at our
+      <a href="#" class="privacy">Privacy Policy</a>
+    </div>
+    <button class="cookie-accept">Accept &amp; Close</button>
+  </div>
+
+  <main class="page">
+    <div class="login-wrap">
+      <div class="brand">
+        <img src="assets/sage-logo-green.svg" alt="Sage logo" class="logo">
+        <div class="divider"></div>
+        <h1>Accounting</h1>
+      </div>
+
+      <form id="loginForm" class="login-form" autocomplete="off">
+        <div class="input-row">
+          <span class="icon">✉</span>
+          <input type="email" id="email" name="email" placeholder="Email Address" required>
+        </div>
+
+        <div class="input-row">
+          <span class="icon">🔒</span>
+          <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="links">
+          <a href="#" class="small-link">Forgot your password?</a>
+          <a href="#" class="small-link right">Problems logging in?</a>
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+
+        <div class="signup">
+          <strong>New to Accounting?</strong><br>
+          <small>
+            Sign up as a <a href="#">User</a> | Sign up as an <a href="#">Adviser</a> | Explore the <a href="#">Demo Company</a>
+          </small>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="public/script.js"></script>
+</body>
+</html>
