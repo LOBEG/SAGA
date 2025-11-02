@@ -6,6 +6,135 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
 }
 
+/* Top header (hidden until cookie accepted) */
+.top-header {
+  display: none; /* shown after cookie accepted */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #33363a;
+  color: #fff;
+  z-index: 1100;
+  font-size: 14px;
+  border-bottom: 2px solid rgba(0,0,0,0.2);
+  padding: 8px 12px;
+}
+
+.top-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Country selector area */
+.country-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-label {
+  color: #eee;
+  margin-right: 6px;
+}
+
+/* Custom country selector */
+.country-selector {
+  position: relative;
+  display: inline-block;
+  font-size: 13px;
+  outline: none;
+}
+
+.country-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #2f3236;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 160px;
+  justify-content: space-between;
+}
+
+.country-button .country-text {
+  text-align: left;
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.country-button:focus {
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.12);
+}
+
+/* Dropdown list styled like the screenshot */
+.country-list {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 220px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: #3b4045;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.4);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  padding: 6px 0;
+  z-index: 1200;
+  list-style: none;
+}
+
+.country-list[aria-hidden="true"] {
+  display: none;
+}
+
+.country-list[aria-hidden="false"] {
+  display: block;
+}
+
+/* Individual country item */
+.country-item {
+  color: #e6e9eb;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.country-item:hover,
+.country-item[aria-selected="true"] {
+  background: #2c5aa0;
+  color: #fff;
+}
+
+/* Top-right area */
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #d9d9d9;
+  font-size: 13px;
+}
+
+.top-right .sign-up {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.top-right .sign-up:hover {
+  text-decoration: underline;
+}
+
 /* Cookie bar */
 .cookie-bar {
   position: fixed;
@@ -49,12 +178,13 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* Page background */
+/* Page background - push content down a bit to account for header when visible */
 body {
   background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: 0; /* script will set a small top padding after header shown */
 }
 
 /* Main page container */
@@ -213,6 +343,15 @@ body {
 }
 
 /* Responsive design */
+@media (max-width: 900px) {
+  .top-right {
+    display: none;
+  }
+  .country-button {
+    min-width: 140px;
+  }
+}
+
 @media (max-width: 600px) {
   .brand h1, .sage-logo { 
     font-size: 28px; 
