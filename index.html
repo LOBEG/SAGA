@@ -8,6 +8,29 @@
   <link rel="icon" href="data:,">
 </head>
 <body>
+  <header class="top-header" aria-hidden="true">
+    <div class="top-header-inner">
+      <div class="country-select-wrap">
+        <label class="country-label">Country:</label>
+        <div class="country-selector" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select country">
+          <button type="button" class="country-button" aria-label="Selected country">
+            <span class="country-text">South Africa</span>
+            <span class="chev">▾</span>
+          </button>
+          <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="true">
+            <!-- Items will be populated by script.js -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="top-right">
+        <a href="#" class="sign-up">Sign Up</a>
+        <span class="sales">Sales Enquiries: ☎ +27 11 304 3333</span>
+        <span class="support">Support Queries: ☎ +27 86 123 7243 (SAGE)</span>
+      </div>
+    </div>
+  </header>
+
   <div class="cookie-bar" role="region" aria-label="Cookie banner">
     <div class="cookie-text">
       We use cookies on our website to provide you with the best experience. If you continue browsing, you are consenting to our use of these cookies, but if you would like to know more, including how you can change your settings, take a look at our
