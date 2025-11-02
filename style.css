@@ -1,10 +1,10 @@
-/* Updated layout only — preserves HTML structure and JS behavior.
-   Adjusts positions so the Sage logo, "Accounting" text, and login card
-   sit in the same place as the reference screenshot while leaving
-   markup and functions untouched.
+/* style.css
+   Updated visual additions to match the screenshot (image 5) while preserving
+   existing HTML structure and JavaScript behavior. No functions were changed.
+   This file replaces the previous style.css and only affects presentation.
 */
 
-/* Basic reset and fonts (kept as original) */
+/* Basic reset and fonts */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,21 +12,22 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header (unchanged visual style) */
+/* Top header: dark bar across the top (matches screenshot) */
 .top-header {
-  display: none; /* shown after cookie accepted */
+  display: none; /* shown after cookie accepted via JS (unchanged) */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #33363a;
-  color: #fff;
-  z-index: 1000;
-  font-size: 13px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
   height: 48px;
+  background: #35363a;               /* slightly darker neutral */
+  color: #fff;
+  z-index: 1200;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  font-size: 13px;
 }
 
+/* Inner container keeps content centered and constrained */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -37,39 +38,79 @@
   padding: 0 14px;
 }
 
-/* Left controls label styling (kept) */
+/* Left controls area (Country label + select) */
 .left-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
+/* Country text label */
 .country-label {
-  color: #ddd;
-  font-size: 14px;
+  color: #e6e6e6;
+  font-size: 13px;
+  margin-right: 6px;
 }
 
-/* Native select styling — unchanged */
+/* Native select styling to match screenshot small boxed look */
 .native-country-select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: #3b3f43;
+  background: #2f3437;
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
   padding: 6px 10px;
   border-radius: 4px;
   font-size: 13px;
   min-width: 160px;
   cursor: pointer;
-  background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.15) 50%),
-                    linear-gradient(135deg, rgba(255,255,255,0.15) 50%, transparent 50%);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2);
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.06) 50%),
+    linear-gradient(135deg, rgba(255,255,255,0.06) 50%, transparent 50%);
   background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
 }
 
-/* Cookie bar (unchanged) */
+/* Top-right group: Sign Up and contact details */
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #d9d9d9;
+  font-size: 13px;
+}
+
+/* Sign up emphasized */
+.top-right .sign-up {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Contact items are inline and use a subtle icon-like spacing */
+.top-right .sales,
+.top-right .support {
+  color: #d9d9d9;
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+/* small phone icon appearance using pseudo-element for subtlety */
+.top-right .sales::before,
+.top-right .support::before {
+  content: "☎";
+  margin-right: 6px;
+  opacity: 0.9;
+  color: #e6e6e6;
+  font-size: 12px;
+}
+
+/* Cookie bar - unchanged except stacking above header until accepted */
 .cookie-bar {
   position: fixed;
   top: 0;
@@ -81,11 +122,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  z-index: 1100; /* above header until accepted */
+  z-index: 1300; /* cookie bar should sit above header until accepted */
   font-size: 13px;
   line-height: 1.4;
 }
-.cookie-bar .cookie-text { flex: 1; margin-right: 20px; }
+
+.cookie-bar .cookie-text {
+  flex: 1;
+  margin-right: 20px;
+}
 .cookie-bar .cookie-text a.privacy { color: #87ceeb; text-decoration: underline; }
 .cookie-bar .cookie-accept {
   background: transparent;
@@ -98,107 +143,87 @@
   font-size: 13px;
   white-space: nowrap;
 }
-.cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.1); }
+.cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.06); }
 
-/* Page background: keep original color and smoothing */
+/* Page background and centering (ensure no left padding left by previous variants) */
 body {
   background: #e8eaeb;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* ensure body does not have unexpected left padding (remove side panel space) */
-  padding-left: 0;
+  padding-left: 0 !important;
+  padding-top: 0;
 }
 
-/* CENTERING STRATEGY
-   The reference screenshot shows the brand (logo + divider + "Accounting")
-   positioned slightly above the vertical center, and the login card
-   underneath it with fixed width. We'll:
-   - center the page horizontally
-   - position the group (brand + form) using a container that is vertically
-     centered but nudged upward (translateY).
-   - make the brand and form widths match screenshot proportions.
-*/
-
-/* Main page container: vertically center content and nudge upward slightly */
+/* Main center area — we'll position the brand and login card to match screenshot */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  /* Move whole block up a bit to match screenshot vertical placement */
   padding-top: 0;
 }
 
-/* A wrapper that groups brand + form and sets exact width used in screenshot */
+/* Login wrapper width chosen to visually match screenshot spacing */
 .login-wrap {
-  width: 520px;          /* set to screenshot-like width so brand aligns visually */
+  width: 520px;
   max-width: 92%;
   text-align: center;
-  /* Nudge up to match screenshot placement (higher than true center) */
-  transform: translateY(-6%);
-  /* keep small vertical breathing room */
-  padding-top: 2px;
-  padding-bottom: 2px;
+  transform: translateY(-6%); /* nudge upwards to match screenshot vertical placement */
 }
 
-/* Brand section: place items (logo, vertical line, Accounting) inline and sized */
+/* Brand row: logo, divider, Accounting text */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 28px;   /* spacing between brand and inputs as in screenshot */
   gap: 24px;
+  margin-bottom: 28px;
 }
 
-/* Use provided on-page Sage image (no change to HTML) — size to match screenshot */
+/* Use the on-page image (HTML contains img.sage-img) — control its size here */
 .sage-img {
-  height: 62px;         /* slightly larger to match screenshot proportion */
+  height: 62px; /* size to look like screenshot */
   width: auto;
   display: block;
 }
 
-/* Make the divider narrow and tall, visible like the screenshot */
+/* Thin vertical divider like screenshot */
 .brand .divider {
   width: 1px;
   height: 62px;
   background: #999;
 }
 
-/* Accounting heading size to match screenshot */
+/* Accounting heading */
 .brand h1 {
   margin: 0;
   font-weight: 300;
   color: #222;
-  font-size: 36px;      /* match original screenshot */
-  letter-spacing: -0.5px;
+  font-size: 36px;
+  letter-spacing: -0.6px;
 }
 
-/* FORM & INPUTS
-   Inputs centered and sized to align under brand — use a fixed input width
-   that visually matches screenshot. Input icons use existing classes.
-*/
+/* Login form column: inputs centered below brand */
 .login-form {
-  background: transparent;
-  display: block;
   margin: 0 auto;
-  width: 360px;         /* this controls the width of the card/input column */
+  width: 360px; /* input width matches screenshot */
 }
 
-/* Input rows: use subtle borders and spacing like original */
+/* Input rows: subtle border, padding, and icon area preserved */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
-  border: 1px solid #ddd;  /* slightly lighter border like screenshot */
-  padding: 12px 14px;
+  border: 1px solid #ddd;
+  padding: 12px 15px;
   margin: 10px 0;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
-  height: 44px;           /* comfortable input height */
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+  height: 44px;
 }
 
-/* Icon area preserved — these are background SVG icons in CSS */
+/* Icon area (uses the existing .icon classes) */
 .input-row .icon {
   margin-right: 12px;
   width: 20px;
@@ -208,7 +233,7 @@ body {
   flex: 0 0 20px;
 }
 
-/* Maintain placeholder & input styles */
+/* Input field styling kept */
 .input-row input {
   border: 0;
   outline: none;
@@ -220,23 +245,21 @@ body {
 }
 .input-row input::placeholder { color: #9b9b9b; }
 
-/* Links section (forgot / problems) aligned left/right within same width */
+/* Links under inputs aligned each side */
 .links {
   display: flex;
   justify-content: space-between;
-  margin: 12px 0 18px 0;
-  width: 360px; /* align with input width above */
-  margin-left: auto;
-  margin-right: auto;
+  width: 360px;
+  margin: 12px auto 18px auto;
   font-size: 13px;
 }
 .small-link { color: #4a90e2; text-decoration: none; }
 .small-link:hover { text-decoration: underline; }
 
-/* Login button sized to match screenshot width and weight */
+/* Login button */
 .btn-login {
   display: block;
-  width: 360px;       /* match input width */
+  width: 360px;
   margin: 0 auto 18px auto;
   background: #2b66c7;
   color: #fff;
@@ -246,28 +269,27 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s;
   height: 44px;
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup section center-aligned and narrower to match screenshot spacing */
+/* Signup / demo links area */
 .signup {
   color: #666;
   font-size: 13px;
   text-align: center;
-  line-height: 1.4;
   width: 420px;
   margin: 0 auto;
+  line-height: 1.4;
 }
 
-/* Responsive adjustments — preserve original behavior on small screens */
+/* Responsive adjustments to keep behavior intact */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .login-wrap { width: 460px; transform: translateY(-4%); }
   .login-form, .btn-login, .links { width: 340px; }
-  .brand .divider { height: 56px; }
   .sage-img { height: 52px; }
+  .brand .divider { height: 56px; }
 }
 
 @media (max-width: 600px) {
