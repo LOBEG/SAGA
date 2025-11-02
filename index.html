@@ -12,12 +12,19 @@
 <body>
   <header class="top-header" aria-hidden="true">
     <div class="top-header-inner">
-      <div class="left-controls">
-        <label for="countrySelect" class="country-label">Country:</label>
-        <!-- Native select to match original screenshot (image 2). Options populated by script.js -->
-        <select id="countrySelect" class="native-country-select" aria-label="Select country">
-          <option>South Africa</option>
-        </select>
+      <div class="country-select-wrap">
+        <label class="country-label">Country:</label>
+        <div class="country-selector" tabindex="0" aria-haspopup="listbox" aria-expanded="true" aria-label="Select country">
+          <button type="button" class="country-button" aria-label="Selected country">
+            <span class="country-text">South Africa</span>
+            <span class="chev">▾</span>
+          </button>
+
+          <!-- Left-side full list (sidebar) — items populated by public/script.js -->
+          <ul class="country-list" role="listbox" tabindex="-1" aria-hidden="false">
+            <!-- Items populated by script -->
+          </ul>
+        </div>
       </div>
 
       <div class="top-right">
@@ -39,19 +46,19 @@
   <main class="page" role="main">
     <div class="login-wrap" aria-labelledby="login-heading">
       <div class="brand" aria-hidden="false">
-        <div class="sage-logo">Sage</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Sage-logo_svg.svg/2560px-Sage-logo_svg.svg.png" alt="Sage logo" class="sage-img">
         <div class="divider" aria-hidden="true"></div>
         <h1 id="login-heading">Accounting</h1>
       </div>
 
       <form id="loginForm" class="login-form" autocomplete="off" novalidate>
         <div class="input-row" title="Email">
-          <span class="icon" aria-hidden="true">✉</span>
+          <span class="icon icon-email" aria-hidden="true"></span>
           <input type="email" id="email" name="email" placeholder="Email Address" required>
         </div>
 
         <div class="input-row" title="Password">
-          <span class="icon" aria-hidden="true">🔒</span>
+          <span class="icon icon-lock" aria-hidden="true"></span>
           <input type="password" id="password" name="password" placeholder="Password" required>
         </div>
 
