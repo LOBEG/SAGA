@@ -1,9 +1,9 @@
 /* style.css
-   Small presentation tweaks only — no HTML or JS changes.
-   - Push the "New to Accounting?" block down a bit from the Login card.
-   - Make the login card slightly slimmer (reduce vertical footprint).
-   - Keep widths ("length") of inputs and button unchanged.
-   - Preserve all existing structure and functionality.
+   Targeted presentation changes only (no HTML/JS changes).
+   - Add a slightly larger gap between the login card and the "New to Accounting?" block.
+   - Increase the email & password input box sizes (height and padding) to match the screenshot.
+   - Reduce the visual size of the "Accounting" heading slightly ("reduce times 1" interpreted as a modest reduction).
+   All other layout, behavior and styles are preserved.
 */
 
 /* Basic reset and fonts (unchanged) */
@@ -93,7 +93,7 @@ body {
 }
 
 /* LOGIN WRAP
-   Slight upward nudge retained; overall width unchanged.
+   Keep previous width and upward nudge.
 */
 .login-wrap {
   width: 520px;
@@ -104,13 +104,15 @@ body {
   padding-bottom: 2px;
 }
 
-/* BRAND (logo/divider/accounting) */
+/* BRAND (logo/divider/accounting)
+   Slightly reduce Accounting size (reduce times 1 -> modest reduction).
+*/
 .brand {
   display:flex;
   align-items:center;
   justify-content:center;
   gap: 8px;
-  margin-bottom: 36px; /* space between brand and form */
+  margin-bottom: 36px;
 }
 
 .sage-img {
@@ -127,112 +129,113 @@ body {
   margin: 0 6px;
 }
 
-/* "Accounting" reduced darkness slightly (kept subtle) */
+/* Reduce Accounting text size a bit to satisfy "reduce times 1" */
 .brand h1 {
   margin: 0;
   font-weight: 400;
   color: #2b2b2b;
-  font-size: 30px;
+  font-size: 28px;    /* slightly reduced from 30px */
   letter-spacing: -0.3px;
   line-height: 1;
 }
 
 /* LOGIN FORM COLUMN
-   - Keep input/button widths the same (length preserved).
-   - Reduce overall vertical footprint of the card by decreasing padding, margins, and heights.
+   Preserve width (length) but increase input sizes and keep card slim overall.
 */
 .login-form {
   margin: 0 auto;
   width: 360px;
 }
 
-/* INPUT ROWS: make card slimmer by reducing padding & height further (slimmer x2 relative to earlier fuller state) */
+/* INPUT ROWS: increase size of email/password boxes (height and padding)
+   while keeping the login card visually slim overall.
+*/
 .input-row {
   display:flex;
   align-items:center;
   border-radius:3px;
   background:#fff;
   border:1px solid #ddd;
-  padding:6px 10px;     /* slim padding */
-  margin:6px 0;         /* tighter vertical spacing */
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-  height: 26px;         /* slimmed height */
+  padding:12px 14px;     /* increased vertical and horizontal padding for larger boxes */
+  margin:8px 0;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+  height:48px;           /* increased height to match screenshot box size */
 }
 
-/* Icon area scaled down to match slim inputs */
+/* Icon area adjusted to fit larger boxes */
 .input-row .icon {
-  margin-right:8px;
-  width:14px;
-  height:14px;
-  flex: 0 0 14px;
+  margin-right:12px;
+  width:20px;
+  height:20px;
+  flex: 0 0 20px;
   display:inline-block;
   background-position:center;
   background-repeat:no-repeat;
-  background-size:12px 12px;
+  background-size:18px 18px;
   opacity:0.95;
 }
 
 /* Envelope icon (email) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
 /* Lock icon (password) */
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* Input text styles compacted for slim appearance */
+/* Input text styles enlarged to match bigger boxes */
 .input-row input {
   border:0;
   outline:none;
   width:100%;
-  font-size:12px;   /* smaller font for slim inputs */
+  font-size:16px;   /* slightly larger for bigger boxes */
   color:#333;
   background:transparent;
   height:100%;
 }
 .input-row input::placeholder { color:#9b9b9b; }
 
-/* LINKS row: maintain original color but bolden slightly */
+/* LINKS row: keep alignment and make spacing consistent */
 .links {
   display:flex;
   justify-content:space-between;
   width:360px;
-  margin:6px auto 10px auto; /* moved a bit closer due to slimmer card */
+  margin:12px auto 14px auto;
   font-size:13px;
 }
 .links .small-link {
   color: #4a90e2;
-  font-weight: 600; /* visually darker while color unchanged */
+  font-weight: 600;
   text-decoration: none;
 }
 .links .small-link:hover { text-decoration: underline; }
 
-/* LOGIN BUTTON: slim height while preserving width */
+/* LOGIN BUTTON: keep width same but balanced with larger inputs (slim card overall kept) */
 .btn-login {
   display:block;
   width:360px;
-  margin:0 auto 8px auto; /* reduce bottom margin a bit */
+  margin:0 auto 12px auto;
   background:#2b66c7;
   color:#fff;
   border:none;
-  padding:6px 8px;
-  font-size:13px;
+  padding:10px 12px;
+  font-size:15px;
   border-radius:4px;
   cursor:pointer;
   font-weight:600;
-  height:28px;   /* slim */
+  height:40px;
 }
 .btn-login:hover { background:#2357a1; }
 
-/* SIGNUP / Demo area: push it down a bit from the card (user requested) */
+/* SIGNUP / Demo area: increase top margin to push it further down from login card */
 .signup {
   color:#666;
   font-size:13px;
   text-align:center;
   width:420px;
-  margin: 18px auto 0 auto; /* increased top margin to push it down from the card */
+  margin: 26px auto 0 auto; /* increased top margin to push further from card */
   line-height:1.4;
 }
 .signup a {
@@ -242,12 +245,12 @@ body {
 }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments for slim layout */
+/* Responsive adjustments */
 @media (max-width:900px) {
   .top-right { display:none; }
   .login-wrap { width:460px; transform: translateY(-8%); }
   .login-form, .btn-login, .links { width:340px; }
-  .sage-img { height:32px; }
+  .sage-img { height:36px; }
   .brand .divider { height:44px; }
 }
 @media (max-width:600px) {
