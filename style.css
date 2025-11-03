@@ -1,88 +1,317 @@
-/* Basic reset */
-*{box-sizing:border-box;margin:0;padding:0;font-family: "Helvetica Neue", Arial, sans-serif}
+/* style.css
+   Update: hide the browser vertical scrollbar and force the page to fit the viewport.
+   This removes the visible vertical scrollbar (overflow hidden) and keeps the page
+   content constrained to the viewport height so there is no vertical scrolling.
+   All other rules from the existing stylesheet are preserved unchanged.
+*/
 
-/* Cookie bar */
-.cookie-bar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  background:#042f3a;
-  color:#fff;
+/* Hide browser vertical scrollbar and force page to fit the viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* hide scrollbar and prevent vertical scrolling */
+  -webkit-overflow-scrolling: auto;
+}
+
+/* Ensure the main page area fills the viewport and centers content */
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  min-height: 100vh;
+  padding-top: 0;
+  box-sizing: border-box;
+}
+
+/* Basic reset and base font */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top header: visible and reduced height */
+.top-header {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: #35363a;
+  color: #fff;
+  z-index: 1200;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  font-size: 13px;
+}
+
+/* Header inner container */
+.top-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* keep center content centered (branding) */
+  padding: 0 14px;
+  position: relative;        /* anchor for absolute left/right controls */
+}
+
+/* LEFT controls (country control)
+   Moved further left by ~96px (12px * 8 or 48px × 2) using translateX so the branding
+   and login form remain unaffected. Only the transform value is changed here.
+*/
+.left-controls {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-96px); /* moved left ×2 from prior -48px -> -96px */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1210;
+}
+.country-label { color:#e6e6e6; font-size:13px; margin-right:6px; }
+.native-country-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #2f3437;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  min-width: 160px;
+}
+
+/* TOP-RIGHT (existing right shift preserved) */
+.top-right {
+  position: absolute;
+  right: 12px;                 /* keep original anchor */
+  top: 50%;
+  transform: translateY(-50%) translateX(108px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #d9d9d9;
+  font-size: 13px;
+  z-index: 1210;
+}
+.top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
+
+.cookie-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #1e4a5a;
+  color: #fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 18px;
-  border-bottom:4px solid rgba(255,255,255,0.06);
-  z-index:1000;
+  padding:12px 20px;
+  z-index:1300;
+  font-size:13px;
+  line-height:1.4;
 }
-.cookie-bar .cookie-text{font-size:13px;line-height:1.2;max-width:calc(100% - 160px);opacity:0.95}
-.cookie-bar .cookie-text a.privacy{color:#cfeef7;text-decoration:underline}
-.cookie-bar .cookie-accept{
-  background:transparent;
-  color:#fff;
-  border:2px solid rgba(255,255,255,0.25);
-  padding:6px 14px;
-  border-radius:2px;
-  cursor:pointer;
-  font-weight:600;
+.cookie-bar .cookie-text { flex:1; margin-right:20px; }
+.cookie-bar .cookie-text a.privacy { color:#87ceeb; text-decoration: underline; }
+.cookie-bar .cookie-accept {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  white-space: nowrap;
 }
+.cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.06); }
 
-/* Page background like screenshot */
-body{background:linear-gradient(#e9ecef, #dfe5e7); min-height:100vh}
-
-/* Center box */
-.page{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding-top:50px; /* leave space for cookie bar */
-}
-
-/* Login box area */
-.login-wrap{width:420px; max-width:90%; text-align:center;}
-
-/* Brand */
-.brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.logo{width:80px;height:auto}
-.brand h1{margin-left:16px;font-weight:400;color:#222;font-size:32px}
-.brand .divider{width:1px;height:44px;background:#ccc;margin:0 16px}
-
-/* Form styles */
-.login-form{background:transparent}
-.input-row{display:flex;align-items:center;border-radius:4px;background:#fff;border:1px solid #e1e1e1;padding:10px 12px;margin:10px 0;box-shadow:0 1px 0 rgba(0,0,0,0.03)}
-.input-row .icon{color:#9aa1a6;margin-right:10px;min-width:18px;text-align:center;font-size:16px}
-.input-row input{border:0;outline:none;width:100%;font-size:15px;color:#333}
-.input-row input::placeholder{color:#b7b7b7;font-style:italic}
-
-/* Links row */
-.links{display:flex;justify-content:space-between;margin-top:6px;margin-bottom:12px;font-size:13px}
-.small-link{color:#2a56a8;text-decoration:none}
-.small-link.right{float:right}
-
-/* Login button */
-.btn-login{
-  display:block;
-  width:100%;
-  background:#1f63d6;
-  color:#fff;
-  border:none;
-  padding:10px 14px;
-  font-size:16px;
-  border-radius:4px;
-  cursor:pointer;
-  font-weight:700;
-  margin-bottom:18px;
-  box-shadow:0 1px 0 rgba(0,0,0,0.15);
+body {
+  background: #e8eaeb;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-left: 0;
 }
 
-/* Signup small info */
-.signup{color:#6d6d6d;font-size:13px;text-align:center}
+/* Login wrap (unchanged) */
+.login-wrap {
+  width: 520px;
+  max-width: 92%;
+  text-align: center;
+  transform: translate(0px, -20%);
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
 
-/* Responsive tweaks */
-@media (max-width:480px){
-  .cookie-bar .cookie-text{display:none}
-  .login-wrap{padding:0 12px}
-  .brand h1{font-size:22px}
+/* Brand area */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.sage-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  margin: 0;
+}
+.brand .divider {
+  width: 1px;
+  height: 48px;
+  background: #999;
+  margin: 0 6px;
+}
+.brand h1 {
+  margin: 0;
+  font-weight: 400;
+  color: #2b2b2b;
+  font-size: 24px;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+
+/* Login form (unchanged) */
+.login-form {
+  margin: 48px auto 0 auto;
+  width: 360px;
+}
+
+/* Input rows (unchanged per user instruction) */
+.input-row {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 12px;
+  margin: 6px 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
+  height: 40px;
+  overflow: visible;
+}
+
+.input-row .icon {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  opacity: 0.95;
+}
+
+.icon-email {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2674096_object_email_web_essential_icon.svg/640px-2674096_object_email_web_essential_icon.svg.png");
+}
+.icon-lock {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Lock_Icon.svg/640px-Lock_Icon.svg.png");
+}
+
+/* Input element (unchanged) */
+.input-row input {
+  box-sizing: border-box;
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1f1f1f;
+  font-weight: 600;
+  padding: 6px 0;
+  height: 100%;
+  min-height: 0;
+  text-align: left;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  unicode-bidi: isolate;
+}
+
+.input-row input::placeholder {
+  color: #7d7d7d;
+  opacity: 1;
+  font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+}
+
+/* Links and button (unchanged) */
+.links {
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+  margin: 8px auto 10px auto;
+  font-size: 13px;
+}
+.links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
+.links .small-link:hover { text-decoration: underline; }
+
+.btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 360px;
+  margin: 0 auto 10px auto;
+  background: #2b66c7;
+  color: #fff;
+  border: none;
+  padding: 0 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  height: 24px;
+  line-height: normal;
+  text-align: center;
+}
+.btn-login:hover { background: #2357a1; }
+
+.signup {
+  color: #666;
+  font-size: 13px;
+  text-align: center;
+  width: 420px;
+  margin: 26px auto 0 auto;
+  line-height: 1.4;
+}
+.signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
+.signup a:hover { text-decoration: underline; }
+
+/* Responsive adjustments
+   Reduce the header translation on smaller screens so the right-side content does not overflow.
+*/
+@media (max-width: 900px) {
+  .top-right { transform: translateY(-50%) translateX(48px); } /* tablet: scaled down */
+  .top-right { display: none; } /* hide top-right to match earlier responsive behavior */
+  .login-wrap { width: 460px; transform: translate(0px, -18%); }
+  .login-form, .btn-login, .links { width: 340px; }
+  .input-row { height: 40px; padding: 12px 10px; }
+  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 20px; }
+  .btn-login { height: 24px; line-height: normal; width: 340px; display: flex; align-items: center; justify-content: center; }
+  .signup { width: 340px; margin-top: 20px; }
+}
+@media (max-width: 600px) {
+  .top-right { transform: translateY(-50%) translateX(24px); } /* phone: scaled down */
+  .brand h1, .sage-img { font-size: 20px; height: auto; }
+  .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
+  .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
+  .input-row { height: 44px; padding: 12px 10px; }
+  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 20px; }
+  .btn-login { height: 32px; line-height: normal; display: flex; align-items: center; justify-content: center; }
+  .signup { margin-top: 22px; width: 100%; }
 }

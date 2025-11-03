@@ -4,45 +4,69 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sage Accounting - Login</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:,">
+
+  <!-- Load Lato from Google Fonts (added as requested so the input text renders exactly like the screenshot) -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Favicon (browser tab icon) updated as requested -->
+  <link rel="icon" href="https://miro.medium.com/v2/resize:fit:647/1*nIWWGyq5V5t6yuL8tySaDQ.png" type="image/png">
+  <link rel="shortcut icon" href="https://miro.medium.com/v2/resize:fit:647/1*nIWWGyq5V5t6yuL8tySaDQ.png">
 </head>
 <body>
-  <div class="cookie-bar">
+  <header class="top-header" aria-hidden="true">
+    <div class="top-header-inner">
+      <div class="left-controls">
+        <label for="countrySelect" class="country-label">Country:</label>
+        <!-- Native select to match original screenshot (image 2). Options populated by script.js -->
+        <select id="countrySelect" class="native-country-select" aria-label="Select country">
+          <option>South Africa</option>
+        </select>
+      </div>
+
+      <div class="top-right">
+        <a href="#" class="sign-up">Sign Up</a>
+        <span class="sales">Sales Enquiries: ☎ +27 11 304 3333</span>
+        <span class="support">Support Queries: ☎ +27 86 123 7243 (SAGE)</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="cookie-bar" role="region" aria-label="Cookie banner">
     <div class="cookie-text">
       We use cookies on our website to provide you with the best experience. If you continue browsing, you are consenting to our use of these cookies, but if you would like to know more, including how you can change your settings, take a look at our
       <a href="#" class="privacy">Privacy Policy</a>
     </div>
-    <button class="cookie-accept">Accept &amp; Close</button>
+    <button class="cookie-accept" aria-label="Accept cookies">Accept & Close</button>
   </div>
 
-  <main class="page">
-    <div class="login-wrap">
-      <div class="brand">
-        <img src="assets/sage-logo-green.svg" alt="Sage logo" class="logo">
-        <div class="divider"></div>
-        <h1>Accounting</h1>
+  <main class="page" role="main">
+    <div class="login-wrap" aria-labelledby="login-heading">
+      <div class="brand" aria-hidden="false">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Sage-logo_svg.svg/2560px-Sage-logo_svg.svg.png" alt="Sage logo" class="sage-img">
+        <div class="divider" aria-hidden="true"></div>
+        <h1 id="login-heading">Accounting</h1>
       </div>
 
-      <form id="loginForm" class="login-form" autocomplete="off">
-        <div class="input-row">
-          <span class="icon">✉</span>
+      <form id="loginForm" class="login-form" autocomplete="off" novalidate>
+        <div class="input-row" title="Email">
+          <span class="icon icon-email" aria-hidden="true"></span>
           <input type="email" id="email" name="email" placeholder="Email Address" required>
         </div>
 
-        <div class="input-row">
-          <span class="icon">🔒</span>
+        <div class="input-row" title="Password">
+          <span class="icon icon-lock" aria-hidden="true"></span>
           <input type="password" id="password" name="password" placeholder="Password" required>
         </div>
 
-        <div class="links">
+        <div class="links" aria-hidden="false">
           <a href="#" class="small-link">Forgot your password?</a>
           <a href="#" class="small-link right">Problems logging in?</a>
         </div>
 
         <button type="submit" class="btn-login">Login</button>
 
-        <div class="signup">
+        <div class="signup" aria-hidden="false">
           <strong>New to Accounting?</strong><br>
           <small>
             Sign up as a <a href="#">User</a> | Sign up as an <a href="#">Adviser</a> | Explore the <a href="#">Demo Company</a>
