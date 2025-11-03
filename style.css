@@ -1,16 +1,9 @@
 /* style.css
-   Adjusted per request:
-   - Reduced the "stretched" visual width a bit to make the login card less wide.
-   - Ensured the "Login" button label is vertically centered inside the button and
-     not touching the bottom of the card.
-   - Ensured the Email and Password input text is vertically centered inside their boxes
-     (avoid clipping/touching bottom).
-   - Kept all structure, markup and scripts untouched. Only presentational CSS updated.
-   Notes:
-   - I reduced the login-wrap/login-form/button widths moderately from the previous
-     stretched values so the card is less "stretched".
-   - I adjusted input-row height/padding and input line-height so text sits centered.
-   - I adjusted the button height/line-height and padding so the label is vertically centered.
+   Updated per request:
+   - Reduce the email and password input boxes slightly ("times 1" smaller).
+   - Make the login card slimmer ("times 1" less wide / vertically tighter).
+   - Fix the Login button text so it is vertically centered and no longer touches the bottom.
+   - Preserve structure and other styles; only presentational values updated.
 */
 
 /* Basic reset and base font */
@@ -21,7 +14,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: visible and reduced height to match screenshot */
+/* Top header (unchanged behavior/layout) */
 .top-header {
   display: block;
   position: fixed;
@@ -36,7 +29,6 @@
   font-size: 13px;
 }
 
-/* Header inner container */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -48,7 +40,7 @@
   position: relative;
 }
 
-/* Left controls positioned to left edge */
+/* LEFT controls (country select) */
 .left-controls {
   position: absolute;
   left: 12px;
@@ -73,7 +65,7 @@
   min-width: 160px;
 }
 
-/* Top-right anchored to the right */
+/* RIGHT controls (top-right) */
 .top-right {
   position: absolute;
   right: 12px;
@@ -88,7 +80,7 @@
 }
 .top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
-/* Cookie bar */
+/* Cookie bar (unchanged) */
 .cookie-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -126,7 +118,7 @@ body {
   padding-left: 0;
 }
 
-/* Page centering wrapper */
+/* Centering wrapper for the login area */
 .page {
   display: flex;
   align-items: center;
@@ -135,26 +127,26 @@ body {
   padding-top: 0;
 }
 
-/* -------------------------------------------------------------------------
-   LOGIN WRAP - reduced stretch a bit (less wide than previously stretched)
-   - width decreased so card is less stretched visually.
-   ------------------------------------------------------------------------- */
+/* ----------------------
+   LOGIN WRAP: make slimmer (reduced stretch)
+   - Reduce width (less stretched) and slightly reduce upward offset
+   ---------------------- */
 .login-wrap {
-  width: 600px;           /* reduced from 640px to 600px to soften stretch */
-  max-width: 94%;
+  width: 540px;              /* reduced from 600 to 540 to be slimmer */
+  max-width: 92%;
   text-align: center;
-  transform: translate(0px, -24%); /* preserve upward offset used previously */
+  transform: translate(0px, -20%); /* slightly less upward offset than before */
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand area (Sage + divider + Accounting) */
+/* Brand area */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 36px;
+  margin-bottom: 32px; /* slightly tightened */
 }
 .sage-img {
   height: 40px;
@@ -177,55 +169,56 @@ body {
   line-height: 1;
 }
 
-/* -------------------------------------------------------------------------
-   LOGIN FORM STRETCH ADJUSTED
-   - Slightly narrower than prior stretch but wider than original.
-   ------------------------------------------------------------------------- */
+/* ----------------------
+   LOGIN FORM: slimmer card width
+   - Reduce the form width so the card appears slimmer horizontally
+   ---------------------- */
 .login-form {
   margin: 0 auto;
-  width: 480px;  /* reduced from 520px to 480px to reduce stretch */
+  width: 420px; /* reduced from 480 to 420 */
 }
 
-/* Input rows and icons
-   - Keep inputs slightly larger than original but adjust so text is vertically centered.
-*/
+/* ----------------------
+   INPUT ROWS: reduce input size slightly (not too big)
+   - Decrease height and padding; keep icons balanced
+   - Ensure text is vertically centered (line-height + padding)
+   ---------------------- */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #ddd;
-  padding: 12px 14px;
-  margin: 8px 0;
+  padding: 8px 12px;    /* reduced padding */
+  margin: 6px 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
 
-  /* modestly reduced from 44px to 40px to reduce stretch "tallness" */
-  height: 40px;
+  height: 32px;         /* reduced from 40px/44px down to 32px */
   overflow: visible;
 }
 
-/* icon sizing balanced with input height */
+/* icon sizing adjusted to match smaller input */
 .input-row .icon {
-  margin-right: 12px;
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
   display: inline-block;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 18px 18px;
+  background-size: 16px 16px;
   opacity: 0.95;
 }
 
-/* icons inline SVG preserved */
+/* inline SVG icons (preserved content) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* INPUT ELEMENTS: ensure text is vertically centered and spacing prevents touching bottom */
+/* INPUT element: ensure vertical centering so text doesn't touch bottom */
 .input-row input {
   box-sizing: border-box;
   border: 0;
@@ -233,93 +226,104 @@ body {
   width: 100%;
 
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
-  font-size: 15px;         /* kept at the slightly larger size used for stretch */
-  line-height: 21px;       /* slightly larger line-height to center text vertically */
+  font-size: 14px;        /* keep readable size */
+  line-height: 18px;      /* slightly increased to center vertically in smaller box */
   color: #1f1f1f;
   font-weight: 600;
 
-  /* vertical centering: use padding + line-height; do not change height of input-row */
-  padding: 8px 0;          /* adequate top and bottom padding to avoid clipping */
+  /* vertical padding tuned to center text */
+  padding: 6px 0;         /* small top/bottom padding */
   height: 100%;
   min-height: 0;
 
-  /* keep text-left for natural reading */
+  /* keep left-aligned so icons and text align naturally */
   text-align: left;
+
+  /* rendering hints preserved */
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  unicode-bidi: isolate;
 }
 
-/* Placeholder keeps same metrics */
 .input-row input::placeholder {
   color: #7d7d7d;
   opacity: 1;
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 21px;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: left;
 }
 
-/* Links row width adjusted to match new form width */
+/* ----------------------
+   LINKS row: width adjusted to match slimmer form
+   ---------------------- */
 .links {
   display: flex;
   justify-content: space-between;
-  width: 480px; /* match .login-form width */
-  margin: 10px auto 12px auto;
+  width: 420px; /* match .login-form width */
+  margin: 8px auto 10px auto;
   font-size: 13px;
 }
 .links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .links .small-link:hover { text-decoration: underline; }
 
-/* LOGIN BUTTON: ensure label is centered vertically and not touching bottom */
+/* ----------------------
+   LOGIN BUTTON: center vertically and ensure label not touching bottom
+   - Use height + line-height so label centers cleanly
+   ---------------------- */
 .btn-login {
   display: block;
-  width: 480px;            /* match .login-form width */
+  width: 420px;            /* match .login-form width */
   margin: 0 auto 12px auto;
   background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 8px 12px;
-  font-size: 15px;
+  padding: 6px 8px;
+  font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
 
-  /* bumped height and line-height to vertically center label comfortably */
-  height: 36px;
-  line-height: 36px;
+  height: 34px;            /* set height */
+  line-height: 34px;       /* match line-height to height to vertically center text */
   text-align: center;
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup area width aligned with new form width; keep previous vertical offset */
+/* ----------------------
+   SIGNUP area: keep reasonable space below card (unchanged or slightly adjusted)
+   ---------------------- */
 .signup {
   color: #666;
   font-size: 13px;
   text-align: center;
-  width: 480px;
-  margin: 36px auto 0 auto;
+  width: 420px;
+  margin: 30px auto 0 auto; /* slightly closer than previously but clearly separated */
   line-height: 1.4;
 }
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments: reduce widths for smaller screens for usability */
-@media (max-width: 1100px) {
-  .login-wrap { width: 92%; transform: translate(0px, -22%); }
-  .login-form, .links, .btn-login, .signup { width: 480px; max-width: 92%; }
-}
+/* Responsive adjustments: ensure slimmer widths on smaller screens */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .login-wrap { width: 92%; transform: translate(0px, -18%); }
-  .login-form, .btn-login, .links, .signup { width: 420px; max-width: 92%; }
-  .input-row { height: 42px; padding: 10px 12px; }
-  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
-  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 19px; }
-  .btn-login { height: 34px; line-height: 34px; }
+  .login-form, .btn-login, .links { width: 360px; }
+  .input-row { height: 36px; padding: 8px 10px; }
+  .input-row .icon { width: 16px; height: 16px; flex: 0 0 16px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 18px; }
+  .btn-login { height: 32px; line-height: 32px; width: 360px; }
+  .signup { width: 360px; margin-top: 24px; }
 }
 @media (max-width: 600px) {
   .brand h1, .sage-img { font-size: 28px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
-  .input-row { height: 44px; padding: 12px 10px; }
-  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
-  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 19px; }
+  .input-row { height: 42px; padding: 10px 10px; }
+  .input-row .icon { width: 16px; height: 16px; flex: 0 0 16px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 18px; }
+  .btn-login { height: 36px; line-height: 36px; }
   .signup { margin-top: 22px; width: 100%; }
 }
