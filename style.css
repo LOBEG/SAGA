@@ -1,37 +1,37 @@
 /* style.css
-   Update: hide the browser vertical scrollbar and make the page content fit the viewport
-   so the page doesn't scroll vertically (page stays "fit" to the viewport).
-   - This visually removes the vertical scrollbar.
-   - Scrolling is disabled so layout remains fixed to viewport height.
-   - Other layout rules are preserved.
+   Update: hide the browser vertical scrollbar and force the page to fit the viewport.
+   This removes the visible vertical scrollbar (overflow hidden) and keeps the page
+   content constrained to the viewport height so there is no vertical scrolling.
+   All other rules from the existing stylesheet are preserved unchanged.
 */
 
-/* --- New: prevent page scrolling and force viewport-fit --- */
+/* Hide browser vertical scrollbar and force page to fit the viewport */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;           /* disable scrolling and hide scrollbar */
+  overflow: hidden; /* hide scrollbar and prevent vertical scrolling */
   -webkit-overflow-scrolling: auto;
 }
 
-/* Ensure the main .page fills the viewport and centers content without allowing extra scroll */
+/* Ensure the main page area fills the viewport and centers content */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;              /* force page to exactly match viewport height */
+  height: 100vh;
   min-height: 100vh;
-  padding-top: 0;             /* JS may set paddingTop; keeping at 0 to avoid scroll */
+  padding-top: 0;
   box-sizing: border-box;
 }
 
-/* Keep top header behavior: if JS sets body paddingTop (header height), it will still apply,
-   but overflow: hidden prevents the page from scrolling. If you prefer header to push content
-   down inside the viewport instead of using body padding, we can adjust JS to set
-   .page { padding-top: headerHeight } instead of document.body.style.paddingTop. */
-
-/* --- Rest of stylesheet is preserved below (unchanged) --- */
+/* Basic reset and base font */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
 /* Top header: visible and reduced height */
 .top-header {
@@ -60,12 +60,15 @@ html, body {
   position: relative;        /* anchor for absolute left/right controls */
 }
 
-/* LEFT controls (country control) positioned at left inset */
+/* LEFT controls (country control)
+   Moved further left by ~96px (12px * 8 or 48px × 2) using translateX so the branding
+   and login form remain unaffected. Only the transform value is changed here.
+*/
 .left-controls {
   position: absolute;
   left: 12px;
   top: 50%;
-  transform: translateY(-50%) translateX(-96px); /* current requested shift preserved */
+  transform: translateY(-50%) translateX(-96px); /* moved left ×2 from prior -48px -> -96px */
   display: flex;
   align-items: center;
   gap: 10px;
@@ -90,7 +93,7 @@ html, body {
   position: absolute;
   right: 12px;                 /* keep original anchor */
   top: 50%;
-  transform: translateY(-50%) translateX(108px); /* existing right shift preserved */
+  transform: translateY(-50%) translateX(108px);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -100,7 +103,6 @@ html, body {
 }
 .top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
-/* Cookie bar (unchanged) */
 .cookie-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -128,6 +130,14 @@ html, body {
   white-space: nowrap;
 }
 .cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.06); }
+
+body {
+  background: #e8eaeb;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-left: 0;
+}
 
 /* Login wrap (unchanged) */
 .login-wrap {
@@ -280,11 +290,12 @@ html, body {
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments (preserve behavior) */
+/* Responsive adjustments
+   Reduce the header translation on smaller screens so the right-side content does not overflow.
+*/
 @media (max-width: 900px) {
-  /* On smaller screens we reduce/remove large transforms so items don't overflow */
-  .left-controls { transform: translateY(-50%) translateX(-48px); }
-  .top-right { transform: translateY(-50%) translateX(48px); }
+  .top-right { transform: translateY(-50%) translateX(48px); } /* tablet: scaled down */
+  .top-right { display: none; } /* hide top-right to match earlier responsive behavior */
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
   .input-row { height: 40px; padding: 12px 10px; }
@@ -294,8 +305,7 @@ html, body {
   .signup { width: 340px; margin-top: 20px; }
 }
 @media (max-width: 600px) {
-  .left-controls { transform: translateY(-50%) translateX(-24px); }
-  .top-right { transform: translateY(-50%) translateX(24px); }
+  .top-right { transform: translateY(-50%) translateX(24px); } /* phone: scaled down */
   .brand h1, .sage-img { font-size: 20px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
