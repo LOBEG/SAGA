@@ -1,15 +1,9 @@
 /* style.css
-   Updated per user request:
-   - Replaced the email and password icons with the provided PNG URLs.
-   - Reverted the login card visuals (the card container and its internal widths/heights)
-     back to the earlier state (preserved features/spacing) — only the minimal
-     input typography tweaks from the last approved change remain (Lato font loaded
-     via the HTML update you accepted earlier).
-   - Increased input vertical room earlier was requested, but the user asked to
-     revert the login card itself; so .login-form, .input-row, .links, .btn-login,
-     .signup are restored to the prior stable values: login-form width 360px,
-     input-row height 34px, input paddings, button width/height etc.
-   - No HTML or JS changes performed here.
+   Minor focused update:
+   - Vertically center the "Login" button text inside the card by using flexbox
+     on the button so the label no longer touches the bottom.
+   - Per your request, the email and password boxes were NOT changed.
+   - All other rules preserved as in the last accepted stylesheet state.
 */
 
 /* Basic reset and base font */
@@ -132,20 +126,17 @@ body {
   padding-top: 0;
 }
 
-/* LOGIN WRAP
-   NOTE: the user requested to revert the login card to its prior state.
-   The layout around it (header, transforms) remains as before.
-*/
+/* Login wrap (positioning preserved) */
 .login-wrap {
   width: 520px;
   max-width: 92%;
   text-align: center;
-  transform: translate(0px, -20%); /* kept recent placement but card internals restored */
+  transform: translate(0px, -20%);
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand area - user asked earlier to reduce Accounting text; keep that smaller size */
+/* Brand area */
 .brand {
   display: flex;
   align-items: center;
@@ -169,44 +160,31 @@ body {
   margin: 0;
   font-weight: 400;
   color: #2b2b2b;
-  font-size: 24px; /* reduced earlier per user request; preserved */
+  font-size: 24px;
   letter-spacing: -0.3px;
   line-height: 1;
 }
 
-/* ---------------------
-   LOGIN FORM (REVERTED)
-   Restored to the earlier stable values the user wanted preserved:
-   - width 360px (original card width)
-   - inputs height/padding set back to a balanced value (34px)
-   - button width/height back to previous
-   - links/sign-up widths matching the card
-   --------------------- */
+/* Login form (restored card width) */
 .login-form {
   margin: 0 auto;
-  width: 360px; /* reverted card inner width */
+  width: 360px;
 }
 
-/* INPUT ROWS (reverted sizes for the login card)
-   - height: 34px (restored)
-   - padding: 10px 12px (restored)
-   - icons matched to 16px
-*/
+/* Input rows: left untouched per your last instruction (these are the restored values) */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #ddd;
-  padding: 10px 12px;   /* restored */
+  padding: 10px 12px;
   margin: 6px 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-
-  height: 34px;         /* restored */
+  height: 34px;
   overflow: visible;
 }
 
-/* Replace icon backgrounds with user-provided PNG URLs (explicit external images) */
 .input-row .icon {
   margin-right: 10px;
   width: 16px;
@@ -219,40 +197,29 @@ body {
   opacity: 0.95;
 }
 
-/* Email icon: use provided PNG URL */
+/* Use the user-provided PNG icons (already applied) */
 .icon-email {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2674096_object_email_web_essential_icon.svg/640px-2674096_object_email_web_essential_icon.svg.png");
 }
-
-/* Password icon: use provided PNG URL */
 .icon-lock {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Lock_Icon.svg/640px-Lock_Icon.svg.png");
 }
 
-/* INPUT ELEMENT (typography and vertical centering)
-   - Keep the Lato font stack already loaded in index.html.
-   - Slightly increased vertical room earlier was requested; keep text vertically centered.
-   - Width remains 100% so inputs fill the restored card width.
-*/
+/* Input element (left unchanged in sizing/spacing per your instruction) */
 .input-row input {
   box-sizing: border-box;
   border: 0;
   outline: none;
   width: 100%;
-
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
   font-size: 14px;
   line-height: 19px;
   color: #1f1f1f;
   font-weight: 600;
-
-  /* center text vertically using padding and line-height inside restored height */
   padding: 6px 0;
   height: 100%;
   min-height: 0;
-
   text-align: left;
-
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -260,7 +227,6 @@ body {
   unicode-bidi: isolate;
 }
 
-/* Placeholder styling kept consistent */
 .input-row input::placeholder {
   color: #7d7d7d;
   opacity: 1;
@@ -270,49 +236,55 @@ body {
   text-align: left;
 }
 
-/* LINKS and button widths restored to match the reverted card width */
+/* Links restored width */
 .links {
   display: flex;
   justify-content: space-between;
-  width: 360px; /* restored */
+  width: 360px;
   margin: 8px auto 10px auto;
   font-size: 13px;
 }
 .links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .links .small-link:hover { text-decoration: underline; }
 
+/* LOGIN BUTTON: fix the vertical alignment of the "Login" text
+   - Use flexbox to ensure the label is perfectly centered vertically and horizontally
+   - Preserve the button's size (width/height) so the card remains untouched
+*/
 .btn-login {
-  display: block;
-  width: 360px; /* restored */
+  display: flex;               /* switch to flex for robust centering */
+  align-items: center;         /* vertical center */
+  justify-content: center;     /* horizontal center */
+  width: 360px;                /* restored width */
   margin: 0 auto 10px auto;
   background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 6px 8px;
+  padding: 0 8px;              /* keep vertical padding minimal to preserve height */
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
 
-  height: 24px;       /* restored */
-  line-height: 24px;  /* match to vertically center label */
+  height: 24px;                /* restored height */
+  line-height: normal;         /* don't rely on line-height for centering when using flex */
   text-align: center;
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup area restored width */
+/* Signup area (restored) */
 .signup {
   color: #666;
   font-size: 13px;
   text-align: center;
-  width: 420px; /* kept a slightly wider container so signup links have room */
+  width: 420px;
   margin: 26px auto 0 auto;
   line-height: 1.4;
 }
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments (kept consistent with reverted card sizes) */
+/* Responsive adjustments (restored) */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
@@ -320,7 +292,7 @@ body {
   .input-row { height: 34px; padding: 10px 10px; }
   .input-row .icon { width: 16px; height: 16px; flex: 0 0 16px; }
   .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 19px; }
-  .btn-login { height: 24px; line-height: 24px; width: 340px; }
+  .btn-login { height: 24px; line-height: normal; width: 340px; display: flex; align-items: center; justify-content: center; }
   .signup { width: 340px; margin-top: 20px; }
 }
 @media (max-width: 600px) {
@@ -330,6 +302,6 @@ body {
   .input-row { height: 38px; padding: 8px 10px; }
   .input-row .icon { width: 14px; height: 14px; flex: 0 0 14px; }
   .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 18px; }
-  .btn-login { height: 32px; line-height: 32px; }
+  .btn-login { height: 32px; line-height: normal; display: flex; align-items: center; justify-content: center; }
   .signup { margin-top: 22px; width: 100%; }
 }
