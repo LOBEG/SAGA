@@ -1,8 +1,9 @@
 /* style.css
    Focused update:
-   - Increase the vertical gap between the brand (Sage + Accounting) and the login form.
-   - This is done by increasing the top margin of .login-form (pushed down further).
-   - All other rules and features are left untouched.
+   - Increased the vertical gap between the brand (Sage + Accounting) and the login form.
+     The top margin on .login-form was doubled (times 2) so the gap is clearly more obvious.
+   - All other rules and features are preserved exactly as in the last accepted stylesheet state.
+   - No HTML or JS changes were made.
 */
 
 /* Basic reset and base font */
@@ -164,12 +165,12 @@ body {
   line-height: 1;
 }
 
-/* Login form (moved down further to create a larger gap from the brand)
-   Increased the top margin to add more gap (times 1 more).
-   Everything inside the login card remains untouched as requested.
+/* Login form (moved down further to create a clearly larger gap from the brand)
+   Previously the top margin of .login-form was 24px. We doubled that to 48px
+   to satisfy "more spacing times 2". Everything inside the login card remains untouched.
 */
 .login-form {
-  margin: 24px auto 0 auto; /* increased from 12px to 24px to add more gap */
+  margin: 48px auto 0 auto; /* increased from 24px to 48px (times 2) */
   width: 360px;
 }
 
