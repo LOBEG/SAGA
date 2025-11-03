@@ -1,14 +1,14 @@
 /* style.css
-   Updated: move the Sage/Accounting brand, login form and all login-related content
-   up and to the left as requested. No structure/content changes — purely presentation.
-   - Moved the whole .login-wrap up slightly more and shifted it left relative to
-     the previous position.
-   - Preserved all other rules and visual adjustments from the prior stylesheet.
+   Updated per request:
+   - Slightly increase the visible area of the Email and Password input boxes
+     (not too big) while leaving the login card (layout, width and transform)
+     unchanged.
+   - Move the "New to Accounting? Sign up..." block down a bit (increase vertical
+     gap from the login card) by a modest step.
+   - No HTML/JS changes. Only presentation tweaks below; other rules preserved.
 */
 
-/* Basic reset and base font
-   Keep the app-wide base font as before; inputs override font-family where requested.
-*/
+/* Basic reset and base font */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,14 +16,14 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: visible and reduced height to match screenshot */
+/* Top header: visible and reduced height */
 .top-header {
-  display: block;                  /* ensure header is visible (matches screenshot) */
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;                    /* reduced height for slimmer header */
+  height: 40px;
   background: #35363a;
   color: #fff;
   z-index: 1200;
@@ -31,27 +31,22 @@
   font-size: 13px;
 }
 
-/* Header inner container:
-   - The main content is centered using justify-content:center.
-   - left-controls and top-right are positioned absolutely relative to this container
-     so they don't affect centering of the middle content.
-*/
+/* Header inner container */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;   /* center the header's middle content exactly */
+  justify-content: center;
   padding: 0 14px;
-  position: relative;        /* anchor for absolute left/right controls */
+  position: relative;
 }
 
-/* LEFT controls (country control) positioned exactly at the left inset,
-   vertically centered in the header. Keeps a small gap from viewport edge. */
+/* Left controls positioned to left edge */
 .left-controls {
   position: absolute;
-  left: 12px;                 /* small inset from the viewport edge */
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -73,11 +68,10 @@
   min-width: 160px;
 }
 
-/* RIGHT controls (top-right) positioned exactly at the right inset,
-   vertically centered in the header. */
+/* Top-right anchored to the right */
 .top-right {
   position: absolute;
-  right: 12px;                /* small inset from the viewport edge */
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -89,7 +83,7 @@
 }
 .top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
-/* Cookie bar (unchanged above header behavior) */
+/* Cookie bar */
 .cookie-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -127,7 +121,7 @@ body {
   padding-left: 0;
 }
 
-/* Centering wrapper for the login area */
+/* Page centering wrapper */
 .page {
   display: flex;
   align-items: center;
@@ -136,22 +130,17 @@ body {
   padding-top: 0;
 }
 
-/* Login wrapper moved up and left as requested.
-   Previous transform: translate(72px, -12%).
-   - "move up times 1": we increase the upward offset (more negative).
-   - "shift to the left times 1": we negate the previous right offset.
-   Resulting transform moves the whole login block upward and left, preserving layout.
-*/
+/* LOGIN WRAP - preserved placement and transform (unchanged) */
 .login-wrap {
   width: 520px;
   max-width: 92%;
   text-align: center;
-  transform: translate(0px, -24%); /* moved left (0 instead of +72px) and up more (-24%) */
+  transform: translate(0px, -24%); /* keep the last applied positioning */
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand area (Sage + divider + Accounting) */
+/* Brand area */
 .brand {
   display: flex;
   align-items: center;
@@ -180,46 +169,57 @@ body {
   line-height: 1;
 }
 
-/* Login form column (width preserved) */
+/* Login form column (unchanged width) */
 .login-form {
   margin: 0 auto;
   width: 360px;
 }
 
-/* Input rows and icons (slightly enlarged to avoid clipping) */
+/* ------------------------------------------------------------------
+   INPUT ROWS - slightly increase the input box size (not too big)
+   - We only adjust the input-row height/padding and icon size so the
+     Email and Password boxes show texts in full.
+   - We DO NOT change the login card (.login-form/.login-wrap) size or transform.
+   ------------------------------------------------------------------ */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #ddd;
-  padding: 10px 12px;
+  /* slightly increased vertical padding for a bit more room */
+  padding: 12px 12px;
   margin: 6px 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-  height: 34px;
+  height: 40px; /* modest increase from 34px to 40px */
   overflow: visible;
 }
+
 .input-row .icon {
   margin-right: 10px;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: 18px;  /* slightly larger to sit visually balanced inside taller box */
+  height: 18px;
+  flex: 0 0 18px;
   display: inline-block;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 16px 16px;
+  background-size: 18px 18px;
   opacity: 0.95;
 }
+
+/* inline svg icons updated size (data URIs preserved; only visual size changed) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* INPUT typography: implement requested font stack and typographic metrics
-   Only input typography and placeholder adjusted; everything else untouched.
-*/
+/* ------------------------------------------------------------------
+   INPUT ELEMENT (typography preserved) - ensure text is fully visible
+   - Keep font-family and typographic values as requested earlier.
+   - Do NOT change width of input (remains 100% of card input width).
+   ------------------------------------------------------------------ */
 .input-row input {
   box-sizing: border-box;
   border: 0;
@@ -233,22 +233,27 @@ body {
   font-size: 14px;
   line-height: 19px;
 
-  /* darkened text and slightly stronger weight (as requested) */
+  /* visual weight and color */
   color: #1f1f1f;
   font-weight: 600;
 
-  /* rendering and accessibility hints */
+  /* rendering hints */
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
   unicode-bidi: isolate;
 
-  /* keep internal padding small so box size isn't expanded */
-  padding: 6px 0;
+  /* small vertical padding retained; height is governed by .input-row */
+  padding: 8px 0; /* slightly increased internal padding to match taller box */
   height: 100%;
   min-height: 0;
+
+  /* centered text horizontally in prior step? kept default left alignment so icons align.
+     If you want centered text instead, set text-align:center here. */
+  text-align: left;
 }
+
 .input-row input::placeholder {
   color: #7d7d7d;
   opacity: 1;
@@ -257,7 +262,7 @@ body {
   line-height: 19px;
 }
 
-/* Links row (forgot password / problems) */
+/* Links row (forgot password / problems) unchanged */
 .links {
   display: flex;
   justify-content: space-between;
@@ -268,7 +273,7 @@ body {
 .links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .links .small-link:hover { text-decoration: underline; }
 
-/* Login button (preserved width; vertical sizing balanced with inputs) */
+/* Login button (preserved width and slim size) */
 .btn-login {
   display: block;
   width: 360px;
@@ -283,35 +288,43 @@ body {
   font-weight: 600;
   height: 24px;
   line-height: 24px;
+  text-align: center;
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup area (moved along with login-wrap) */
+/* ------------------------------------------------------------------
+   Signup area: drop it down a bit from the login card (increase top margin)
+   - Previously margin-top was 20px; we add a modest extra space (times 1)
+     so it sits slightly lower than the card.
+   ------------------------------------------------------------------ */
 .signup {
   color: #666;
   font-size: 13px;
   text-align: center;
   width: 420px;
-  margin: 20px auto 0 auto;
+  margin: 36px auto 0 auto; /* increased top margin (from 20px to 36px) */
   line-height: 1.4;
 }
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments - preserve relative offsets on smaller screens */
+/* Responsive adjustments: keep relative offsets sensible on smaller screens */
 @media (max-width: 900px) {
   .top-right { display: none; }
-  /* On medium screens keep the login-wrap slightly left/up but less aggressive */
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
+  .input-row { height: 42px; padding: 12px 10px; } /* slight tweak on tablet */
+  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+  .signup { margin-top: 28px; }
   .sage-img { height: 32px; }
   .brand .divider { height: 44px; }
 }
 @media (max-width: 600px) {
   .brand h1, .sage-img { font-size: 28px; height: auto; }
-  /* On small screens revert to a modest left/up offset to avoid overflow */
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
+  .input-row { height: 44px; padding: 12px 10px; }
+  .signup { margin-top: 22px; }
   .cookie-bar .cookie-text { font-size: 12px; }
   .cookie-bar { padding: 10px 15px; }
 }
