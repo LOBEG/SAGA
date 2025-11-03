@@ -1,9 +1,9 @@
 /* style.css
-   Minor focused update:
-   - Vertically center the "Login" button text inside the card by using flexbox
-     on the button so the label no longer touches the bottom.
-   - Per your request, the email and password boxes were NOT changed.
-   - All other rules preserved as in the last accepted stylesheet state.
+   Focused update:
+   - Add a small vertical gap between the Sage logo / "Accounting" brand and the login form.
+   - This is done by moving the login form and its content down a bit (visual "drag down"),
+     without changing the login card's width, inputs, icons, or any other features.
+   - All other rules and previous adjustments are preserved.
 */
 
 /* Basic reset and base font */
@@ -165,13 +165,17 @@ body {
   line-height: 1;
 }
 
-/* Login form (restored card width) */
+/* Login form (moved down slightly to create a small gap from the brand)
+   - The user requested the login form and its content be dragged down a bit
+     so there's a little more space between the Sage logo/Accounting and the form.
+   - This only changes vertical spacing; everything else in the card is untouched.
+*/
 .login-form {
-  margin: 0 auto;
+  margin: 12px auto 0 auto; /* added top margin to push the form down (times 1) */
   width: 360px;
 }
 
-/* Input rows: left untouched per your last instruction (these are the restored values) */
+/* Input rows: left untouched per instruction */
 .input-row {
   display: flex;
   align-items: center;
@@ -197,7 +201,6 @@ body {
   opacity: 0.95;
 }
 
-/* Use the user-provided PNG icons (already applied) */
 .icon-email {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2674096_object_email_web_essential_icon.svg/640px-2674096_object_email_web_essential_icon.svg.png");
 }
@@ -205,7 +208,7 @@ body {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Lock_Icon.svg/640px-Lock_Icon.svg.png");
 }
 
-/* Input element (left unchanged in sizing/spacing per your instruction) */
+/* Input element (left unchanged per your instruction) */
 .input-row input {
   box-sizing: border-box;
   border: 0;
@@ -236,7 +239,7 @@ body {
   text-align: left;
 }
 
-/* Links restored width */
+/* Links and button (restored widths/behavior) */
 .links {
   display: flex;
   justify-content: space-between;
@@ -247,32 +250,27 @@ body {
 .links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .links .small-link:hover { text-decoration: underline; }
 
-/* LOGIN BUTTON: fix the vertical alignment of the "Login" text
-   - Use flexbox to ensure the label is perfectly centered vertically and horizontally
-   - Preserve the button's size (width/height) so the card remains untouched
-*/
 .btn-login {
-  display: flex;               /* switch to flex for robust centering */
-  align-items: center;         /* vertical center */
-  justify-content: center;     /* horizontal center */
-  width: 360px;                /* restored width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 360px;
   margin: 0 auto 10px auto;
   background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 0 8px;              /* keep vertical padding minimal to preserve height */
+  padding: 0 8px;
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-
-  height: 24px;                /* restored height */
-  line-height: normal;         /* don't rely on line-height for centering when using flex */
+  height: 24px;
+  line-height: normal;
   text-align: center;
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup area (restored) */
+/* Signup area (unchanged) */
 .signup {
   color: #666;
   font-size: 13px;
@@ -284,7 +282,7 @@ body {
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments (restored) */
+/* Responsive adjustments (kept consistent with restored layout) */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
