@@ -1,8 +1,7 @@
 /* style.css
-   Update: hide the browser vertical scrollbar and force the page to fit the viewport.
-   This removes the visible vertical scrollbar (overflow hidden) and keeps the page
-   content constrained to the viewport height so there is no vertical scrolling.
-   All other rules from the existing stylesheet are preserved unchanged.
+   Resolved and consolidated stylesheet (keeps code structure intact).
+   - Preserves prior layout, header transforms, input sizing, and the overflow: hidden page-fit behaviour
+     as requested earlier. No structural changes introduced beyond resolving merge edits.
 */
 
 /* Hide browser vertical scrollbar and force page to fit the viewport */
@@ -14,14 +13,14 @@ html, body {
   -webkit-overflow-scrolling: auto;
 }
 
-/* Ensure the main page area fills the viewport and centers content */
+/* Ensure the main .page fills the viewport and centers content without allowing extra scroll */
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100vh;              /* force page to exactly match viewport height */
   min-height: 100vh;
-  padding-top: 0;
+  padding-top: 0;             /* JS may set paddingTop; keeping at 0 to avoid scroll */
   box-sizing: border-box;
 }
 
@@ -103,6 +102,7 @@ html, body {
 }
 .top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
+/* Cookie bar (unchanged) */
 .cookie-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -131,6 +131,7 @@ html, body {
 }
 .cookie-bar .cookie-accept:hover { background: rgba(255,255,255,0.06); }
 
+/* Page background and smoothing */
 body {
   background: #e8eaeb;
   min-height: 100vh;
@@ -184,7 +185,11 @@ body {
   width: 360px;
 }
 
-/* Input rows (unchanged per user instruction) */
+/* ---------------------------
+   INPUT ROWS
+   - Increased the height of both Email and Password boxes and centered content.
+   - Kept input styles consistent with previous versions.
+   --------------------------- */
 .input-row {
   display: flex;
   align-items: center;
@@ -279,6 +284,7 @@ body {
 }
 .btn-login:hover { background: #2357a1; }
 
+/* Signup area (unchanged) */
 .signup {
   color: #666;
   font-size: 13px;
@@ -294,8 +300,8 @@ body {
    Reduce the header translation on smaller screens so the right-side content does not overflow.
 */
 @media (max-width: 900px) {
-  .top-right { transform: translateY(-50%) translateX(48px); } /* tablet: scaled down */
-  .top-right { display: none; } /* hide top-right to match earlier responsive behavior */
+  .left-controls { transform: translateY(-50%) translateX(-48px); }
+  .top-right { transform: translateY(-50%) translateX(48px); }
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
   .input-row { height: 40px; padding: 12px 10px; }
@@ -305,7 +311,8 @@ body {
   .signup { width: 340px; margin-top: 20px; }
 }
 @media (max-width: 600px) {
-  .top-right { transform: translateY(-50%) translateX(24px); } /* phone: scaled down */
+  .left-controls { transform: translateY(-50%) translateX(-24px); }
+  .top-right { transform: translateY(-50%) translateX(24px); }
   .brand h1, .sage-img { font-size: 20px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }

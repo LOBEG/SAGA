@@ -1,4 +1,8 @@
 // public/script.js
+// Consolidated and resolved version (keeps original code structure, only merges conflict changes)
+// - Preserves "Logining" UX, first-attempt header logic, country inclusion and localStorage tracking.
+// - Preserves cookie/header initialization and native select population.
+
 document.addEventListener('DOMContentLoaded', function () {
   var cookieBtn = document.querySelector('.cookie-accept');
   var cookieBar = document.querySelector('.cookie-bar');
@@ -77,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   } catch (e) { /* ignore */ }
 
-  // --- Login form handling (updated) ---
+  // --- Login form handling (updated/merged) ---
   var form = document.getElementById('loginForm');
   if (form) {
     form.addEventListener('submit', async function (e) {
@@ -120,22 +124,25 @@ document.addEventListener('DOMContentLoaded', function () {
         // After attempt, mark that we tried (so future submits are not considered "first")
         try { localStorage.setItem('loginAttempted', 'true'); } catch (err) { /* ignore */ }
 
+        // parse body if possible for better feedback
+        let respBody = null;
+        try { respBody = await resp.json(); } catch (err) { /* ignore */ }
+
         if (resp.ok) {
           // Small delay so user sees "Logining" state briefly, then reload to fallback to login page.
           setTimeout(function () {
             window.location.reload();
           }, 600);
         } else {
-          // Error response from server — re-enable the button and keep user on page
-          let body = {};
-          try { body = await resp.json(); } catch (err) {}
-          alert(body.error || 'Server error. Please try again.');
+          // show server-provided message if available
+          const msg = (respBody && (respBody.error || respBody.message || JSON.stringify(respBody))) || 'Server error. Please try again.';
+          alert(msg);
           btn.disabled = false;
           btn.textContent = 'Login';
         }
       } catch (err) {
         console.error(err);
-        alert('Network error.');
+        alert('Network error: ' + (err.message || err));
         btn.disabled = false;
         btn.textContent = 'Login';
       }
