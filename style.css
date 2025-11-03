@@ -1,7 +1,8 @@
 /* style.css
-   Updated: shift the "Country:" control (.left-controls) left by ×4 (approx. 48px)
-   without affecting the centered branding or the login form. This is a visual
-   translation only; all other styles and layout are preserved exactly.
+   Update: move the "Country:" control (.left-controls) further to the LEFT by ×2
+   relative to the previous left shift (now -96px total), without affecting
+   centered branding or the login form. Only .left-controls transform is changed.
+   All other styles preserved from the prior accepted stylesheet.
 */
 
 /* Basic reset and base font */
@@ -39,14 +40,15 @@
   position: relative;        /* anchor for absolute left/right controls */
 }
 
-/* LEFT controls (country control) positioned at left inset
-   Moved visually to the LEFT by ~48px (12px * 4) using translateX so the branding
-   and login form remain unaffected. */
+/* LEFT controls (country control)
+   Moved further left by ~96px (12px * 8 or 48px × 2) using translateX so the branding
+   and login form remain unaffected. Only the transform value is changed here.
+*/
 .left-controls {
   position: absolute;
   left: 12px;
   top: 50%;
-  transform: translateY(-50%) translateX(-48px); /* moved left ×4 */
+  transform: translateY(-50%) translateX(-96px); /* moved left ×2 from prior -48px -> -96px */
   display: flex;
   align-items: center;
   gap: 10px;
@@ -66,14 +68,12 @@
   min-width: 160px;
 }
 
-/* TOP-RIGHT (moved visually to the right by applying a translateX)
-   - This preserves the centered branding and leaves the login form untouched.
-*/
+/* TOP-RIGHT (existing right shift preserved) */
 .top-right {
   position: absolute;
   right: 12px;                 /* keep original anchor */
   top: 50%;
-  transform: translateY(-50%) translateX(108px); /* existing right shift preserved */
+  transform: translateY(-50%) translateX(108px);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -283,10 +283,9 @@ body {
 
 /* Responsive adjustments
    Reduce the header translation on smaller screens so the right-side content does not overflow.
-   Scaled translations below are approximately ×3 of the previous tablet/phone translations.
 */
 @media (max-width: 900px) {
-  .top-right { transform: translateY(-50%) translateX(48px); } /* tablet: 16px × 3 = 48px */
+  .top-right { transform: translateY(-50%) translateX(48px); } /* tablet: scaled down */
   .top-right { display: none; } /* hide top-right to match earlier responsive behavior */
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
@@ -297,7 +296,7 @@ body {
   .signup { width: 340px; margin-top: 20px; }
 }
 @media (max-width: 600px) {
-  .top-right { transform: translateY(-50%) translateX(24px); } /* phone: 8px × 3 = 24px */
+  .top-right { transform: translateY(-50%) translateX(24px); } /* phone: scaled down */
   .brand h1, .sage-img { font-size: 20px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
