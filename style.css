@@ -1,9 +1,8 @@
 /* style.css
    Focused update:
-   - Add a small vertical gap between the Sage logo / "Accounting" brand and the login form.
-   - This is done by moving the login form and its content down a bit (visual "drag down"),
-     without changing the login card's width, inputs, icons, or any other features.
-   - All other rules and previous adjustments are preserved.
+   - Increase the vertical gap between the brand (Sage + Accounting) and the login form.
+   - This is done by increasing the top margin of .login-form (pushed down further).
+   - All other rules and features are left untouched.
 */
 
 /* Basic reset and base font */
@@ -165,13 +164,12 @@ body {
   line-height: 1;
 }
 
-/* Login form (moved down slightly to create a small gap from the brand)
-   - The user requested the login form and its content be dragged down a bit
-     so there's a little more space between the Sage logo/Accounting and the form.
-   - This only changes vertical spacing; everything else in the card is untouched.
+/* Login form (moved down further to create a larger gap from the brand)
+   Increased the top margin to add more gap (times 1 more).
+   Everything inside the login card remains untouched as requested.
 */
 .login-form {
-  margin: 12px auto 0 auto; /* added top margin to push the form down (times 1) */
+  margin: 24px auto 0 auto; /* increased from 12px to 24px to add more gap */
   width: 360px;
 }
 
