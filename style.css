@@ -1,11 +1,10 @@
 /* style.css
-   Updated per request:
-   - Slightly increase the visible area of the Email and Password input boxes
-     (not too big) while leaving the login card (layout, width and transform)
-     unchanged.
-   - Move the "New to Accounting? Sign up..." block down a bit (increase vertical
-     gap from the login card) by a modest step.
-   - No HTML/JS changes. Only presentation tweaks below; other rules preserved.
+   Updated: stretch the login card and the email/password boxes slightly ("times 1")
+   - Increased the visual width of the login card and related controls so the card
+     appears stretched horizontally.
+   - Increased the internal input box width/height modestly to match the stretched card.
+   - All layout structure, markup and scripts are left unchanged. This is a
+     presentational update only.
 */
 
 /* Basic reset and base font */
@@ -16,7 +15,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: visible and reduced height */
+/* Top header: visible and reduced height to match screenshot */
 .top-header {
   display: block;
   position: fixed;
@@ -130,17 +129,23 @@ body {
   padding-top: 0;
 }
 
-/* LOGIN WRAP - preserved placement and transform (unchanged) */
+/* -------------------------------------------------------------------------
+   LOGIN WRAP STRETCH
+   - Increase the visual width of the login card by making the login-wrap wider
+     and adjusting the horizontal transform so visual placement remains similar.
+   - Keep other positioning behavior intact.
+   ------------------------------------------------------------------------- */
 .login-wrap {
-  width: 520px;
-  max-width: 92%;
+  width: 640px;           /* stretched from 520px to 640px */
+  max-width: 94%;
   text-align: center;
-  transform: translate(0px, -24%); /* keep the last applied positioning */
+  /* moved left/up previously; keep upward offset but reduce the right shift (left) */
+  transform: translate(0px, -24%);
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand area */
+/* Brand area (Sage + divider + Accounting) */
 .brand {
   display: flex;
   align-items: center;
@@ -169,88 +174,83 @@ body {
   line-height: 1;
 }
 
-/* Login form column (unchanged width) */
+/* -------------------------------------------------------------------------
+   LOGIN FORM STRETCH
+   - Increase the width of the login form and child controls so the card
+     appears stretched horizontally without changing the overall layout.
+   - Preserve the card's visual style and the relative positions of icons.
+   ------------------------------------------------------------------------- */
 .login-form {
   margin: 0 auto;
-  width: 360px;
+  width: 520px;  /* increased from 360px to 520px */
 }
 
-/* ------------------------------------------------------------------
-   INPUT ROWS - slightly increase the input box size (not too big)
-   - We only adjust the input-row height/padding and icon size so the
-     Email and Password boxes show texts in full.
-   - We DO NOT change the login card (.login-form/.login-wrap) size or transform.
-   ------------------------------------------------------------------ */
+/* Input rows and icons
+   - Increase input-row width is implicit because .login-form is wider.
+   - Increase the input-row height modestly to match visual proportions.
+*/
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #ddd;
-  /* slightly increased vertical padding for a bit more room */
-  padding: 12px 12px;
-  margin: 6px 0;
+  padding: 12px 14px; /* a touch more horizontal padding for wider boxes */
+  margin: 8px 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-  height: 40px; /* modest increase from 34px to 40px */
+  height: 44px;       /* slightly increased to match stretched look */
   overflow: visible;
 }
 
 .input-row .icon {
-  margin-right: 10px;
-  width: 18px;  /* slightly larger to sit visually balanced inside taller box */
-  height: 18px;
-  flex: 0 0 18px;
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
   display: inline-block;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 18px 18px;
+  background-size: 20px 20px;
   opacity: 0.95;
 }
 
-/* inline svg icons updated size (data URIs preserved; only visual size changed) */
+/* icons' inline SVGs preserved (no content change) */
 .icon-email {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'><path d='M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11z' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><polyline points='3 6.5 12 13 21 6.5' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 .icon-lock {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* ------------------------------------------------------------------
-   INPUT ELEMENT (typography preserved) - ensure text is fully visible
-   - Keep font-family and typographic values as requested earlier.
-   - Do NOT change width of input (remains 100% of card input width).
-   ------------------------------------------------------------------ */
+/* -------------------------------------------------------------------------
+   INPUT ELEMENTS (typography & sizing)
+   - Keep requested font-family and typography.
+   - Slightly increase font-size for visual balance in larger boxes.
+   - Maintain width:100% so inputs fill the stretched form width.
+   ------------------------------------------------------------------------- */
 .input-row input {
   box-sizing: border-box;
   border: 0;
   outline: none;
   width: 100%;
 
-  /* requested font stack */
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
-
-  /* requested typographic metrics */
-  font-size: 14px;
-  line-height: 19px;
-
-  /* visual weight and color */
+  font-size: 15px;    /* bumped from 14px to 15px to balance stretched width */
+  line-height: 21px;  /* adjusted to keep vertical rhythm */
   color: #1f1f1f;
   font-weight: 600;
 
-  /* rendering hints */
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
   unicode-bidi: isolate;
 
-  /* small vertical padding retained; height is governed by .input-row */
-  padding: 8px 0; /* slightly increased internal padding to match taller box */
+  padding: 8px 0;    /* vertical padding inside input */
   height: 100%;
   min-height: 0;
 
-  /* centered text horizontally in prior step? kept default left alignment so icons align.
-     If you want centered text instead, set text-align:center here. */
+  /* keep text left-aligned so it reads naturally inside stretched inputs */
   text-align: left;
 }
 
@@ -258,73 +258,76 @@ body {
   color: #7d7d7d;
   opacity: 1;
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 19px;
+  font-size: 15px;
+  line-height: 21px;
 }
 
-/* Links row (forgot password / problems) unchanged */
+/* Links row
+   - Stretch link container to match new form width
+*/
 .links {
   display: flex;
   justify-content: space-between;
-  width: 360px;
-  margin: 8px auto 10px auto;
+  width: 520px; /* match the stretched .login-form width */
+  margin: 10px auto 12px auto;
   font-size: 13px;
 }
 .links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .links .small-link:hover { text-decoration: underline; }
 
-/* Login button (preserved width and slim size) */
+/* Login button
+   - Stretch to match new form width but keep slim vertical appearance */
 .btn-login {
   display: block;
-  width: 360px;
-  margin: 0 auto 10px auto;
+  width: 520px;            /* match stretched form width */
+  margin: 0 auto 12px auto;
   background: #2b66c7;
   color: #fff;
   border: none;
-  padding: 6px 8px;
-  font-size: 14px;
+  padding: 8px 12px;
+  font-size: 15px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  height: 24px;
-  line-height: 24px;
+  height: 36px;            /* slightly taller to match increased inputs */
+  line-height: 36px;
   text-align: center;
 }
 .btn-login:hover { background: #2357a1; }
 
-/* ------------------------------------------------------------------
-   Signup area: drop it down a bit from the login card (increase top margin)
-   - Previously margin-top was 20px; we add a modest extra space (times 1)
-     so it sits slightly lower than the card.
-   ------------------------------------------------------------------ */
+/* Signup area: keep it below the card (unchanged vertical offset from before) */
 .signup {
   color: #666;
   font-size: 13px;
   text-align: center;
-  width: 420px;
-  margin: 36px auto 0 auto; /* increased top margin (from 20px to 36px) */
+  width: 520px;        /* match wider layout for visual alignment */
+  margin: 36px auto 0 auto;
   line-height: 1.4;
 }
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments: keep relative offsets sensible on smaller screens */
+/* Responsive adjustments
+   - On smaller screens reduce the stretched widths for usability.
+*/
+@media (max-width: 1100px) {
+  .login-wrap { width: 92%; transform: translate(0px, -22%); }
+  .login-form, .links, .btn-login, .signup { width: 520px; max-width: 92%; }
+}
 @media (max-width: 900px) {
   .top-right { display: none; }
-  .login-wrap { width: 460px; transform: translate(0px, -18%); }
-  .login-form, .btn-login, .links { width: 340px; }
-  .input-row { height: 42px; padding: 12px 10px; } /* slight tweak on tablet */
+  .login-wrap { width: 92%; transform: translate(0px, -18%); }
+  .login-form, .btn-login, .links, .signup { width: 420px; max-width: 92%; }
+  .input-row { height: 42px; padding: 10px 12px; }
   .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
-  .signup { margin-top: 28px; }
-  .sage-img { height: 32px; }
-  .brand .divider { height: 44px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 19px; }
 }
 @media (max-width: 600px) {
   .brand h1, .sage-img { font-size: 28px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
-  .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
+  .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
   .input-row { height: 44px; padding: 12px 10px; }
-  .signup { margin-top: 22px; }
-  .cookie-bar .cookie-text { font-size: 12px; }
-  .cookie-bar { padding: 10px 15px; }
+  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 19px; }
+  .signup { margin-top: 22px; width: 100%; }
 }
