@@ -1,10 +1,10 @@
 /* style.css
-   Focused change (per user request):
-   - Increase the height of the Email and Password input boxes (input-row) only.
-   - Strictly do NOT change the login card (.login-form, .login-wrap), buttons, links,
-     signup or any other card dimensions or positions. Only input box vertical sizing
-     and their icon sizes/padding are adjusted so text fits comfortably.
-   - All other rules preserved from the last approved stylesheet state.
+   Focused update requested by user:
+   - Shift the header right-side content (Sign Up / Sales Enquiries / Support Queries)
+     to the right by "times 3" visually, WITHOUT changing branding or the login form.
+   - Achieved by adding a horizontal translation to the .top-right element so the
+     positioning of the header center (branding) and the login card remain untouched.
+   - No HTML or JS changes. All other rules preserved from the previous accepted state.
 */
 
 /* Basic reset and base font */
@@ -29,18 +29,20 @@
   border-bottom: 1px solid rgba(0,0,0,0.25);
   font-size: 13px;
 }
+
+/* Header inner container */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;   /* keep center content centered (branding) */
   padding: 0 14px;
-  position: relative;
+  position: relative;        /* anchor for absolute left/right controls */
 }
 
-/* LEFT controls (country select) positioned at left inset */
+/* LEFT controls (country control) positioned at left inset */
 .left-controls {
   position: absolute;
   left: 12px;
@@ -65,12 +67,17 @@
   min-width: 160px;
 }
 
-/* RIGHT controls (top-right) positioned at right inset */
+/* TOP-RIGHT (moved visually to the right by applying a translateX)
+   - We preserve right:12px so the element remains anchored to the right edge,
+     but apply translateX(36px) to shift it further right (visual move "times 3").
+   - Using transform ensures branding (center) and the login card are unaffected.
+   - On small screens the translation is reduced to avoid overflow.
+*/
 .top-right {
   position: absolute;
-  right: 12px;
+  right: 12px;                 /* keep original anchor */
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(36px); /* shift right by 36px (approx ×3 of 12px) */
   display: flex;
   align-items: center;
   gap: 16px;
@@ -127,7 +134,7 @@ body {
   padding-top: 0;
 }
 
-/* Login wrap (positioning preserved) */
+/* Login wrap (unchanged) */
 .login-wrap {
   width: 520px;
   max-width: 92%;
@@ -166,40 +173,29 @@ body {
   line-height: 1;
 }
 
-/* LOGIN FORM: preserved exactly as requested (unchanged) */
+/* Login form (unchanged) */
 .login-form {
-  margin: 48px auto 0 auto; /* keep the current gap you've approved */
+  margin: 48px auto 0 auto;
   width: 360px;
 }
 
-/* ---------------------------
-   INPUT ROWS (ONLY UPDATED)
-   - Increased the height of both Email and Password boxes (input-row) by a modest
-     amount (times 1 from the current input height). The login card itself is
-     NOT modified.
-   - Adjusted icon size and input vertical padding/line-height to center text.
-   - All other input-row properties (borders, background, etc.) preserved.
-   --------------------------- */
+/* Input rows (unchanged per user instruction) */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #ddd;
-  /* keep horizontal padding same; increase vertical room */
-  padding: 12px 12px;        /* increased vertical padding to give more height */
+  padding: 12px 12px;
   margin: 6px 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-
-  /* previous restored height was 34px; increase it to 40px (times 1 growth) */
   height: 40px;
   overflow: visible;
 }
 
-/* icon adjusted slightly to match taller input box; only icon size changed */
 .input-row .icon {
   margin-right: 10px;
-  width: 18px;   /* increased from 16px to 18px */
+  width: 18px;
   height: 18px;
   flex: 0 0 18px;
   display: inline-block;
@@ -209,7 +205,6 @@ body {
   opacity: 0.95;
 }
 
-/* Use user-provided PNG icons (unchanged URLs) */
 .icon-email {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2674096_object_email_web_essential_icon.svg/640px-2674096_object_email_web_essential_icon.svg.png");
 }
@@ -217,27 +212,21 @@ body {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Lock_Icon.svg/640px-Lock_Icon.svg.png");
 }
 
-/* INPUT element: increased vertical room while preserving card widths and other features */
+/* Input element (unchanged) */
 .input-row input {
   box-sizing: border-box;
   border: 0;
   outline: none;
   width: 100%;
-
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
   font-size: 14px;
-  /* slightly increase line-height to center text in taller input */
   line-height: 20px;
   color: #1f1f1f;
   font-weight: 600;
-
-  /* vertical padding tuned to center the caret/text */
   padding: 6px 0;
   height: 100%;
   min-height: 0;
-
   text-align: left;
-
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -254,7 +243,7 @@ body {
   text-align: left;
 }
 
-/* Links and button: left untouched to preserve the login card appearance */
+/* Links and button (unchanged) */
 .links {
   display: flex;
   justify-content: space-between;
@@ -285,7 +274,6 @@ body {
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup area (unchanged) */
 .signup {
   color: #666;
   font-size: 13px;
@@ -297,9 +285,12 @@ body {
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments: increase input sizes proportionally on smaller screens */
+/* Responsive adjustments
+   Reduce the header translation on smaller screens so the right-side content does not overflow.
+*/
 @media (max-width: 900px) {
-  .top-right { display: none; }
+  .top-right { transform: translateY(-50%) translateX(16px); } /* smaller shift on tablet */
+  .top-right { display: none; } /* hide top-right to match earlier responsive behavior */
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
   .input-row { height: 40px; padding: 12px 10px; }
@@ -309,10 +300,11 @@ body {
   .signup { width: 340px; margin-top: 20px; }
 }
 @media (max-width: 600px) {
+  .top-right { transform: translateY(-50%) translateX(8px); } /* very small shift on phones */
   .brand h1, .sage-img { font-size: 20px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
-  .input-row { height: 44px; padding: 12px 10px; } /* slightly taller on narrow screens for touch comfort */
+  .input-row { height: 44px; padding: 12px 10px; }
   .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
   .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 20px; }
   .btn-login { height: 32px; line-height: normal; display: flex; align-items: center; justify-content: center; }
