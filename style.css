@@ -1,10 +1,9 @@
 /* style.css
-   Full stylesheet with header content positioned to match the screenshot:
-   - Header content is laid out so the country control sits at the left (with a small inset),
-     the main header content is centered, and the top-right links sit at the right.
-   - All other visual changes requested earlier are preserved (input text/font,
-     input sizing, login card positioning, signup spacing, etc.).
-   - Only CSS presentation changes are included; no HTML/JS changes.
+   Updated: move the Sage/Accounting brand, login form and all login-related content
+   up and to the left as requested. No structure/content changes — purely presentation.
+   - Moved the whole .login-wrap up slightly more and shifted it left relative to
+     the previous position.
+   - Preserved all other rules and visual adjustments from the prior stylesheet.
 */
 
 /* Basic reset and base font
@@ -137,13 +136,17 @@ body {
   padding-top: 0;
 }
 
-/* Login wrapper moved right/up as earlier requested.
-   This shifts brand, form and signup together without changing internal layout. */
+/* Login wrapper moved up and left as requested.
+   Previous transform: translate(72px, -12%).
+   - "move up times 1": we increase the upward offset (more negative).
+   - "shift to the left times 1": we negate the previous right offset.
+   Resulting transform moves the whole login block upward and left, preserving layout.
+*/
 .login-wrap {
   width: 520px;
   max-width: 92%;
   text-align: center;
-  transform: translate(72px, -12%);
+  transform: translate(0px, -24%); /* moved left (0 instead of +72px) and up more (-24%) */
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -298,14 +301,16 @@ body {
 /* Responsive adjustments - preserve relative offsets on smaller screens */
 @media (max-width: 900px) {
   .top-right { display: none; }
-  .login-wrap { width: 460px; transform: translate(40px, -8%); }
+  /* On medium screens keep the login-wrap slightly left/up but less aggressive */
+  .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
   .sage-img { height: 32px; }
   .brand .divider { height: 44px; }
 }
 @media (max-width: 600px) {
   .brand h1, .sage-img { font-size: 28px; height: auto; }
-  .login-wrap { width: 95%; padding: 0 10px; transform: translate(16px, -6%); }
+  /* On small screens revert to a modest left/up offset to avoid overflow */
+  .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
   .cookie-bar .cookie-text { font-size: 12px; }
   .cookie-bar { padding: 10px 15px; }
