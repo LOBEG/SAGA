@@ -1,15 +1,14 @@
 /* style.css
-   Full stylesheet with header content positioned to match the screenshot:
-   - Header content is laid out so the country control sits at the left (with a small inset),
-     the main header content is centered, and the top-right links sit at the right.
-   - All other visual changes requested earlier are preserved (input text/font,
-     input sizing, login card positioning, signup spacing, etc.).
-   - Only CSS presentation changes are included; no HTML/JS changes.
+   Focused updates:
+   - Center the visible text inside the login card inputs and the Login button
+     (placeholder and typed text), without changing sizes or box dimensions.
+   - Shift the "Sign up / New to Accounting?" block to the right by ~3× the
+     previous horizontal offset applied to the login wrapper (keeps everything
+     else untouched).
+   - No HTML or JS changes. All other CSS rules preserved from the previous file.
 */
 
-/* Basic reset and base font
-   Keep the app-wide base font as before; inputs override font-family where requested.
-*/
+/* Basic reset and base font */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,14 +16,14 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Top header: visible and reduced height to match screenshot */
+/* Top header: visible and reduced height */
 .top-header {
-  display: block;                  /* ensure header is visible (matches screenshot) */
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;                    /* reduced height for slimmer header */
+  height: 40px;
   background: #35363a;
   color: #fff;
   z-index: 1200;
@@ -32,27 +31,22 @@
   font-size: 13px;
 }
 
-/* Header inner container:
-   - The main content is centered using justify-content:center.
-   - left-controls and top-right are positioned absolutely relative to this container
-     so they don't affect centering of the middle content.
-*/
+/* Header inner container */
 .top-header-inner {
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;   /* center the header's middle content exactly */
+  justify-content: center;
   padding: 0 14px;
-  position: relative;        /* anchor for absolute left/right controls */
+  position: relative;
 }
 
-/* LEFT controls (country control) positioned exactly at the left inset,
-   vertically centered in the header. Keeps a small gap from viewport edge. */
+/* Left controls positioned to left edge */
 .left-controls {
   position: absolute;
-  left: 12px;                 /* small inset from the viewport edge */
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -74,11 +68,10 @@
   min-width: 160px;
 }
 
-/* RIGHT controls (top-right) positioned exactly at the right inset,
-   vertically centered in the header. */
+/* Top-right anchored to the right */
 .top-right {
   position: absolute;
-  right: 12px;                /* small inset from the viewport edge */
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -90,7 +83,7 @@
 }
 .top-right .sign-up { color:#fff; text-decoration:none; font-weight:700; }
 
-/* Cookie bar (unchanged above header behavior) */
+/* Cookie bar (unchanged) */
 .cookie-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -128,7 +121,7 @@ body {
   padding-left: 0;
 }
 
-/* Centering wrapper for the login area */
+/* Main centering */
 .page {
   display: flex;
   align-items: center;
@@ -137,18 +130,17 @@ body {
   padding-top: 0;
 }
 
-/* Login wrapper moved right/up as earlier requested.
-   This shifts brand, form and signup together without changing internal layout. */
+/* LOGIN WRAP: same placement as before (moved right earlier) */
 .login-wrap {
   width: 520px;
   max-width: 92%;
   text-align: center;
-  transform: translate(72px, -12%);
+  transform: translate(72px, -12%); /* preserved */
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-/* Brand area (Sage + divider + Accounting) */
+/* Brand */
 .brand {
   display: flex;
   align-items: center;
@@ -156,18 +148,8 @@ body {
   gap: 8px;
   margin-bottom: 36px;
 }
-.sage-img {
-  height: 40px;
-  width: auto;
-  display: block;
-  margin: 0;
-}
-.brand .divider {
-  width: 1px;
-  height: 48px;
-  background: #999;
-  margin: 0 6px;
-}
+.sage-img { height: 40px; width: auto; display: block; margin: 0; }
+.brand .divider { width: 1px; height: 48px; background: #999; margin: 0 6px; }
 .brand h1 {
   margin: 0;
   font-weight: 400;
@@ -177,13 +159,13 @@ body {
   line-height: 1;
 }
 
-/* Login form column (width preserved) */
+/* Login form column */
 .login-form {
   margin: 0 auto;
   width: 360px;
 }
 
-/* Input rows and icons (slightly enlarged to avoid clipping) */
+/* INPUT ROWS AND ICONS (boxes kept the same size) */
 .input-row {
   display: flex;
   align-items: center;
@@ -196,6 +178,8 @@ body {
   height: 34px;
   overflow: visible;
 }
+
+/* icons */
 .input-row .icon {
   margin-right: 10px;
   width: 16px;
@@ -214,58 +198,52 @@ body {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'><rect x='3' y='11' width='18' height='10' rx='2' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/><path d='M7 11V8a5 5 0 0 1 10 0v3' stroke='%23999' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
-/* INPUT typography: implement requested font stack and typographic metrics
-   Only input typography and placeholder adjusted; everything else untouched.
-*/
+/* ------------------------------------------------------------------
+   CENTER INPUT & BUTTON TEXT (only text alignment/typography changes)
+   - Do NOT change box sizes, paddings, widths, or structure.
+   - Center placeholder and typed text horizontally so input text appears
+     centered in the login card as requested.
+   ------------------------------------------------------------------ */
 .input-row input {
   box-sizing: border-box;
   border: 0;
   outline: none;
   width: 100%;
 
-  /* requested font stack */
+  /* requested font stack from earlier */
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
-
-  /* requested typographic metrics */
   font-size: 14px;
   line-height: 19px;
-
-  /* darkened text and slightly stronger weight (as requested) */
   color: #1f1f1f;
   font-weight: 600;
 
-  /* rendering and accessibility hints */
+  /* center the text horizontally (this is the main requested change) */
+  text-align: center;
+
+  /* keep internal vertical padding small to avoid changing box height */
+  padding: 6px 0;
+  height: 100%;
+  min-height: 0;
+
+  /* rendering hints preserved */
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
   unicode-bidi: isolate;
-
-  /* keep internal padding small so box size isn't expanded */
-  padding: 6px 0;
-  height: 100%;
-  min-height: 0;
 }
+
+/* Center placeholders too */
 .input-row input::placeholder {
   color: #7d7d7d;
   opacity: 1;
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
   font-size: 14px;
   line-height: 19px;
+  text-align: center;
 }
 
-/* Links row (forgot password / problems) */
-.links {
-  display: flex;
-  justify-content: space-between;
-  width: 360px;
-  margin: 8px auto 10px auto;
-  font-size: 13px;
-}
-.links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
-.links .small-link:hover { text-decoration: underline; }
-
-/* Login button (preserved width; vertical sizing balanced with inputs) */
+/* Center the Login button text (keep same slim vertical size) */
 .btn-login {
   display: block;
   width: 360px;
@@ -279,11 +257,30 @@ body {
   cursor: pointer;
   font-weight: 600;
   height: 24px;
-  line-height: 24px;
+  line-height: 24px;   /* ensures vertical centering */
+  text-align: center;  /* horizontal centering */
 }
 .btn-login:hover { background: #2357a1; }
 
-/* Signup area (moved along with login-wrap) */
+/* LINKS row (unchanged behavior) */
+.links {
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+  margin: 8px auto 10px auto;
+  font-size: 13px;
+}
+.links .small-link { color: #4a90e2; font-weight: 600; text-decoration: none; }
+.links .small-link:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------------
+   SHIFT SIGNUP & CONTENT RIGHT BY 3×
+   - The login-wrap was previously shifted right 72px; the user requested
+     to shift the signup (and its content) to the right ×3. We apply a
+     translateX(216px) to the signup container to accomplish this while
+     leaving everything else untouched.
+   - This only affects visual placement of the signup block.
+   ------------------------------------------------------------------ */
 .signup {
   color: #666;
   font-size: 13px;
@@ -291,17 +288,26 @@ body {
   width: 420px;
   margin: 20px auto 0 auto;
   line-height: 1.4;
+
+  /* new: shift right by ~3× (72px * 3 = 216px) */
+  transform: translateX(216px);
+  /* ensure transform doesn't break layout flow for other elements */
+  display: inline-block;
 }
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments - preserve relative offsets on smaller screens */
+/* Brand and other elements remain unchanged */
+/* Responsive adjustments: keep relative offsets consistent on smaller screens */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .login-wrap { width: 460px; transform: translate(40px, -8%); }
   .login-form, .btn-login, .links { width: 340px; }
   .sage-img { height: 32px; }
   .brand .divider { height: 44px; }
+
+  /* reduce signup shift on smaller screens so it doesn't overflow */
+  .signup { transform: translateX(96px); } /* smaller visual shift on tablet */
 }
 @media (max-width: 600px) {
   .brand h1, .sage-img { font-size: 28px; height: auto; }
@@ -309,4 +315,7 @@ body {
   .login-form, .btn-login, .links { width: 100%; max-width: 420px; }
   .cookie-bar .cookie-text { font-size: 12px; }
   .cookie-bar { padding: 10px 15px; }
+
+  /* further reduce signup shift on small screens */
+  .signup { transform: translateX(24px); display: block; width: 100%; }
 }
