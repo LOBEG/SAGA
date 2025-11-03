@@ -1,9 +1,10 @@
 /* style.css
-   Focused update:
-   - Increased the vertical gap between the brand (Sage + Accounting) and the login form.
-     The top margin on .login-form was doubled (times 2) so the gap is clearly more obvious.
-   - All other rules and features are preserved exactly as in the last accepted stylesheet state.
-   - No HTML or JS changes were made.
+   Focused change (per user request):
+   - Increase the height of the Email and Password input boxes (input-row) only.
+   - Strictly do NOT change the login card (.login-form, .login-wrap), buttons, links,
+     signup or any other card dimensions or positions. Only input box vertical sizing
+     and their icon sizes/padding are adjusted so text fits comfortably.
+   - All other rules preserved from the last approved stylesheet state.
 */
 
 /* Basic reset and base font */
@@ -165,41 +166,50 @@ body {
   line-height: 1;
 }
 
-/* Login form (moved down further to create a clearly larger gap from the brand)
-   Previously the top margin of .login-form was 24px. We doubled that to 48px
-   to satisfy "more spacing times 2". Everything inside the login card remains untouched.
-*/
+/* LOGIN FORM: preserved exactly as requested (unchanged) */
 .login-form {
-  margin: 48px auto 0 auto; /* increased from 24px to 48px (times 2) */
+  margin: 48px auto 0 auto; /* keep the current gap you've approved */
   width: 360px;
 }
 
-/* Input rows: left untouched per instruction */
+/* ---------------------------
+   INPUT ROWS (ONLY UPDATED)
+   - Increased the height of both Email and Password boxes (input-row) by a modest
+     amount (times 1 from the current input height). The login card itself is
+     NOT modified.
+   - Adjusted icon size and input vertical padding/line-height to center text.
+   - All other input-row properties (borders, background, etc.) preserved.
+   --------------------------- */
 .input-row {
   display: flex;
   align-items: center;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #ddd;
-  padding: 10px 12px;
+  /* keep horizontal padding same; increase vertical room */
+  padding: 12px 12px;        /* increased vertical padding to give more height */
   margin: 6px 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.04);
-  height: 34px;
+
+  /* previous restored height was 34px; increase it to 40px (times 1 growth) */
+  height: 40px;
   overflow: visible;
 }
 
+/* icon adjusted slightly to match taller input box; only icon size changed */
 .input-row .icon {
   margin-right: 10px;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: 18px;   /* increased from 16px to 18px */
+  height: 18px;
+  flex: 0 0 18px;
   display: inline-block;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 16px 16px;
+  background-size: 18px 18px;
   opacity: 0.95;
 }
 
+/* Use user-provided PNG icons (unchanged URLs) */
 .icon-email {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2674096_object_email_web_essential_icon.svg/640px-2674096_object_email_web_essential_icon.svg.png");
 }
@@ -207,21 +217,27 @@ body {
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Lock_Icon.svg/640px-Lock_Icon.svg.png");
 }
 
-/* Input element (left unchanged per your instruction) */
+/* INPUT element: increased vertical room while preserving card widths and other features */
 .input-row input {
   box-sizing: border-box;
   border: 0;
   outline: none;
   width: 100%;
+
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
   font-size: 14px;
-  line-height: 19px;
+  /* slightly increase line-height to center text in taller input */
+  line-height: 20px;
   color: #1f1f1f;
   font-weight: 600;
+
+  /* vertical padding tuned to center the caret/text */
   padding: 6px 0;
   height: 100%;
   min-height: 0;
+
   text-align: left;
+
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -234,11 +250,11 @@ body {
   opacity: 1;
   font-family: 'Lato', "Segoe UI", Tahoma, Arial, sans-serif;
   font-size: 14px;
-  line-height: 19px;
+  line-height: 20px;
   text-align: left;
 }
 
-/* Links and button (restored widths/behavior) */
+/* Links and button: left untouched to preserve the login card appearance */
 .links {
   display: flex;
   justify-content: space-between;
@@ -281,14 +297,14 @@ body {
 .signup a { color: #4a90e2; font-weight: 600; text-decoration: none; }
 .signup a:hover { text-decoration: underline; }
 
-/* Responsive adjustments (kept consistent with restored layout) */
+/* Responsive adjustments: increase input sizes proportionally on smaller screens */
 @media (max-width: 900px) {
   .top-right { display: none; }
   .login-wrap { width: 460px; transform: translate(0px, -18%); }
   .login-form, .btn-login, .links { width: 340px; }
-  .input-row { height: 34px; padding: 10px 10px; }
-  .input-row .icon { width: 16px; height: 16px; flex: 0 0 16px; }
-  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 19px; }
+  .input-row { height: 40px; padding: 12px 10px; }
+  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 20px; }
   .btn-login { height: 24px; line-height: normal; width: 340px; display: flex; align-items: center; justify-content: center; }
   .signup { width: 340px; margin-top: 20px; }
 }
@@ -296,9 +312,9 @@ body {
   .brand h1, .sage-img { font-size: 20px; height: auto; }
   .login-wrap { width: 95%; padding: 0 10px; transform: translate(0px, -12%); }
   .login-form, .btn-login, .links, .signup { width: 100%; max-width: 420px; }
-  .input-row { height: 38px; padding: 8px 10px; }
-  .input-row .icon { width: 14px; height: 14px; flex: 0 0 14px; }
-  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 18px; }
+  .input-row { height: 44px; padding: 12px 10px; } /* slightly taller on narrow screens for touch comfort */
+  .input-row .icon { width: 18px; height: 18px; flex: 0 0 18px; }
+  .input-row input, .input-row input::placeholder { font-size: 14px; line-height: 20px; }
   .btn-login { height: 32px; line-height: normal; display: flex; align-items: center; justify-content: center; }
   .signup { margin-top: 22px; width: 100%; }
 }
