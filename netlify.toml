@@ -1,0 +1,11 @@
+# netlify.toml
+# Maps /api/* to Netlify Functions so your existing client code (fetch('/api/login')) works unchanged.
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
